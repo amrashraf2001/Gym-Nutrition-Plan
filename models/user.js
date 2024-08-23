@@ -16,15 +16,27 @@ const userSchema = new Schema({
       required: true,
       unique: true,
     },
-    profilePicture: {
-      type: String,
-      default: "",
-    },
     gender: {
         type: String,
         default: "",
     },
+    age: {
+        type: Number,
+        default: 0,
+    },
+    weight: {
+        type: Number,
+        default: 0,
+    },
+    height: {
+        type: Number,
+        default: 0,
+    },
     bio: {
+        type: String,
+        default: "",
+    },
+    profilePicture: {
         type: String,
         default: "",
     },
