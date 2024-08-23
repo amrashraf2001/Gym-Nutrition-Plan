@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes gifAnimation {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -100% 50%; /* Adjust based on the GIF's size */
+  }
+}
+
+@layer utilities {
+  .animate-slow-gif {
+    animation: gifAnimation 10s ease-in-out infinite alternate-reverse;
+  }
+}
