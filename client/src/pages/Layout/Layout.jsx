@@ -17,9 +17,7 @@ const Layout = () => {
             </div>
             <Header />
             <div className="container px-14 mx-auto">
-                <div className="pb-20">
-                    <Outlet />
-                </div>
+                <Outlet />
             </div>
             <Footer />
         </div>
