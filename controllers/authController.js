@@ -13,8 +13,8 @@ const forgetUsername = async (req, res, next) => {
     port: 465,
     secure: true,
     auth: {
-      user: "abc@gmail.com",
-      pass: "123456",
+      user: "r75118106@gmail.com",
+      pass: "bcmiawurnnoaxoeg",
     },
   });
 
@@ -26,10 +26,10 @@ const forgetUsername = async (req, res, next) => {
   }
   transporter.sendMail(
     {
-      from: "abc@gmail.com",
+      from: "r75118106@gmail.com",
       to: email,
-      subject: "",
-      text: `Hi there`,
+      subject: "Here is your username",
+      text: `Hi there, your username is: ${user.userName}`,
     },
     (err, info) => {
       if (err) {
@@ -50,8 +50,8 @@ const forgetPassword = async (req, res, next) => {
       port: 465,
       secure: true,
       auth: {
-        user: "abc@gmail.com",
-        pass: "123456",
+        user: "r75118106@gmail.com",
+        pass: "bcmiawurnnoaxoeg",
       },
     });
     let email = req.body.email;
@@ -76,20 +76,16 @@ const forgetPassword = async (req, res, next) => {
         type: "normal",
       },
     };
-    let token = "";
-    try {
-      token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: 500000000000,
-      });
-    } catch (err) {
-      console.log(err.message);
-    }
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const password = user.password;
+    const decodedPassword = jwt.decode(password);
     transporter.sendMail(
       {
-        from: "abc@gmail.com",
+        from: "r75118106@gmail.com",
         to: email,
-        subject: "meh",
-        text: `Hi there,`,
+        subject: "Here is your password",
+        text: `Hi there, click on this link to reset your password: http://localhost:3000/reset-password/${token}
+        Your password is: ${decodedPassword}`,
       },
       (err) => {
         if (err) {
