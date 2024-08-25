@@ -22,8 +22,8 @@ const Login = () => {
                             className="text-xs text-right text-[#bdd367] hover:text-[#9fb429] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#007654] ">Forgot Password?
                         </Link>
                     </div>
-                    <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-sm font-medium text-white hover:bg-[#9fb429] bg-[#bdd367] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#007654] transition-all">Login</button>
-                    <div className="flex items-center justify-center mt-4 gap-1">
+                    <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-sm font-medium text-[#fefefe] hover:bg-[#105642] bg-[#007654] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#007654] transition-all">Login</button>
+                    <div className="flex items-center justify-center gap-1">
                         <h6 className="text-sm ">Don't have account? </h6>
                         <Link to={"/register"}
                             className="text-xs text-[#bdd367]  hover:text-[#9fb429] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#007654]"> Create
