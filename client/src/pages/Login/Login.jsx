@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 const Login = () => {
     return (
-        <div className="flex items-center justify-center h-full">
+        <section className="flex items-center justify-center h-full">
             <div className="bg-white rounded-lg shadow-lg shadow-[#007654] space-y-6 px-8 py-6 max-w-md w-3/4">
                 <h1 className="text-3xl font-bold text-center mb-4 text-[#95a926]">Welcome Back!</h1>
                 <form action="#" className="flex flex-col space-y-3 items-left">
@@ -31,7 +31,7 @@ const Login = () => {
                     </div>
                 </form>
             </div>
-        </div>
+        </section>
     )
 }
 

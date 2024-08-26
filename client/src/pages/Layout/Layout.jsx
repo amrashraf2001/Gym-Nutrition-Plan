@@ -9,9 +9,9 @@ const Layout = () => {
             <div className="fixed top-0 -z-10 h-full w-full bg-hero-pattern bg-cover ">
             </div>
             <Header />
-            <div className="container px-14 mx-auto h-full">
+            <main className="container px-14 mx-auto h-full">
                 <Outlet />
-            </div>
+            </main>
             <Footer />
         </div>
     )
