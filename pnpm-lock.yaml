@@ -41,12 +41,13 @@ importers:
       nodemailer:
         specifier: ^6.9.14
         version: 6.9.14
-      nodemon:
-        specifier: ^3.1.4
-        version: 3.1.4
       path:
         specifier: ^0.12.7
         version: 0.12.7
+    devDependencies:
+      nodemon:
+        specifier: ^3.1.4
+        version: 3.1.4
 
 packages:
 
