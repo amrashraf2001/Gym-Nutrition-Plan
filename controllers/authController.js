@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 require("dotenv").config();
 
-const forgetUsername = async (req, res, next) => {   // this function is not necessary and can be removed
+const forgetUsername = async (req, res, next) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
@@ -176,11 +176,11 @@ const signUp = async (req, res) => {
     if (user) {
       return res.status(400).json({ message: "User already exists" });
     }
-    // if (password.length < 8) { 
-    //   return res
-    //     .status(400)
-    //     .json({ message: "Password must be at least 8 characters" });
-    // }
+    if (password.length < 8) {
+      return res
+        .status(400)
+        .json({ message: "Password must be at least 8 characters" });
+    }
 
     user = new User({
       userName,
