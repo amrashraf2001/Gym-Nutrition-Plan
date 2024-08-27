@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
+const signupAuthenticate = require("../middleware/signupAuthenticate");
 // const bodyParser = require("body-parser");
 const authenticateToken = require("../middleware/authenticateToken");
 
 router.post(
-  "/signUp", 
+  "/signUp",
+  signupAuthenticate,
   authController.signUp
 );
 router.post(
