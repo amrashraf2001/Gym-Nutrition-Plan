@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const {connectDB} = require("./database/connection");
+const { connectDB } = require("./database/connection");
 // const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const multerConfig = require("./middleware/multerConfig");
@@ -17,12 +17,16 @@ app.use(cookieParser());
 
 //app.use("/user", userRoutes);
 app.use("/auth", authRoutes);
-app.get("/", (req, res) =>{
+app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-connectDB;
+// Connect to MongoDB
+connectDB().catch((error) => {
+  console.error("Error connecting to MongoDB: ", error);
+  process.exit(1); // Exit process with failure
+});
 
-app.listen(PORT, (req, res, next) => {
+app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}/`);
 });
