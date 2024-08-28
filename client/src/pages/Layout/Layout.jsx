@@ -6,10 +6,10 @@ import "./Layout.css"
 const Layout = () => {
     return (
         <div className="overflow-x-hidden flex flex-col justify-between h-screen ">
-            <div className="fixed top-0 -z-10 h-full w-full bg-hero-pattern bg-cover ">
+            <div className="fixed top-0 -z-10 h-full w-full ">
             </div>
             <Header />
-            <main className="container px-14 mx-auto h-full">
+            <main className="container mx-auto h-full">
                 <Outlet />
             </main>
             <Footer />
