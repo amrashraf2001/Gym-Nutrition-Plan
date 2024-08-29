@@ -14,7 +14,7 @@ const Register = () => {
     const userRef = useRef();
     const errRef = useRef();
 
-    const [genderValue, setGenderValue] = useState('');
+    const [genderValue, setGenderValue] = useState('Male');
 
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
@@ -88,16 +88,10 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // ############## not important ##############
-        const v1 = USER_REGEX.test(user);
-        const v2 = validator.isEmail(userEmil);
-        const v3 = validator.isStrongPassword(pwd);
-        if (!v1 || !v2 || !v3) {
+        if (!validName || !validEmail || !validPwd) {
             setErrMsg('Invalid Entry');
             return;
         }
-        // ############## not important ##############
-
         // ### send data to server ###
         try {
             const response = await axios.post(REGISTER_URL, JSON.stringify({ userName: user, email: userEmil, password: pwd, gender: genderValue }),
@@ -113,8 +107,10 @@ const Register = () => {
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response')
-            } else if (err.response?.status === 409) {
-                setErrMsg('Email Already Registered')
+            } else if (err.response?.status === 400) {
+                const errResponseText = JSON.parse(err.response?.request?.response).message; 
+                setErrMsg(errResponseText)
+                // setErrMsg('Email Already Registered')
             } else {
                 setErrMsg('Registration Failed')
             }
@@ -226,7 +222,7 @@ const Register = () => {
                             </div>
                             <div className="felx space-x-2 items-center">
                                 <label htmlFor="gender">Gender</label>
-                                <select value={genderValue} onChange={(e) => setGenderValue(e.target.value)} name="gender" id="gender" className="border-2 border-[#9fb429] focus:border-[#007654] rounded-md">
+                                <select defaultValue={"Male"} value={genderValue} onChange={(e) => setGenderValue(e.target.value)} name="gender" id="gender" className="border-2 border-[#9fb429] focus:border-[#007654] rounded-md">
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>

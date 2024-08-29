@@ -4,9 +4,9 @@ const authController = require("../controllers/authController");
 const bodyParser = require("body-parser");
 const authenticateToken = require("../middleware/authenticateToken");
 const { check } = require("express-validator");
-const signupAuthenticate = require("../middleware/signupAuthenticate");
+const { signupAuthenticate } = require("../middleware/signupAuthenticate");
 
-router.post("/signUp", signupAuthenticate, authController.signUp);
+router.post("/signUp", signupAuthenticate(), authController.signUp);
 router.post("/login", authController.login);
 router.post(
   "/logout",
