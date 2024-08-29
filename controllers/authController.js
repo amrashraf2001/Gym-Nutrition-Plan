@@ -167,19 +167,20 @@ const signUp = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
+  console.log(req.body);
   const { userName, email, password, gender } = req.body;
 
   try {
-    let user = await User.findOne({ email });
-
-    if (user) {
-      return res.status(400).json({ message: "User already exists" });
-    }
-    if (password.length < 8) {
-      return res
-        .status(400)
-        .json({ message: "Password must be at least 8 characters" });
+    console.log(req.body);
+    console.log(email);
+    let uemail = await User.findOne({ email});
+    let uname = await User.findOne({ userName});
+    console.log(uemail);  
+    console.log(uname);  
+    if (uname) {
+      return res.status(400).json({ message: "userName already exists" });
+    }else if(uemail){
+      return res.status(400).json({ message: "Email already exists" });
     }
 
     user = new User({
