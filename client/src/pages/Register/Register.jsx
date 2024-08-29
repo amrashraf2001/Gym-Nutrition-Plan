@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom"
+import validator from 'validator';
 import { useState, useRef, useEffect } from "react";
 import { FaCheck, FaTimes, FaInfoCircle } from "react-icons/fa";
 import axios from "../../api/axios";
 
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const EMIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+// const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+// const EMIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 const REGISTER_URL = '/auth/signUp';
 
 const Register = () => {
@@ -37,28 +39,48 @@ const Register = () => {
         userRef.current.focus();
     }, [])
 
-    useEffect(() => {
-        const result = USER_REGEX.test(user)
-        console.log(result)
-        console.log(user)
-        setValidName(result);
-    }, [user])
+    const onUserChange = (e) => {
+        setUser(e.target.value);
+        setValidName(USER_REGEX.test(e.target.value));
+    }
 
-    useEffect(() => {
-        const result = EMIL_REGEX.test(userEmil)
-        console.log(result)
-        console.log(userEmil)
-        setValidEmail(result);
-    }, [userEmil])
+    // useEffect(() => {
+    //     const result = USER_REGEX.test(user)
+    //     console.log(result)
+    //     console.log(user)
+    //     setValidName(result);
+    // }, [user])
 
-    useEffect(() => {
-        const result = PWD_REGEX.test(pwd)
-        console.log(result)
-        console.log(pwd)
-        setValidPwd(result);
-        const match = pwd === matchPwd;
-        setValidMatch(match);
-    }, [pwd, matchPwd])
+    const onEmailChange = (e) => {
+        setUserEmail(e.target.value);
+        setValidEmail(validator.isEmail(e.target.value));
+    }
+
+    // useEffect(() => {
+    //     const result = EMIL_REGEX.test(userEmil)
+    //     console.log(result)
+    //     console.log(userEmil)
+    //     setValidEmail(result);
+    // }, [userEmil])
+
+    const onPwdChange = (e) => {
+        setPwd(e.target.value);
+        setValidPwd(validator.isStrongPassword(e.target.value));
+    }
+
+    // useEffect(() => {
+    //     const result = PWD_REGEX.test(pwd)
+    //     console.log(result)
+    //     console.log(pwd)
+    //     setValidPwd(result);
+    //     const match = pwd === matchPwd;
+    //     setValidMatch(match);
+    // }, [pwd, matchPwd])
+    
+    const onMatchChange = (e) => {
+        setMatchPwd(e.target.value);
+        setValidMatch(pwd === e.target.value);
+    }
 
     useEffect(() => {
         setErrMsg("");
@@ -66,13 +88,17 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // ############## not important ##############
         const v1 = USER_REGEX.test(user);
-        const v2 = EMIL_REGEX.test(userEmil);
-        const v3 = PWD_REGEX.test(pwd);
+        const v2 = validator.isEmail(userEmil);
+        const v3 = validator.isStrongPassword(pwd);
         if (!v1 || !v2 || !v3) {
             setErrMsg('Invalid Entry');
             return;
         }
+        // ############## not important ##############
+
+        // ### send data to server ###
         try {
             const response = await axios.post(REGISTER_URL, JSON.stringify({ userName: user, email: userEmil, password: pwd, gender: genderValue }),
                 {
@@ -106,7 +132,6 @@ const Register = () => {
                     </p>
                 </section>
             ) : (
-
                 <section className="flex flex-col items-center justify-center h-full">
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <div className="bg-[#fefefe] rounded-lg shadow-lg shadow-[#007654] space-y-6 px-8 py-6 max-w-md w-3/4">
@@ -121,7 +146,7 @@ const Register = () => {
                                 <input type="text" id="username"
                                     ref={userRef}
                                     autoComplete="off"
-                                    onChange={(e) => setUser(e.target.value)}
+                                    onChange={onUserChange}
                                     value={user}
                                     aria-invalid={validName ? "false" : "true"}
                                     aria-describedby="uidnote"
@@ -144,7 +169,7 @@ const Register = () => {
                                     type="email"
                                     id="email"
                                     autoComplete="off"
-                                    onChange={(e) => setUserEmail(e.target.value)}
+                                    onChange={onEmailChange}
                                     value={userEmil}
                                     aria-invalid={validName ? "false" : "true"}
                                     aria-describedby="uemailnote"
@@ -165,7 +190,7 @@ const Register = () => {
                                 <input
                                     type="password"
                                     id="password"
-                                    onChange={(e) => setPwd(e.target.value)}
+                                    onChange={onPwdChange}
                                     value={pwd}
                                     aria-invalid={validPwd ? "false" : "true"}
                                     aria-describedby="pwdnote"
@@ -187,7 +212,7 @@ const Register = () => {
                                 <input
                                     type="password"
                                     id="confirm_pwd"
-                                    onChange={(e) => setMatchPwd(e.target.value)}
+                                    onChange={onMatchChange}
                                     value={matchPwd}
                                     aria-invalid={validMatch ? "false" : "true"}
                                     aria-describedby="confirmnote"
