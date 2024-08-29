@@ -1,7 +1,7 @@
 
 const Footer = () => {
     return (
-        <footer className=" items-center justify-center hidden bg-neutral-900 text-white py-4 w-full">&copy;All rights reserved</footer>
+        <footer className="items-center hidden justify-center  bg-neutral-900 text-white py-4 w-full">&copy;All rights reserved</footer>
     )
 }
 

@@ -1,0 +1,38 @@
+.link{
+    position: relative;
+}
+.link::before{
+    content:"" ;
+    position:absolute ;
+    top: 100%;
+    width: 0;
+    left: 0;
+    height: 2px;
+    background-color:#f2f2f2 ;
+    transition:all 0.6s ease-in-out ;
+}
+.link:hover::before{
+    width: 100%;
+}
+
+.animation::before{
+    content: "|";
+    animation-name: text;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+    animation-direction:initial;
+    white-space: nowrap;
+}
+@keyframes text{
+    0%{content: "G|";}
+    10%{content: "GE |";}
+    20%{content: "GET|";}
+    30%{content: "GET S|";}
+    40%{content: "GET ST|";}
+    50%{content: "GET STA|";}
+    60%{content: "GET STAR|";}
+    70%{content: "GET START|";}
+    80%{content: "GET STARTE|";}
+    90%{content: "GET STARTED|";}
+}
