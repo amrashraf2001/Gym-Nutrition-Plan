@@ -110,17 +110,21 @@ const login = async (req, res) => {
   }
   const { userName, password, email } = req.body;
   try {
-    const user = await User.findOne({ $or: [{ userName }, { email }] });
+    const user = await User.findOne({$or:[{ email }, { userName }]});
     if (!user) {
       return res
         .status(400)
-        .json({ message: "Invalid username/email or password" });
+        .json({ message: "user not found",
+            code: 4000
+          });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res
         .status(400)
-        .json({ message: "Invalid username/email or password" });
+        .json({ message: "Invalid password",
+          code: 4001
+        });
     }
     await user.save();
     const payload = {
@@ -167,20 +171,17 @@ const signUp = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  console.log(req.body);
+  // console.log(req.body);
   const { userName, email, password, gender } = req.body;
 
   try {
-    console.log(req.body);
-    console.log(email);
+    
     let uemail = await User.findOne({ email});
     let uname = await User.findOne({ userName});
-    console.log(uemail);  
-    console.log(uname);  
     if (uname) {
-      return res.status(400).json({ message: "userName already exists" });
+      return res.status(400).json({ message: "userName already exists",code: 4002 });
     }else if(uemail){
-      return res.status(400).json({ message: "Email already exists" });
+      return res.status(400).json({ message: "Email already exists",code: 4003 });
     }
 
     user = new User({
