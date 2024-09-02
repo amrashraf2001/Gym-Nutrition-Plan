@@ -7,7 +7,6 @@ const authenticateToken = (req, res, next) => {
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
-    // req.userId = null;
     req.currentUser = null;
     next();
   } else {
@@ -16,7 +15,6 @@ const authenticateToken = (req, res, next) => {
         return res.status(403).json({ message: "Forbidden: Invalid token" });
       }
       req.currentUser = decoded;
-      // console.log("Ana fl Authentication");
       next();
     });
   }

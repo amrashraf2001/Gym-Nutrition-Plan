@@ -16,23 +16,24 @@
 }
 
 .animation::before{
-    content: "|";
+    content: "GET|";
     animation-name: text;
-    animation-duration: 5s;
+    animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in;
-    animation-direction:initial;
+    animation-direction:alternate;
     white-space: nowrap;
 }
 @keyframes text{
-    0%{content: "G|";}
-    10%{content: "GE |";}
-    20%{content: "GET|";}
-    30%{content: "GET S|";}
-    40%{content: "GET ST|";}
-    50%{content: "GET STA|";}
-    60%{content: "GET STAR|";}
-    70%{content: "GET START|";}
-    80%{content: "GET STARTE|";}
-    90%{content: "GET STARTED|";}
+    0%{content: "GET|";}
+    10%{content: "GET |";}
+    20%{content: "GET S|";}
+    30%{content: "GET ST|";}
+    40%{content: "GET STA|";}
+    50%{content: "GET STAR|";}
+    60%{content: "GET START|";}
+    70%{content: "GET STARTE|";}
+    80%{content: "GET STARTED|";}
+    90%{content: "GET STARTED";}
+    100%{content: "GET STARTED";}
 }
