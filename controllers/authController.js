@@ -250,6 +250,9 @@ const updatePassword = async (req, res, next) => {
   if (password !== passwordConfirm) {
     return res.status(400).json({ message: "Passwords do not match" });
   }
+
+
+  
   if (password.length < 8) {
     return res
       .status(400)
@@ -258,6 +261,8 @@ const updatePassword = async (req, res, next) => {
   if (password.length == 0 || passwordConfirm.length == 0) {
     return res.status(400).json({ message: "Password cannot be empty" });
   }
+
+
 
   const user = await User.findOne({ email });
   if (!user) {
