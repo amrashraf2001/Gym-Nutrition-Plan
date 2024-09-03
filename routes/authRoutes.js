@@ -4,9 +4,9 @@ const authController = require("../controllers/authController");
 const bodyParser = require("body-parser");
 const authenticateToken = require("../middleware/authenticateToken");
 const { check } = require("express-validator");
-const { registerAuthenticate } = require("../middleware/registerAuthenticate");
+const { registerAuthentication } = require("../middleware/registerAuthentication");
 
-router.post("/register", registerAuthenticate(), authController.register);
+router.post("/register", registerAuthentication(), authController.register);
 router.post("/login", authController.login);
 router.post(
   "/logout",
@@ -27,6 +27,7 @@ router.get(
 );
 router.patch(
   "/updatePassword",
+  authenticateToken,
   authController.updatePassword
 );
 router.patch(

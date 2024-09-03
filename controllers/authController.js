@@ -150,7 +150,7 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res, next) => {
-  const userId = req.userId;
+  const userId = req.currentUser?.user?.id;
   try {
     const user = await User.findById(userId);
     if (!user) {
@@ -219,6 +219,7 @@ const register = async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
 const generateUserName = async (req, res, next) => {
   try {
     const userNames = await authService.generateRandomUsername();
@@ -232,24 +233,15 @@ const generateUserName = async (req, res, next) => {
       .json({ message: "Error Creating usernames", error: err.message });
   }
 };
+
 const updatePassword = async (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (!token) {
-    return res.status(401).json({ message: "Unauthorized: No token provided" });
-  }
-  let email = "";
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ message: "Forbidden: Invalid token" });
-    }
-    email = decoded.user.email;
-  });
+  const email = req.currentUser.user.email;
   const password = req.body.password;
   const passwordConfirm = req.body.passwordConfirm;
   if (password !== passwordConfirm) {
     return res.status(400).json({ message: "Passwords do not match" });
   }
+
   if (password.length < 8) {
     return res
       .status(400)
@@ -258,6 +250,7 @@ const updatePassword = async (req, res, next) => {
   if (password.length == 0 || passwordConfirm.length == 0) {
     return res.status(400).json({ message: "Password cannot be empty" });
   }
+
 
   const user = await User.findOne({ email });
   if (!user) {
@@ -272,7 +265,8 @@ const updatePassword = async (req, res, next) => {
 const updateEmail = async (req, res, next) => {
   const password = req.body.password;
   const email = req.body.email;
-  const userId = req.userId;
+  const userId = req.currentUser?.user?.id;
+
   if (!email || !password) {
     return res
       .status(400)
@@ -292,7 +286,8 @@ const updateEmail = async (req, res, next) => {
 };
 
 const changePassword = async (req, res, next) => {
-  const userId = req.userId;
+  const userId = req.currentUser?.user?.id;
+  // console.log(userId);
   const { oldPassword, newPassword, confirmPassword } = req.body;
   try {
     const user = await User.findById(userId);
@@ -301,7 +296,7 @@ const changePassword = async (req, res, next) => {
     }
     const isMatch = await bcrypt.compare(oldPassword, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid password" });
+      return res.status(400).json({ message: "Invalid old password" });
     }
     if (newPassword !== confirmPassword) {
       return res.status(400).json({ message: "Passwords do not match" });
@@ -321,6 +316,7 @@ const changePassword = async (req, res, next) => {
     await user.save();
     return res.status(200).json({ message: "Password changed successfully" });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ message: "Error Changing user Password" });
   }
 };
