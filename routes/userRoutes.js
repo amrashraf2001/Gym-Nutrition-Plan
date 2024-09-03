@@ -34,6 +34,13 @@ router.get(
     userController.getPlans
   );
 
+router.get(
+    "/getPlan",
+    bodyParser.json(),
+    authenticateToken,
+    userController.getPlan
+)
+
 router.post(
     "/setPlan",
     bodyParser.json(),

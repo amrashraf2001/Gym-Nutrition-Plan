@@ -64,6 +64,23 @@ const getPlans = async (req, res, next) => {
       });
 }
 
+const getPlan = async (req, res, next) => {
+    const userId = req.userId;
+    const user = await User.findById(userId);
+    const planId = req.query.planId;
+    const plan = await Plan.findById(planId);
+    if (!plan) {
+        return res.status(404).json({ message: "Plan not found" });
+    }
+    if(!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    res.json({
+        message: "Plan Retrived successfully",
+        plan,
+      });
+}
+
 const setPlan = async (req, res, next) => {
     const userId = req.userId;
     const { totalCalories, totalWeight, listOfTotalNutrients, listOfFoods } = req.body;
@@ -126,6 +143,7 @@ module.exports = {
     getProfile,
     updateProfile,
     getPlans,
+    getPlan,
     setPlan,
     getRandomPlans,
     deletePlan,
