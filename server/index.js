@@ -22,11 +22,12 @@ app.get("/", (req, res) => {
 });
 
 // Connect to MongoDB
-connectDB().catch((error) => {
-  console.error("Error connecting to MongoDB: ", error);
-  process.exit(1); // Exit process with failure
-});
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}/`);
+  connectDB().catch((error) => {
+    console.error("Error connecting to MongoDB:", error);
+    process.exit(0); // Exit process with failure
+  });
 });
