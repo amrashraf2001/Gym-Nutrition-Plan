@@ -4,10 +4,10 @@ const authController = require("../controllers/authController");
 const bodyParser = require("body-parser");
 const authenticateToken = require("../middleware/authenticateToken");
 const { check } = require("express-validator");
-const { registerAuthentication } = require("../middleware/registerAuthentication");
+const { checkUserName, checkEmail, checkPassword, checkGender } = require("../middleware/registerAuthentication");
 
-router.post("/register", registerAuthentication(), authController.register);
-router.post("/login", authController.login);
+router.post("/register", checkUserName() , checkEmail() , checkPassword().confirmPassword() ,checkGender(),authController.register);
+router.post("/login", checkEmail(),checkPassword() , authController.login);
 router.post(
   "/logout",
   authenticateToken,
