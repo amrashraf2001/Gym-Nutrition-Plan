@@ -10,8 +10,16 @@ const foodSchema = new Schema({
         type: Number,
         required: true,
     },
-    listOfNutrients: {
-        type: Array,
+    protein: {
+        type: Number,
+        required: true,
+    },
+    carbs: {
+        type: Number,
+        required: true,
+    },
+    fats: {
+        type: Number,
         required: true,
     },
 

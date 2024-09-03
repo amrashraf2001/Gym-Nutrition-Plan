@@ -194,9 +194,6 @@ const calculateCalories = async (req, res, next) => {
 
 
 
-
-
-
 module.exports = {
     getUserId,
     getProfile,
