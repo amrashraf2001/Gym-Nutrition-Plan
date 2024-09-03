@@ -14,6 +14,12 @@ const planSchema = new Schema({
         type: Array,
         required: true,
     },
+    listOfFoods: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "food",
+        },
+    ],
 });
 
 module.exports = mongoose.model("plan", planSchema);

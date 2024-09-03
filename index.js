@@ -20,10 +20,10 @@ mongoose
     console.log("Connected to the database");
     app.listen(PORT, (req, res, next) => {
       console.log(`Server running on port ${PORT}`);
-      //const userRoutes = require("./routes/userRoutes");
+      const userRoutes = require("./routes/userRoutes");
       const authRoutes = require("./routes/authRoutes");
 
-      //app.use("/user", userRoutes);
+      app.use("/user", userRoutes);
       app.use("/auth", authRoutes);
 
       app.get("/", function (req, res) {

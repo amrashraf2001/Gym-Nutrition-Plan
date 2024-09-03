@@ -40,6 +40,12 @@ const userSchema = new Schema({
         type: String,
         default: "",
     },
+    listOfPlans: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "plan",
+        },
+    ],
 });
 
 module.exports = mongoose.model("user", userSchema);
