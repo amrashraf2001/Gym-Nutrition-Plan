@@ -45,7 +45,7 @@ router.get(
     "/getRandomPlan",
     bodyParser.json(),
     authenticateToken,
-    userController.getRandomPlan
+    userController.getRandomPlans
 )
 
 router.delete(
