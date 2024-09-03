@@ -20,4 +20,11 @@ router.get(
     userController.getProfile
   );
 
+router.patch(
+    "/updateProfile",
+    bodyParser.json(),
+    authenticateToken,
+    userController.updateProfile
+  );
+
 module.exports = router;
