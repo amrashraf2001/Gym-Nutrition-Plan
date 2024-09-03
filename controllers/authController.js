@@ -238,10 +238,10 @@ const updatePassword = async (req, res, next) => {
   const email = req.currentUser?.user?.email;
   const password = req.body.password;
   const passwordConfirm = req.body.passwordConfirm;
+
   if (password !== passwordConfirm) {
     return res.status(400).json({ message: "Passwords do not match" });
   }
-
   if (password.length < 8) {
     return res
       .status(400)

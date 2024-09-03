@@ -6,7 +6,7 @@ const authenticateToken = require("../middleware/authenticateToken");
 const { check } = require("express-validator");
 const { checkUserName, checkEmail, checkPassword, checkGender } = require("../middleware/registerAuthentication");
 
-router.post("/register", checkUserName() , checkEmail() , checkPassword().confirmPassword() ,checkGender(),authController.register);
+router.post("/register", checkUserName() , checkEmail() , checkPassword() ,checkGender(),authController.register);
 router.post("/login", checkEmail(),checkPassword() , authController.login);
 router.post(
   "/logout",
