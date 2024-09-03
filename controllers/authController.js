@@ -104,10 +104,10 @@ const forgetPassword = async (req, res, next) => {
 };
 
 const login = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+  //const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   return res.status(400).json({ errors: errors.array() });
+  // }
   const { userName, password, email } = req.body;
   try {
     const user = await User.findOne({$or:[{ email }, { userName }]});
