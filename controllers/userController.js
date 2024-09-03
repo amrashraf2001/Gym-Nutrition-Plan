@@ -18,8 +18,8 @@ const getUserId = async (req, res, next) => {
 }
 
 const getProfile = async (req, res, next) => {
-    let userId = req.userId;
-    userId = userId.replace(/^"|"$/g, '');
+    let userId = req.currentUser?.user?.id;
+    //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -32,8 +32,8 @@ const getProfile = async (req, res, next) => {
 }
 
 const updateProfile = async (req, res, next) => {
-    let userId = req.userId;
-    userId = userId.replace(/^"|"$/g, '');
+    let userId = req.currentUser?.user?.id;
+    //userId = userId.replace(/^"|"$/g, '');
     const newProfile = req.body;
     const user = await User.findById(userId);
     if (!user) {
@@ -55,8 +55,8 @@ const updateProfile = async (req, res, next) => {
 }
 
 const getPlans = async (req, res, next) => {
-    let userId = req.userId;
-    userId = userId.replace(/^"|"$/g, '');
+    let userId = req.currentUser?.user?.id;
+    //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId).populate("listOfPlans");
     if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -68,8 +68,8 @@ const getPlans = async (req, res, next) => {
 }
 
 const getPlan = async (req, res, next) => {
-    let userId = req.userId;
-    userId = userId.replace(/^"|"$/g, '');
+    let userId = req.currentUser?.user?.id;
+    //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     let planId = req.query.planId;
     planId = planId.replace(/^"|"$/g, '');
@@ -87,8 +87,8 @@ const getPlan = async (req, res, next) => {
 }
 
 const setPlan = async (req, res, next) => {
-    let userId = req.userId;
-    userId = userId.replace(/^"|"$/g, '');
+    let userId = req.currentUser?.user?.id;
+    //userId = userId.replace(/^"|"$/g, '');
     const { totalCalories, totalWeight, listOfTotalNutrients, listOfFoods } = req.body;
 
     const plan = new Plan({
@@ -122,9 +122,9 @@ const getRandomPlans = async (req, res, next) => {
 }
 
 const deletePlan = async (req, res, next) => {
-    let userId = req.userId;
+    let userId = req.currentUser?.user?.id;
     let planId = req.body.planId;
-    userId = userId.replace(/^"|"$/g, '');
+    //userId = userId.replace(/^"|"$/g, '');
     planId = planId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
@@ -165,8 +165,8 @@ const getFood = async (req, res, next) => {
 }
 
 const calculateBMI = async (req, res, next) => {
-    let userId = req.userId;
-    userId = userId.replace(/^"|"$/g, '');
+    let userId = req.currentUser?.user?.id;
+    //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -182,8 +182,8 @@ const calculateBMI = async (req, res, next) => {
 }
 
 const calculateCalories = async (req, res, next) => {
-    let userId = req.userId;
-    userId = userId.replace(/^"|"$/g, '');
+    let userId = req.currentUser?.user?.id;
+    //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "User not found" });
