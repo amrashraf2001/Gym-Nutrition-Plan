@@ -235,13 +235,13 @@ const generateUserName = async (req, res, next) => {
 };
 
 const updatePassword = async (req, res, next) => {
-  const email = req.currentUser.user.email;
+  const email = req.currentUser?.user?.email;
   const password = req.body.password;
   const passwordConfirm = req.body.passwordConfirm;
+
   if (password !== passwordConfirm) {
     return res.status(400).json({ message: "Passwords do not match" });
   }
-
   if (password.length < 8) {
     return res
       .status(400)
@@ -298,6 +298,7 @@ const changePassword = async (req, res, next) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid old password" });
     }
+
     if (newPassword !== confirmPassword) {
       return res.status(400).json({ message: "Passwords do not match" });
     }
@@ -311,6 +312,8 @@ const changePassword = async (req, res, next) => {
         .status(400)
         .json({ message: "Password must be at least 8 characters" });
     }
+
+
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(newPassword, salt);
     await user.save();
