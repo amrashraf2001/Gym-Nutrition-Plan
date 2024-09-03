@@ -62,4 +62,20 @@ router.delete(
     userController.deletePlan
 )
 
+router.get(
+    "/getAllFood",
+    bodyParser.json(),
+    authenticateToken,
+    userController.getAllFood
+)
+
+router.get(
+    "/getFood",
+    bodyParser.json(),
+    authenticateToken,
+    userController.getFood
+)
+
+
+
 module.exports = router;

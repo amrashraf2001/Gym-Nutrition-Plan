@@ -134,6 +134,27 @@ const setPlan = async (req, res, next) => {
         });
     }
 
+    const getAllFood = async (req, res, next) => { 
+        const foods = await Food.find();
+        res.json({
+            message: "Foods retrived successfully",
+            foods,
+          });
+    
+        }
+
+    const getFood = async (req, res, next) => {
+        const foodId = req.query.foodId;
+        const food = await Food.findById(foodId);
+        if (!food) {
+            return res.status(404).json({ message: "Food not found" });
+        }
+        res.json({
+            message: "Food retrived successfully",
+            food,
+          });
+    }
+
 
 
 
@@ -147,5 +168,7 @@ module.exports = {
     setPlan,
     getRandomPlans,
     deletePlan,
+    getAllFood,
+    getFood,
 
 };
