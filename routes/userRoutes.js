@@ -41,4 +41,18 @@ router.post(
     userController.setPlan
 )
 
+router.get(
+    "/getRandomPlan",
+    bodyParser.json(),
+    authenticateToken,
+    userController.getRandomPlan
+)
+
+router.delete(
+    "/deletePlan",
+    bodyParser.json(),
+    authenticateToken,
+    userController.deletePlan
+)
+
 module.exports = router;

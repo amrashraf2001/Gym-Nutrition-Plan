@@ -89,7 +89,35 @@ const setPlan = async (req, res, next) => {
     });
 }
 
-    
+ const getRandomPlans = async (req, res, next) => {   
+    const plans = await Plan.aggregate([{ $sample: { size: 3 } }]);
+    res.json({
+        message: "Random plans retrived successfully",
+        plans,
+      });
+
+    }
+
+    const deletePlan = async (req, res, next) => {
+        const userId = req.userId;
+        const planId = req.body.planId;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const planIndex = user.listOfPlans.indexOf(planId);
+        if (planIndex === -1) {
+            return res.status(404).json({ message: "Plan not found" });
+        }
+        user.listOfPlans.splice(planIndex, 1);
+        await user.save();
+        await Plan.findByIdAndDelete(planId);
+        res.json({
+            message: "Plan deleted successfully",
+        });
+    }
+
+
 
 
 
@@ -99,5 +127,7 @@ module.exports = {
     updateProfile,
     getPlans,
     setPlan,
+    getRandomPlans,
+    deletePlan,
 
 };
