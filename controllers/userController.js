@@ -52,11 +52,52 @@ const updateProfile = async (req, res, next) => {
       });
 }
 
+const getPlans = async (req, res, next) => {
+    const userId = req.userId;
+    const user = await User.findById(userId).populate("listOfPlans");
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    res.json({
+        message: "Plans Retrived successfully",
+        plans: user.listOfPlans,
+      });
+}
+
+const setPlan = async (req, res, next) => {
+    const userId = req.userId;
+    const { totalCalories, totalWeight, listOfTotalNutrients, listOfFoods } = req.body;
+
+    const plan = new Plan({
+        totalCalories,
+        totalWeight,
+        listOfTotalNutrients,
+        listOfFoods
+    });
+
+    await plan.save();
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    user.listOfPlans.push(plan._id);
+    await user.save();
+
+    res.json({
+        message: "Plan created and saved successfully",
+        plan
+    });
+}
+
+    
+
 
 
 module.exports = {
     getUserId,
     getProfile,
     updateProfile,
+    getPlans,
+    setPlan,
 
 };

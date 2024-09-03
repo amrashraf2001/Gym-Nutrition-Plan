@@ -27,4 +27,18 @@ router.patch(
     userController.updateProfile
   );
 
+router.get(
+    "/plans",
+    bodyParser.json(),
+    authenticateToken,
+    userController.getPlans
+  );
+
+router.post(
+    "/setPlan",
+    bodyParser.json(),
+    authenticateToken,
+    userController.setPlan
+)
+
 module.exports = router;
