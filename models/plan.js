@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const planSchema = new Schema({
+    name:{
+        type: String,
+        required: true,
+    },
     totalCalories: {
         type: Number,
         required: true,
@@ -10,14 +14,28 @@ const planSchema = new Schema({
         type: Number,
         required: true,
     },
-    listOfTotalNutrients: {
-        type: Array,
+    totalProtein: {
+        type: Number,
+        required: true,
+    },
+    totalCarbs: {
+        type: Number,
+        required: true,
+    },
+    totalFats: {
+        type: Number,
         required: true,
     },
     listOfFoods: [
         {
             type: Schema.Types.ObjectId,
             ref: "food",
+        },
+    ],
+    listOfWeights: [
+        {
+            type: Number,
+            required: true,
         },
     ],
 });
