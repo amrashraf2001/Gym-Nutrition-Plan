@@ -46,6 +46,21 @@ const checkGender = () => {
   withMessage('Please select gender')
 }
 
+const checkEmailOrUserName = () => {
+  return (req, res, next) => {
+    if (req.body.email) {
+      body('email')
+        .trim()
+        .isEmail()
+        .withMessage('Please enter a valid email address')(req, res, next);
+    } else {
+      body('userName')
+        .trim()
+        .isLength({ min: 3 })
+        .withMessage('Username must be at least 3 characters long')(req, res, next);
+    }
+  };
+};
 
-module.exports = {checkUserName, checkEmail, checkPassword, checkGender};
-// module.exports = {registerAuthentication};
+
+module.exports = {checkUserName, checkEmail, checkPassword, checkGender , checkEmailOrUserName};

@@ -4,10 +4,10 @@ const authController = require("../controllers/authController");
 const bodyParser = require("body-parser");
 const authenticateToken = require("../middleware/authenticateToken");
 const { check } = require("express-validator");
-const { checkUserName, checkEmail, checkPassword, checkGender } = require("../middleware/registerAuthentication");
+const { checkUserName, checkEmail, checkPassword, checkGender , checkEmailOrUserName} = require("../middleware/registerAuthentication");
 
 router.post("/register", checkUserName() , checkEmail() , checkPassword() ,checkGender(),authController.register);
-router.post("/login", checkEmail(),checkPassword() , authController.login);
+router.post("/login", checkEmailOrUserName(),checkPassword() , authController.login);
 router.post(
   "/logout",
   authenticateToken,
@@ -27,11 +27,13 @@ router.get(
 );
 router.patch(
   "/updatePassword",
+  checkPassword().confirmPassword().compareOldPasswords(),
   authenticateToken,
   authController.updatePassword
 );
 router.patch(
   "/email",
+  checkEmail() , checkPassword(),
   authenticateToken,
   authController.updateEmail
 );
@@ -39,6 +41,7 @@ router.patch(
 
   router.patch(
     "/changePassword",
+    checkPassword().confirmPassword(),
     authenticateToken,
     authController.changePassword
   );

@@ -104,10 +104,10 @@ const forgetPassword = async (req, res, next) => {
 };
 
 const login = async (req, res) => {
-  //const errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //   return res.status(400).json({ errors: errors.array() });
-  // }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const { userName, password, email } = req.body;
   try {
     const user = await User.findOne({$or:[{ email }, { userName }]});
@@ -234,7 +234,7 @@ const generateUserName = async (req, res, next) => {
   }
 };
 
-const updatePassword = async (req, res, next) => {
+const changePassword = async (req, res, next) => {
   const email = req.currentUser?.user?.email;
   const password = req.body.password;
   const passwordConfirm = req.body.passwordConfirm;
@@ -267,11 +267,6 @@ const updateEmail = async (req, res, next) => {
   const email = req.body.email;
   const userId = req.currentUser?.user?.id;
 
-  if (!email || !password) {
-    return res
-      .status(400)
-      .json({ message: "Email & Password cannot be empty" });
-  }
   const user = await User.findById(userId);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
@@ -285,7 +280,7 @@ const updateEmail = async (req, res, next) => {
   res.json({ message: "Email updated successfully" });
 };
 
-const changePassword = async (req, res, next) => {
+const updatePassword = async (req, res, next) => {
   const userId = req.currentUser?.user?.id;
   // console.log(userId);
   const { oldPassword, newPassword, confirmPassword } = req.body;
