@@ -18,7 +18,8 @@ const getUserId = async (req, res, next) => {
 }
 
 const getProfile = async (req, res, next) => {
-    const userId = req.userId;
+    let userId = req.userId;
+    userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -31,7 +32,8 @@ const getProfile = async (req, res, next) => {
 }
 
 const updateProfile = async (req, res, next) => {
-    const userId = req.userId;
+    let userId = req.userId;
+    userId = userId.replace(/^"|"$/g, '');
     const newProfile = req.body;
     const user = await User.findById(userId);
     if (!user) {
@@ -53,7 +55,8 @@ const updateProfile = async (req, res, next) => {
 }
 
 const getPlans = async (req, res, next) => {
-    const userId = req.userId;
+    let userId = req.userId;
+    userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId).populate("listOfPlans");
     if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -65,9 +68,11 @@ const getPlans = async (req, res, next) => {
 }
 
 const getPlan = async (req, res, next) => {
-    const userId = req.userId;
+    let userId = req.userId;
+    userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
-    const planId = req.query.planId;
+    let planId = req.query.planId;
+    planId = planId.replace(/^"|"$/g, '');
     const plan = await Plan.findById(planId);
     if (!plan) {
         return res.status(404).json({ message: "Plan not found" });
@@ -82,7 +87,8 @@ const getPlan = async (req, res, next) => {
 }
 
 const setPlan = async (req, res, next) => {
-    const userId = req.userId;
+    let userId = req.userId;
+    userId = userId.replace(/^"|"$/g, '');
     const { totalCalories, totalWeight, listOfTotalNutrients, listOfFoods } = req.body;
 
     const plan = new Plan({
@@ -116,8 +122,10 @@ const getRandomPlans = async (req, res, next) => {
 }
 
 const deletePlan = async (req, res, next) => {
-    const userId = req.userId;
-    const planId = req.body.planId;
+    let userId = req.userId;
+    let planId = req.body.planId;
+    userId = userId.replace(/^"|"$/g, '');
+    planId = planId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -144,7 +152,8 @@ const getAllFood = async (req, res, next) => {
 }
 
 const getFood = async (req, res, next) => {
-    const foodId = req.query.foodId;
+    let foodId = req.query.foodId;
+    foodId = foodId.replace(/^"|"$/g, '');
     const food = await Food.findById(foodId);
     if (!food) {
         return res.status(404).json({ message: "Food not found" });
@@ -156,7 +165,8 @@ const getFood = async (req, res, next) => {
 }
 
 const calculateBMI = async (req, res, next) => {
-    const userId = req.userId;
+    let userId = req.userId;
+    userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -172,7 +182,8 @@ const calculateBMI = async (req, res, next) => {
 }
 
 const calculateCalories = async (req, res, next) => {
-    const userId = req.userId;
+    let userId = req.userId;
+    userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "User not found" });
