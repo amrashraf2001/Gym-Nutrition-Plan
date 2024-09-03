@@ -5,7 +5,8 @@ const Plan = require("../models/plan");
 
 const getUserId = async (req, res, next) => {
     const userName = req.query.userName
-    const user = await User.findOne({ userName: userName });
+    const email = req.query.email
+    const user = await User.findOne({$or:[{ email }, { userName }]});
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
