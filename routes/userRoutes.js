@@ -6,6 +6,11 @@ const authenticateToken = require("../middleware/authenticateToken");
 const { check } = require("express-validator");
 const { registerAuthentication } = require("../middleware/registerAuthentication");
 
-
+router.get(
+    "/profile",
+    bodyParser.json(),
+    authenticateToken,
+    userController.getProfile
+  );
 
 module.exports = router;
