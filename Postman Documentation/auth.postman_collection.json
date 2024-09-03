@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "signUp",
+			"name": "register",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -21,7 +21,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/auth/signUp",
+					"raw": "http://localhost:5000/auth/register",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -29,7 +29,7 @@
 					"port": "5000",
 					"path": [
 						"auth",
-						"signUp"
+						"register"
 					]
 				}
 			},

@@ -1,6 +1,6 @@
 const {body} = require('express-validator');
 
-const signupAuthenticate = () => {
+const registerAuthenticate = () => {
   return[
   body('userName').
   isLength({min: 3}).
@@ -19,4 +19,4 @@ const signupAuthenticate = () => {
   withMessage('Please select gender')
   ];
 };
-module.exports = {signupAuthenticate};
+module.exports = {registerAuthenticate};

@@ -166,7 +166,7 @@ const logout = async (req, res, next) => {
   }
 };
 
-const signUp = async (req, res) => {
+const register = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -189,7 +189,7 @@ const signUp = async (req, res) => {
       email,
       password,
       gender,
-      signupGoogle: false,
+      registerGoogle: false,
     });
 
     const salt = await bcrypt.genSalt(10);
@@ -326,7 +326,7 @@ const changePassword = async (req, res, next) => {
 };
 
 module.exports = {
-  signUp,
+  register,
   login,
   logout,
   forgetUsername,
