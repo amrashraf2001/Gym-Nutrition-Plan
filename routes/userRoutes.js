@@ -76,6 +76,20 @@ router.get(
     userController.getFood
 )
 
+router.get(
+    "/calculateBMI",
+    bodyParser.json(),
+    authenticateToken,
+    userController.calculateBMI
+)       
+
+router.get(
+    "/calculateCalories",
+    bodyParser.json(),
+    authenticateToken,
+    userController.calculateCalories
+)
+
 
 
 module.exports = router;

@@ -6,14 +6,14 @@ const Plan = require("../models/plan");
 const getUserId = async (req, res, next) => {
     const userName = req.query.userName
     const email = req.query.email
-    const user = await User.findOne({$or:[{ email }, { userName }]});
+    const user = await User.findOne({ $or: [{ email }, { userName }] });
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
     res.json({
         message: "User ID Retrived successfully",
         userId: user._id,
-      });
+    });
 
 }
 
@@ -27,7 +27,7 @@ const getProfile = async (req, res, next) => {
     res.json({
         message: "User profile Retrived successfully",
         user,
-      });
+    });
 }
 
 const updateProfile = async (req, res, next) => {
@@ -49,7 +49,7 @@ const updateProfile = async (req, res, next) => {
     res.json({
         message: "Profile updated successfully",
         user,
-      });
+    });
 }
 
 const getPlans = async (req, res, next) => {
@@ -61,7 +61,7 @@ const getPlans = async (req, res, next) => {
     res.json({
         message: "Plans Retrived successfully",
         plans: user.listOfPlans,
-      });
+    });
 }
 
 const getPlan = async (req, res, next) => {
@@ -72,13 +72,13 @@ const getPlan = async (req, res, next) => {
     if (!plan) {
         return res.status(404).json({ message: "Plan not found" });
     }
-    if(!user) {
+    if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
     res.json({
         message: "Plan Retrived successfully",
         plan,
-      });
+    });
 }
 
 const setPlan = async (req, res, next) => {
@@ -106,54 +106,92 @@ const setPlan = async (req, res, next) => {
     });
 }
 
- const getRandomPlans = async (req, res, next) => {   
+const getRandomPlans = async (req, res, next) => {
     const plans = await Plan.aggregate([{ $sample: { size: 3 } }]);
     res.json({
         message: "Random plans retrived successfully",
         plans,
-      });
+    });
 
+}
+
+const deletePlan = async (req, res, next) => {
+    const userId = req.userId;
+    const planId = req.body.planId;
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
     }
-
-    const deletePlan = async (req, res, next) => {
-        const userId = req.userId;
-        const planId = req.body.planId;
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-        const planIndex = user.listOfPlans.indexOf(planId);
-        if (planIndex === -1) {
-            return res.status(404).json({ message: "Plan not found" });
-        }
-        user.listOfPlans.splice(planIndex, 1);
-        await user.save();
-        await Plan.findByIdAndDelete(planId);
-        res.json({
-            message: "Plan deleted successfully",
-        });
+    const planIndex = user.listOfPlans.indexOf(planId);
+    if (planIndex === -1) {
+        return res.status(404).json({ message: "Plan not found" });
     }
+    user.listOfPlans.splice(planIndex, 1);
+    await user.save();
+    await Plan.findByIdAndDelete(planId);
+    res.json({
+        message: "Plan deleted successfully",
+    });
+}
 
-    const getAllFood = async (req, res, next) => { 
-        const foods = await Food.find();
-        res.json({
-            message: "Foods retrived successfully",
-            foods,
-          });
-    
-        }
+const getAllFood = async (req, res, next) => {
+    const foods = await Food.find();
+    res.json({
+        message: "Foods retrived successfully",
+        foods,
+    });
 
-    const getFood = async (req, res, next) => {
-        const foodId = req.query.foodId;
-        const food = await Food.findById(foodId);
-        if (!food) {
-            return res.status(404).json({ message: "Food not found" });
-        }
-        res.json({
-            message: "Food retrived successfully",
-            food,
-          });
+}
+
+const getFood = async (req, res, next) => {
+    const foodId = req.query.foodId;
+    const food = await Food.findById(foodId);
+    if (!food) {
+        return res.status(404).json({ message: "Food not found" });
     }
+    res.json({
+        message: "Food retrived successfully",
+        food,
+    });
+}
+
+const calculateBMI = async (req, res, next) => {
+    const userId = req.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    const weight = user.weight;
+    const height = user.height;
+    const BMI = weight / (height * height);
+
+    res.json({
+        message: "BMI calculated successfully",
+        BMI,
+    });
+}
+
+const calculateCalories = async (req, res, next) => {
+    const userId = req.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    const weight = user.weight;
+    const height = user.height;
+    const age = user.age;
+
+    const BMR = 10 * weight + 6.25 * height - 5 * age;
+    const calories = BMR * 1.2;
+
+    res.json({
+        message: "Calories calculated successfully",
+        calories,
+    });
+
+}
+
+
 
 
 
@@ -170,5 +208,7 @@ module.exports = {
     deletePlan,
     getAllFood,
     getFood,
+    calculateBMI,
+    calculateCalories,
 
 };
