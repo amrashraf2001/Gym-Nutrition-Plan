@@ -22,7 +22,7 @@ const Header = () => {
         setIsOpen(!isOpen);
     }
     return (
-        <header className="px-14 sticky top-0 z-[20] mx-auto flex-wrap w-full flex py-4 items-center justify-between text-[#fefefe] bg-[#9fb429]">
+        <header className="px-14 sticky top-0 z-[20] mx-auto flex-wrap w-full flex py-4 items-center justify-between text-[#fefefe] bg-[#007654]">
             <Link to={"/"} className="text-3xl font-bold">GYMNUT</Link>
             <nav className="w-1/3 justify-end flex">
                 <div className="hidden md:flex justify-between w-full">

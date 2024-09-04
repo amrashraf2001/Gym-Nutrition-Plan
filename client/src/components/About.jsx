@@ -1,9 +1,10 @@
 import about1 from '../assets/about1.png'
 import about2 from '../assets/about2.png'
 
+
 const About = () => {
     return (
-        <section className="flex flex-col space-y-10 px-14 pt-14 pb-40" id="About">
+        <section className=" flex flex-col space-y-10 px-14 pt-14 pb-40 " id="About">
             <h2 className="text-5xl font-extrabold text-center">ABOUT US</h2>
             <div>
                 <p className="text-3xl font-medium text-center p-3 transition-all text-green-950  hover:shadow-[#007654] hover:shadow-lg hover:rounded-2xl">Welcome to GYMNUT, your trusted partner in achieving a healthier lifestyle through balanced nutrition and personalized meal planning. We believe that good food is the foundation of a happy, healthy life, and we're here to guide you on your journey to wellness.</p>
