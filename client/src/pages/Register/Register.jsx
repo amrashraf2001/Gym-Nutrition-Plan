@@ -1,65 +1,65 @@
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import validator from "validator";
 import { useState, useRef, useEffect } from "react";
 import { FaCheck, FaTimes, FaInfoCircle } from "react-icons/fa";
 import axios from "../../api/axios";
 
-    const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+    const USER_REGEX = /^[A-z][A-z0-9-_]{2,23}$/;
     // const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     // const EMIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     const REGISTER_URL = "/auth/register";
 
 const Register = () => {
-  const userRef = useRef();
-  const buttonRef = useRef();
+    const userRef = useRef();
+    const navigate = useNavigate();
 
-  const [genderValue, setGenderValue] = useState("Male");
+    const [genderValue, setGenderValue] = useState("Male");
 
-  const [user, setUser] = useState("");
-  const [validName, setValidName] = useState(false);
-  const [userFocus, setUserFocus] = useState(false);
+    const [user, setUser] = useState("");
+    const [validName, setValidName] = useState(false);
+    const [userFocus, setUserFocus] = useState(false);
 
-  const [userEmil, setUserEmail] = useState("");
-  const [validEmail, setValidEmail] = useState(false);
-  const [emailFocus, setEmailFocus] = useState(false);
+    const [userEmil, setUserEmail] = useState("");
+    const [validEmail, setValidEmail] = useState(false);
+    const [emailFocus, setEmailFocus] = useState(false);
 
-  const [pwd, setPwd] = useState("");
-  const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
+    const [pwd, setPwd] = useState("");
+    const [validPwd, setValidPwd] = useState(false);
+    const [pwdFocus, setPwdFocus] = useState(false);
 
-  const [matchPwd, setMatchPwd] = useState("");
-  const [validMatch, setValidMatch] = useState(false);
-  const [matchFocus, setMatchFocus] = useState(false);
+    const [matchPwd, setMatchPwd] = useState("");
+    const [validMatch, setValidMatch] = useState(false);
+    const [matchFocus, setMatchFocus] = useState(false);
 
-  const [errMsg, setErrMsg] = useState("");
+    const [errMsg, setErrMsg] = useState("");
 
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
+    useEffect(() => {
+        userRef.current.focus();
+    }, []);
 
-  const onUserChange = (e) => {
-    setUser(e.target.value);
-    setValidName(USER_REGEX.test(e.target.value));
-  };
-
-    const onEmailChange = (e) => {
-        setUserEmail(e.target.value);
-        setValidEmail(validator.isEmail(e.target.value));
+    const onUserChange = (e) => {
+        setUser(e.target.value);
+        setValidName(USER_REGEX.test(e.target.value));
     };
 
-    const onPwdChange = (e) => {
-        setPwd(e.target.value);
-        setValidPwd(validator.isStrongPassword(e.target.value));
+        const onEmailChange = (e) => {
+            setUserEmail(e.target.value);
+            setValidEmail(validator.isEmail(e.target.value));
+        };
+
+        const onPwdChange = (e) => {
+            setPwd(e.target.value);
+            setValidPwd(validator.isStrongPassword(e.target.value));
+        };
+
+    const onMatchChange = (e) => {
+        setMatchPwd(e.target.value);
+        setValidMatch(pwd === e.target.value);
     };
 
-  const onMatchChange = (e) => {
-    setMatchPwd(e.target.value);
-    setValidMatch(pwd === e.target.value);
-  };
-
-  useEffect(() => {
-    setErrMsg("");
-  }, [user, userEmil, pwd, matchPwd]);
+    useEffect(() => {
+        setErrMsg("");
+    }, [user, userEmil, pwd, matchPwd]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -69,7 +69,7 @@ const Register = () => {
         }
         // ### send data to server ###
         try {
-        const response = await axios.post(
+        axios.post(
             REGISTER_URL,
             JSON.stringify({
             userName: user,
@@ -82,11 +82,13 @@ const Register = () => {
             withCredentials: false,
             }
         );
-        sessionStorage.setItem("token", response.data.token);
+        // sessionStorage.setItem("token", response.data.token);
         // console.log(response.authenticateToken);
         // console.log(JSON.stringify(response));
-        buttonRef.current.click();
+        // buttonRef.current.click();
+        navigate("/login");
         } catch (err) {
+        console.clear();
         if (!err?.response) {
             setErrMsg("No Server Response");
         } else if (err.response?.status === 400) {
@@ -320,7 +322,6 @@ const Register = () => {
                 Have an account?
                 </Link>
             </div>
-            <Link ref={buttonRef} to={"/userPage"} className="hidden"></Link>
             </form>
         </div>
         </section>

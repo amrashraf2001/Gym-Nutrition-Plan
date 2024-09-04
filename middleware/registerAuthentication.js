@@ -9,8 +9,8 @@ const { body } = new ExpressValidator(
       return true;
     },
     compareOldPasswords: (value, {req}) => {
-      if (value !== req.body.oldPassword) {
-        throw new Error('Passwords do not match');
+      if (value === req.body.oldPassword) {
+        throw new Error('New password cannot be the same as old password');
       }
       return true;
     },

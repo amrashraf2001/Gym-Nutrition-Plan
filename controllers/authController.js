@@ -234,23 +234,13 @@ const generateUserName = async (req, res, next) => {
   }
 };
 
-const changePassword = async (req, res, next) => {
+const updatePassword = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const email = req.currentUser?.user?.email;
   const password = req.body.password;
-  const passwordConfirm = req.body.passwordConfirm;
-
-  if (password !== passwordConfirm) {
-    return res.status(400).json({ message: "Passwords do not match" });
-  }
-  if (password.length < 8) {
-    return res
-      .status(400)
-      .json({ message: "Password must be at least 8 characters" });
-  }
-  if (password.length == 0 || passwordConfirm.length == 0) {
-    return res.status(400).json({ message: "Password cannot be empty" });
-  }
-
 
   const user = await User.findOne({ email });
   if (!user) {
@@ -280,10 +270,15 @@ const updateEmail = async (req, res, next) => {
   res.json({ message: "Email updated successfully" });
 };
 
-const updatePassword = async (req, res, next) => {
+const changePassword = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const userId = req.currentUser?.user?.id;
   // console.log(userId);
-  const { oldPassword, newPassword, confirmPassword } = req.body;
+
+  const { oldPassword, password } = req.body;
   try {
     const user = await User.findById(userId);
     if (!user) {
@@ -293,24 +288,8 @@ const updatePassword = async (req, res, next) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid old password" });
     }
-
-    if (newPassword !== confirmPassword) {
-      return res.status(400).json({ message: "Passwords do not match" });
-    }
-    if (newPassword === oldPassword) {
-      return res
-        .status(400)
-        .json({ message: "New password cannot be the same as old password" });
-    }
-    if (newPassword.length < 8) {
-      return res
-        .status(400)
-        .json({ message: "Password must be at least 8 characters" });
-    }
-
-
     const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(newPassword, salt);
+    user.password = await bcrypt.hash(password, salt);
     await user.save();
     return res.status(200).json({ message: "Password changed successfully" });
   } catch (err) {
