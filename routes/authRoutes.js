@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
-const bodyParser = require("body-parser");
 const authenticateToken = require("../middleware/authenticateToken");
-const { check } = require("express-validator");
 const { checkUserName, checkEmail, checkPassword, checkGender , checkEmailOrUserName} = require("../middleware/registerAuthentication");
 
 router.post("/register", checkUserName() , checkEmail() , checkPassword() ,checkGender(),authController.register);
@@ -27,7 +25,7 @@ router.get(
 );
 router.patch(
   "/updatePassword",
-  checkPassword().confirmPassword().compareOldPasswords(),
+  checkPassword().confirmPassword(),
   authenticateToken,
   authController.updatePassword
 );
@@ -41,7 +39,7 @@ router.patch(
 
   router.patch(
     "/changePassword",
-    checkPassword().confirmPassword(),
+    checkPassword().confirmPassword().compareOldPasswords(),
     authenticateToken,
     authController.changePassword
   );

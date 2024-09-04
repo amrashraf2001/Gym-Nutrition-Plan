@@ -1,16 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import validator from "validator";
 import { useState, useRef, useEffect } from "react";
 import { VscEye } from "react-icons/vsc";
 import { TbEyeClosed } from "react-icons/tb";
 import axios from "../../api/axios";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const USER_REGEX = /^[A-z][A-z0-9-_]{2,23}$/;
 const REGISTER_URL = "/auth/login";
 
 const Login = () => {
   const userRef = useRef();
-  const buttonRef = useRef();
+  const navigate = useNavigate();
+  // const buttonRef = useRef();
 
   const [user, setUser] = useState("");
   const [validUser, setValidUser] = useState(false);
@@ -50,11 +51,16 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!validUser || !validPwd) {
-    // setErrMsg("Invalid Entry");
-    // return;
-    // }
+    if (!validUser) {
+    setErrMsg("Invalid Email or Username");
+    return;
+    }else if (!validPwd) {
+    setErrMsg("Invalid Password");
+    return;
+    }
     // ### send data to server ###
+    // const originalConsoleError = console.error;
+    console.error = () => {};
     try {
       const uname = validator.isEmail(user) ? "" : user;
       const uemail = !validator.isEmail(user) ? "" : user;
@@ -78,8 +84,10 @@ const Login = () => {
       }
       // console.log(response.authenticateToken);
       // console.log(JSON.stringify(response));
-      buttonRef.current.click();
+      // buttonRef.current.click();
+      navigate("/userPage");
     } catch (err) {
+      console.clear()
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
@@ -91,13 +99,14 @@ const Login = () => {
         } else if (errResponseCode === 4000 && !validator.isEmail(user)) {
           setErrMsg("Username not found");
         } else if (errResponseCode === 4001) {
-          setErrMsg("Invalid password");
+          setErrMsg("incorrect password");
         }
         // setErrMsg('Email Already Registered')
       } else {
         setErrMsg("Registration Failed");
       }
     }
+    // console.error = originalConsoleError;
   };
 
   return (
@@ -199,7 +208,6 @@ const Login = () => {
               {" "}
               Create Account
             </Link>
-            <Link ref={buttonRef} to={"/userPage"} className="hidden"></Link>
           </div>
         </form>
       </div>
