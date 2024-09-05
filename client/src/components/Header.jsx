@@ -34,7 +34,7 @@ const Header = () => {
                 </div>
             </nav>
             {isOpen && (
-                <div className="flex flex-col basis-full items-center md:hidden">
+                <div className="flex flex-col basis-full items-center p-1 gap-1 md:hidden">
                     <NavLinks />
                 </div>
             )}
