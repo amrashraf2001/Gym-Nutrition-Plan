@@ -1,14 +1,16 @@
-import { Link ,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import validator from "validator";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { VscEye } from "react-icons/vsc";
 import { TbEyeClosed } from "react-icons/tb";
 import axios from "../../api/axios";
+import { UserContext } from "../../contexts/User";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{2,23}$/;
 const REGISTER_URL = "/auth/login";
 
 const Login = () => {
+  const loggedInData = useContext(UserContext);
   const userRef = useRef();
   const navigate = useNavigate();
   // const buttonRef = useRef();
@@ -52,15 +54,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validUser) {
-    setErrMsg("Invalid Email or Username");
-    return;
-    }else if (!validPwd) {
-    setErrMsg("Invalid Password");
-    return;
+      setErrMsg("Invalid Email or Username");
+      return;
+    } else if (!validPwd) {
+      setErrMsg("Invalid Password");
+      return;
     }
     // ### send data to server ###
     // const originalConsoleError = console.error;
-    console.error = () => {};
+    console.error = () => { };
     try {
       const uname = validator.isEmail(user) ? "" : user;
       const uemail = !validator.isEmail(user) ? "" : user;
@@ -76,16 +78,15 @@ const Login = () => {
           withCredentials: false,
         }
       );
-
-      if (stayLoggedIn) {
-        localStorage.setItem("token", response.data.token);
-      } else {
-        sessionStorage.setItem("token", response.data.token);
+      if (response.data.token !== undefined) {
+        if (stayLoggedIn) {
+          localStorage.setItem("token", response.data.token);
+        } else {
+          sessionStorage.setItem("token", response.data.token);
+        }
+        loggedInData.setLoggedUser(response.data.token);
+        navigate("/userPage");
       }
-      // console.log(response.authenticateToken);
-      // console.log(JSON.stringify(response));
-      // buttonRef.current.click();
-      navigate("/userPage");
     } catch (err) {
       console.clear()
       if (!err?.response) {
