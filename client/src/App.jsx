@@ -5,9 +5,9 @@ import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import { UserContext } from "./contexts/User";
 import { useState } from "react";
-import Track from "./pages/Track/track";
+import Track from "./pages/Track/Track";
 import Private from "./pages/Private/Private";
-import Demo from "./pages/demo";
+import Demo from "./pages/Demo";
 
 function App() {
   const userData = localStorage.getItem("token")
