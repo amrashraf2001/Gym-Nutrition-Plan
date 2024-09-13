@@ -10,7 +10,8 @@ import { UserContext } from "../contexts/User";
 const NavLinks = () => {
     return (
         <>
-            <NavLink to={"/"} className="font-semibold link">HOME</NavLink>
+            {/* <NavLink to={"/"} className="font-semibold link">HOME</NavLink> */}
+            <a className="font-semibold link" href="#Hero">HOME</a>
             <a className="font-semibold link" href="#About">ABOUT</a>
             <a className="font-semibold link" href="#Services">SERVICES</a>
             <a className="font-semibold link" href="#Contact">CONTACT</a>

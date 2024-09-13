@@ -2,12 +2,14 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout/Layout";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
-import Home from "./pages/Home/Home";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import { UserContext } from "./contexts/User";
 import { useState } from "react";
 import Track from "./pages/Track/Track";
 import Private from "./pages/Private/Private";
 import Demo from "./pages/Demo";
+import UserDetails1 from "./pages/UserDetails/UserDetails";
+
 
 function App() {
   const userData = localStorage.getItem("token")
@@ -19,12 +21,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />} errorElement={<h1>Erorr.....</h1>}>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/userPage" element={<Private Component={Track} />} />
             <Route path="/demo" element={<Private Component={Demo} />} />
           </Route>
+            <Route path="/UserDetails" element={<Private Component={UserDetails1} />} />
+         
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

@@ -29,7 +29,7 @@ const About = () => {
                     transition={{ duration: 0.5 }}
                     className="space-y-4 text-center">
                     <h2
-                        className="text-3xl font-bold">Our Mission</h2>
+                        className="text-3xl font-bold text-green-900">Our Mission</h2>
                     <p
                         className=" text-green-950 text-2xl font-medium p-3 transition-all  hover:shadow-[#007654] hover:shadow-lg hover:rounded-2xl">At GYMNUT, our mission is to make healthy eating accessible, enjoyable, and sustainable. We understand that everyone's nutritional needs and preferences are unique, which is why we offer personalized plans that cater to your specific goals, whether it's weight management or simply adopting a healthier lifestyle.</p>
                 </motion.div>
@@ -45,7 +45,7 @@ const About = () => {
                     initial={{ opacity: 0, x: 200 }}
                     transition={{ duration: 0.5 }}
                     className="space-y-4 text-center">
-                    <h2 className="text-3xl font-bold">Why Choose Us?</h2>
+                    <h2 className="text-3xl font-bold text-green-900">Why Choose Us?</h2>
                     <p className=" text-green-950 text-2xl font-medium p-3 transition-all  hover:shadow-[#007654] hover:shadow-lg hover:rounded-2xl">We are committed to providing you with the tools, resources, and knowledge to make informed decisions about your diet and nutrition. Our plans are not just about food; they're about building lasting habits that contribute to your overall well-being. With GYMNUT, you can take control of your health with confidence and ease.</p>
                 </motion.div>
             </div>

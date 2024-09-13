@@ -85,7 +85,7 @@ const Login = () => {
           sessionStorage.setItem("token", response.data.token);
         }
         loggedInData.setLoggedUser(response.data.token);
-        navigate("/userPage");
+        navigate("/Homepage");
       }
     } catch (err) {
       console.clear()
