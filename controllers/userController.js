@@ -33,6 +33,9 @@ const getProfile = async (req, res, next) => {
 
 const updateProfile = async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
+    if (!userId) {
+        return res.status(403).json({ message: "Unauthorized user" });
+    }
     //userId = userId.replace(/^"|"$/g, '');
     const newProfile = req.body;
     const user = await User.findById(userId);
@@ -41,16 +44,17 @@ const updateProfile = async (req, res, next) => {
     }
     user.userName = newProfile.userName || user.userName;
     user.email = newProfile.email || user.email;
-    user.gender = newGender || user.gender;
+    user.gender = newProfile.gender || user.gender;
     user.age = newProfile.age || user.age;
     user.weight = newProfile.weight || user.weight;
     user.height = newProfile.height || user.height;
     user.bio = newProfile.bio || user.bio;
     user.profilePicture = newProfile.profilePicture || user.profilePicture;
+    user.disease = newProfile.disease || user.disease;
     await user.save();
     res.json({
         message: "Profile updated successfully",
-        user,
+        // user,
     });
 }
 
@@ -142,13 +146,19 @@ const deletePlan = async (req, res, next) => {
     });
 }
 
-const getAllFood = async (req, res, next) => {
+const getAllFood = async (req, res) => {
     const foods = await Food.find();
-    res.json({
-        message: "Foods retrived successfully",
-        foods,
-    });
-
+    console.log(req.currentUser)
+    if(req.currentUser){
+        res.json({
+            message: "Foods retrieved successfully",
+            foods,
+        });
+    }else{
+        res.status(403).json({
+            message: "Unauthorized user",
+        });
+    }
 }
 
 const getFood = async (req, res, next) => {

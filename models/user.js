@@ -46,6 +46,10 @@ const userSchema = new Schema({
             ref: "plan",
         },
     ],
+    disease: {
+        type: String,
+        default: "",
+    },
 });
 
 module.exports = mongoose.model("user", userSchema);
