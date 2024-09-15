@@ -178,7 +178,7 @@ const getFood = async (req, res, next) => {
         return res.status(404).json({ message: "Food not found" });
     }
     res.json({
-        message: "Food retrived successfully",
+        message: "Food retrieved successfully",
         food,
     });
 }
