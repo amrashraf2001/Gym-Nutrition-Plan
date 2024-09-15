@@ -1,6 +1,7 @@
 import { Link ,useNavigate } from "react-router-dom";
 import validator from "validator";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect,useContext} from "react";
+import { UserContext } from "../../contexts/User";
 import { FaCheck, FaTimes, FaInfoCircle } from "react-icons/fa";
 import axios from "../../api/axios";
 
@@ -10,6 +11,7 @@ import axios from "../../api/axios";
     const REGISTER_URL = "/auth/register";
 
 const Register = () => {
+    const loggedInData = useContext(UserContext);
     const userRef = useRef();
     const navigate = useNavigate();
 
@@ -69,7 +71,7 @@ const Register = () => {
         }
         // ### send data to server ###
         try {
-        axios.post(
+        const response = await axios.post(
             REGISTER_URL,
             JSON.stringify({
             userName: user,
@@ -82,13 +84,15 @@ const Register = () => {
             withCredentials: false,
             }
         );
-        // sessionStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("token", response.data.token);
         // console.log(response.authenticateToken);
         // console.log(JSON.stringify(response));
         // buttonRef.current.click();
-        navigate("/login");
+        loggedInData.setLoggedUser(response.data.token);
+        navigate("/UserDetails");
         } catch (err) {
         console.clear();
+        // console.log(err);
         if (!err?.response) {
             setErrMsg("No Server Response");
         } else if (err.response?.status === 400) {

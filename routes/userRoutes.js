@@ -63,10 +63,10 @@ router.delete(
 )
 
 router.get(
-    "/getAllFood",
+    "/foods/page/:pageNum",
     bodyParser.json(),
     authenticateToken,
-    userController.getAllFood
+    userController.getAllFoods
 )
 
 router.get(

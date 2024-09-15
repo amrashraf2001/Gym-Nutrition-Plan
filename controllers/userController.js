@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const Food = require("../models/food");
 const Plan = require("../models/plan");
-
+const {handleServerError} = require("../utils/errorHandler");
 
 const getUserId = async (req, res, next) => {
     const userName = req.query.userName
@@ -17,7 +17,7 @@ const getUserId = async (req, res, next) => {
 
 }
 
-const getProfile = async (req, res, next) => {
+const getProfile = handleServerError( async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
@@ -29,9 +29,9 @@ const getProfile = async (req, res, next) => {
         message: "User profile Retrived successfully",
         user,
     });
-}
+});
 
-const updateProfile = async (req, res, next) => {
+const updateProfile =handleServerError( async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     if (!userId) {
         return res.status(403).json({ message: "Unauthorized user" });
@@ -56,9 +56,9 @@ const updateProfile = async (req, res, next) => {
         message: "Profile updated successfully",
         // user,
     });
-}
+});
 
-const getPlans = async (req, res, next) => {
+const getPlans =handleServerError( async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     //userId = userId.replace(/^"|"$/g, '');
     if (!userId) {
@@ -69,12 +69,12 @@ const getPlans = async (req, res, next) => {
         return res.status(404).json({ message: "User not found" });
     }
     res.json({
-        message: "Plans Retrived successfully",
+        message: "Plans Retrieved successfully",
         plans: user.listOfPlans,
     });
-}
+});
 
-const getPlan = async (req, res, next) => {
+const getPlan = handleServerError( async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     //userId = userId.replace(/^"|"$/g, '');
     if (!userId) {
@@ -91,12 +91,12 @@ const getPlan = async (req, res, next) => {
         return res.status(404).json({ message: "User not found" });
     }
     res.json({
-        message: "Plan Retrived successfully",
+        message: "Plan Retrieved successfully",
         plan,
     });
-}
+});
 
-const setPlan = async (req, res, next) => {
+const setPlan = handleServerError( async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     //userId = userId.replace(/^"|"$/g, '');
     if (!userId) {
@@ -123,18 +123,18 @@ const setPlan = async (req, res, next) => {
         message: "Plan created and saved successfully",
         plan
     });
-}
+});
 
-const getRandomPlans = async (req, res, next) => {
+const getRandomPlans = handleServerError(async (req, res, next) => {
     const plans = await Plan.aggregate([{ $sample: { size: 3 } }]);
     res.json({
         message: "Random plans retrived successfully",
         plans,
     });
 
-}
+});
 
-const deletePlan = async (req, res, next) => {
+const deletePlan = handleServerError(async (req, res, next) => {    
     let userId = req.currentUser?.user?.id;
     if (!userId) {
         return res.status(403).json({ message: "Unauthorized user" });
@@ -156,24 +156,40 @@ const deletePlan = async (req, res, next) => {
     res.json({
         message: "Plan deleted successfully",
     });
-}
+});
 
-const getAllFood = async (req, res) => {
-    const foods = await Food.find();
+const getAllFoods = handleServerError(async (req, res) => {
     if (!req.currentUser) {
         return res.status(403).json({ message: "Unauthorized user" });
     }
+    let pageNum = parseInt(req.params.pageNum);
+    if (isNaN(pageNum)) {
+        return res.status(400).json({ message: "Invalid page number" });
+    }
+    let limit = req.query.limit && !isNaN(parseInt(req.query.limit)) ? parseInt(req.query.limit) : 10;
+    let skip = (pageNum * limit) - limit;
+    // console.log(parseInt(req.params.pageNum));
+    const foods = await Food.find().skip(skip).limit(limit);
     // console.log(req.currentUser)
     res.json({
         message: "Foods retrieved successfully",
         foods,
     });
-}
+});
 
-const getFood = async (req, res, next) => {
-    let foodId = req.query.foodId;
-    foodId = foodId.replace(/^"|"$/g, '');
-    const food = await Food.findById(foodId);
+const getFood = handleServerError(async (req, res, next) => {
+    if (!req.currentUser) {
+        return res.status(403).json({ message: "Unauthorized user" });
+    }
+    let foodName = req.query.foodName;
+    foodName = foodName.replace(/^"|"$/g, '') ;
+    let pageNum = parseInt(req.query.page);
+    if (isNaN(pageNum)) {
+        return res.status(400).json({ message: "Invalid page number" });
+    }
+    let limit = req.query.limit && !isNaN(parseInt(req.query.limit)) ? parseInt(req.query.limit) : 10;
+    let skip = (pageNum * limit) - limit;
+    const food = await Food.find({ name: { $regex: foodName, $options: 'i' } }).skip(skip).limit(limit);
     if (!food) {
         return res.status(404).json({ message: "Food not found" });
     }
@@ -181,9 +197,9 @@ const getFood = async (req, res, next) => {
         message: "Food retrieved successfully",
         food,
     });
-}
+});
 
-const calculateBMI = async (req, res, next) => {
+const calculateBMI = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
@@ -198,9 +214,9 @@ const calculateBMI = async (req, res, next) => {
         message: "BMI calculated successfully",
         BMI,
     });
-}
+});
 
-const calculateCalories = async (req, res, next) => {
+const calculateCalories = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
@@ -219,7 +235,7 @@ const calculateCalories = async (req, res, next) => {
         calories,
     });
 
-}
+});
 
 
 
@@ -233,7 +249,7 @@ module.exports = {
     setPlan,
     getRandomPlans,
     deletePlan,
-    getAllFood,
+    getAllFoods,
     getFood,
     calculateBMI,
     calculateCalories,
