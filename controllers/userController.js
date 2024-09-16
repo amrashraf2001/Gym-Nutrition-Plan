@@ -178,26 +178,39 @@ const getAllFoods = handleServerError(async (req, res) => {
 });
 
 const getFood = handleServerError(async (req, res, next) => {
+    // Check if the current user is authorized
     if (!req.currentUser) {
         return res.status(403).json({ message: "Unauthorized user" });
     }
-    let foodName = req.params.foodName;
-    foodName = foodName.replace(/^"|"$/g, '') ;
+
+    // Extract and sanitize the food name from request parameters
+    let foodName = req.params.foodName.replace(/^"|"$/g, '');
+
+    // Check if the page number is valid
     let pageNum = parseInt(req.query.page);
-    if (isNaN(pageNum)) {
+    if (isNaN(pageNum) || pageNum <= 0) {
         return res.status(400).json({ message: "Invalid page number" });
     }
+
+    // Set the limit and calculate the skip value
     let limit = req.query.limit && !isNaN(parseInt(req.query.limit)) ? parseInt(req.query.limit) : 10;
-    let skip = (pageNum * limit) - limit;
-    const food = await Food.find({ name: { $regex: foodName, $options: 'i' } }).skip(skip).limit(limit);
-    if (!food) {
+    let skip = (pageNum - 1) * limit;
+
+    // Find food matching the name using case-insensitive regex
+    const food = await Food.find({ name: new RegExp(`^${foodName}`, 'i') }).skip(skip).limit(limit);
+
+    // Check if any food items were found
+    if (!food || food.length === 0) {
         return res.status(404).json({ message: "Food not found" });
     }
+
+    // Return the found food items
     res.json({
         message: "Food retrieved successfully",
         food,
     });
 });
+
 
 const calculateBMI = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
