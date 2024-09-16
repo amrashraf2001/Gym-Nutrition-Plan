@@ -63,7 +63,7 @@ const Register = () => {
         setErrMsg("");
     }, [user, userEmil, pwd, matchPwd]);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => { 
         e.preventDefault();
         if (!validName || !validEmail || !validPwd) {
         setErrMsg("Invalid Entry");
