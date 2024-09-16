@@ -78,14 +78,15 @@ const Login = () => {
           withCredentials: false,
         }
       );
-      if (response.data.token !== undefined) {
+      const data = response.data.token;
+      if (data !== undefined) {
         if (stayLoggedIn) {
-          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("token", JSON.stringify(data));
         } else {
-          sessionStorage.setItem("token", response.data.token);
+          sessionStorage.setItem("token", JSON.stringify(data));
         }
-        loggedInData.setLoggedUser(response.data.token);
-        navigate("/Homepage");
+        loggedInData.setLoggedUser(JSON.stringify(data));
+        navigate("/userPage");
       }
     } catch (err) {
       console.clear()
