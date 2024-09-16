@@ -181,7 +181,7 @@ const getFood = handleServerError(async (req, res, next) => {
     if (!req.currentUser) {
         return res.status(403).json({ message: "Unauthorized user" });
     }
-    let foodName = req.query.foodName;
+    let foodName = req.params.foodName;
     foodName = foodName.replace(/^"|"$/g, '') ;
     let pageNum = parseInt(req.query.page);
     if (isNaN(pageNum)) {
