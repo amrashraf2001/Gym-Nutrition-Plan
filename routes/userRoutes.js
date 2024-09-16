@@ -70,7 +70,7 @@ router.get(
 )
 
 router.get(
-    "/getFood",
+    "/foods/:foodName",
     bodyParser.json(),
     authenticateToken,
     userController.getFood
