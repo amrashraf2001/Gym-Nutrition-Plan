@@ -200,7 +200,7 @@ const getFood = handleServerError(async (req, res, next) => {
     const food = await Food.find({ name: new RegExp(`^${foodName}`, 'i') }).skip(skip).limit(limit);
 
     // Check if any food items were found
-    if (!food || food.length === 0) {
+    if (!food) {
         return res.status(404).json({ message: "Food not found" });
     }
 
