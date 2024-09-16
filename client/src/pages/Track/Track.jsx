@@ -1,6 +1,7 @@
 import { CiSearch } from "react-icons/ci";
 import { UserContext } from "../../contexts/User"
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
+import axios from "../../api/axios";
 
 const Track = () => {
     const loggedData = useContext(UserContext);
@@ -13,17 +14,17 @@ const Track = () => {
             if (e.target.value === '') {
                 setFoodItems([]);
             } else {
-                fetch(`http://localhost:5000/user/foods/${e.target.value}?page=${page}&limit=${limit}`, {
-                    method: 'GET',
+                const response = await axios.get(`/user/foods/${e.target.value}`, {
                     headers: {
-                        "Authorization": `Bearer ${JSON.parse(loggedData.loggedUser)}`
+                        'Authorization': `Bearer ${JSON.parse(loggedData.loggedUser)}`
+                    },
+                    params: {
+                        page: page,
+                        limit: limit
                     }
                 })
-                    .then((res) => res.json())
-                    .then(data => {
-                        setFoodItems(data.food);
-                    })
-                    .catch(err => console.log(err))
+                let data = response.data;
+                setFoodItems(data.food);
             }
         } catch (err) {
             console.log(err);
