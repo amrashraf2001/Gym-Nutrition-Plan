@@ -27,7 +27,7 @@ function App() {
             <Route path="/userPage" element={<Private Component={Track} />} />
             <Route path="/demo" element={<Private Component={Demo} />} />
           </Route>
-            <Route path="/UserDetails" element={<Private Component={UserDetails1} />} />
+            <Route path="/userDetails" element={<Private Component={UserDetails1} />} />
          
         </Routes>
       </BrowserRouter>
