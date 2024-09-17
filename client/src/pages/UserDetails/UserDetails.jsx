@@ -5,7 +5,7 @@ import axios from "../../api/axios";
 import { UserContext } from "../../contexts/User";
 import PropTypes from "prop-types";
 
-const updateProfileURL = "/updateProfile";
+const updateProfileURL = "/user/updateProfile";
 
 const UserDetails1 = ({ onNext, age, setAge }) => {
     return (
@@ -19,7 +19,8 @@ const UserDetails1 = ({ onNext, age, setAge }) => {
                 value={age}
                 id="age"
                 name="age"
-                className="shadow-lg rounded-lg border-2 bg-green-400 p-2 border-black w-52 h-14"
+                className="placeholder:text-green-950 shadow-lg rounded-lg border-2 bg-green-400 p-2 border-black w-52 h-14"
+                placeholder="Enter your Age"
             />
             <button
                 className="absolute right-8 bottom-10 transition hover:translate-x-2 text-4xl text-[#007654]"
@@ -33,7 +34,7 @@ const UserDetails1 = ({ onNext, age, setAge }) => {
 
 UserDetails1.propTypes = {
     onNext: PropTypes.func.isRequired,
-    age: PropTypes.number.isRequired,
+    age: PropTypes.string.isRequired,
     setAge: PropTypes.func.isRequired,
 };
 
@@ -54,7 +55,7 @@ const UserDetails2 = ({ onNext, onPrev, height, setHeight, weight, setWeight }) 
                         name="Height"
                         onChange={(e) => {
                             setHeight(e.target.value);
-                            e.target.focus();
+                            // e.target.focus();
                         }}
                         value={height}
                         className="placeholder:text-green-950 shadow-md rounded-lg border-2 bg-green-400 p-2 hover:border-black w-52 h-10 transition-all duration-500 ease-in-out"
@@ -97,9 +98,9 @@ const UserDetails2 = ({ onNext, onPrev, height, setHeight, weight, setWeight }) 
 UserDetails2.propTypes = {
     onNext: PropTypes.func.isRequired,
     onPrev: PropTypes.func.isRequired,
-    height: PropTypes.number.isRequired,
+    height: PropTypes.string.isRequired,
     setHeight: PropTypes.func.isRequired,
-    weight: PropTypes.number.isRequired,
+    weight: PropTypes.string.isRequired,
     setWeight: PropTypes.func.isRequired,
 };
 
@@ -126,7 +127,6 @@ const UserDetails3 = ({ onPrev, disease, setDisease, specifiedDisease, setSpecif
                 id="healthCondition"
                 name="healthCondition"
                 className="bg-green-400 text-green-950 rounded-md shadow-md font-serif p-2"
-                defaultValue=""
                 required
                 placeholder="Select a Condition"
             >
@@ -175,9 +175,9 @@ const Card = () => {
     const loggedData = useContext(UserContext);
 
     const [step, setStep] = useState(1);
-    const [age, setAge] = useState(0);
-    const [height, setHeight] = useState(0); // Declare height here
-    const [weight, setWeight] = useState(0); // Declare weight here
+    const [age, setAge] = useState("");
+    const [height, setHeight] = useState(""); // Declare height here
+    const [weight, setWeight] = useState(""); // Declare weight here
     const [disease, setDisease] = useState("");
     const [specifiedDisease, setSpecifiedDisease] = useState("");
     const [specifiedDiseaseActive, setSpecifiedDiseaseActive] = useState(false);
@@ -186,7 +186,9 @@ const Card = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        if(isNaN(parseInt(age)) || isNaN(parseInt(height)) || isNaN(parseInt(weight))){
+            alert("Please enter valid values");
+        }
         try {
             await axios.patch(
                 updateProfileURL,
