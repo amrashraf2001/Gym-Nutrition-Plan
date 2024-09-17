@@ -75,6 +75,12 @@ router.get(
     authenticateToken,
     userController.getFood
 )
+router.get(
+    "/foods/food/:foodId",
+    bodyParser.json(),
+    authenticateToken,
+    userController.getFoodById
+)
 
 router.get(
     "/calculateBMI",

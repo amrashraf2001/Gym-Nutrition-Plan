@@ -210,6 +210,29 @@ const getFood = handleServerError(async (req, res, next) => {
         food,
     });
 });
+const getFoodById = handleServerError(async (req, res, next) => {
+    // Check if the current user is authorized
+    if (!req.currentUser) {
+        return res.status(403).json({ message: "Unauthorized user" });
+    }
+    // Extract and sanitize the food name from request parameters
+    let foodId = req.params.foodId.replace(/^"|"$/g, '');
+
+
+    // Find food matching the name using case-insensitive regex
+    const food = await Food.findById(foodId);
+
+    // Check if any food items were found
+    if (!food) {
+        return res.status(404).json({ message: "Food not found" });
+    }
+
+    // Return the found food items
+    res.json({
+        message: "Food retrieved successfully",
+        food,
+    });
+});
 
 
 const calculateBMI = handleServerError(async (req, res, next) => {
@@ -266,5 +289,5 @@ module.exports = {
     getFood,
     calculateBMI,
     calculateCalories,
-
+    getFoodById
 };
