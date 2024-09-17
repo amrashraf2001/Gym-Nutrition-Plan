@@ -23,13 +23,18 @@ const Track = () => {
                         limit: limit
                     }
                 })
-                let data = response.data;
+                let data = await response.data;
                 setFoodItems(data.food);
             }
         } catch (err) {
             console.log(err);
         }
     }
+
+    const displayItem = (id) => {
+        console.log(id)
+    }
+
     return (
         <section className="px-14 flex items-start justify-center py-8 ">
             <div className="w-full">
@@ -37,15 +42,20 @@ const Track = () => {
                     <input type="search" onChange={searchFood} autoComplete="off" className=" p-1 rounded-lg w-full h-16 pl-8 outline-none" id="search" placeholder="Search" />
                     <label htmlFor="search" className="absolute text-black text-2xl top-1/3 left-1 z-30"><CiSearch /></label>
                 </div>
-                <div className="w-full px-10 py-5 bg-gray-400 ">
-                    {
-                        foodItems.map((item) => {
-                            return (
-                                <p className="font-semibold text-2xl" key={item._id}>{item.name}</p>
-                            )
-                        })
-                    }
-                </div>
+                {
+                    foodItems.length !== 0 ?
+                        <div className="w-full px-10 py-5 bg-gray-400 rounded-md">
+                            {
+                                foodItems.map((item) => {
+                                    return (
+                                        <p onClick={() => displayItem(item._id)} className="font-semibold cursor-pointer text-2xl" key={item._id}>{item.name}</p>
+                                    )
+                                })
+                            }
+                        </div>
+                        :
+                        <div className="w-full px-10 py-5 bg-gray-400 rounded-md hidden"></div>
+                }
             </div>
         </section>
     )
