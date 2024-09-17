@@ -7,7 +7,8 @@ const Track = () => {
     const loggedData = useContext(UserContext);
     const page = 1;
     const limit = 6;
-    const [foodItems, setFoodItems] = useState([])
+    const [foodItems, setFoodItems] = useState([]);
+    const [food, setFood] = useState(null);
 
     const searchFood = async (e) => {
         try {
@@ -36,7 +37,7 @@ const Track = () => {
     }
 
     return (
-        <section className="px-14 flex items-start justify-center py-8 ">
+        <section className="px-14 flex flex-col items-start justify-center py-8 ">
             <div className="w-full">
                 <div className="relative w-full">
                     <input type="search" onChange={searchFood} autoComplete="off" className=" p-1 rounded-lg w-full h-16 pl-8 outline-none" id="search" placeholder="Search" />
@@ -48,14 +49,31 @@ const Track = () => {
                             {
                                 foodItems.map((item) => {
                                     return (
-                                        <p onClick={() => displayItem(item._id)} className="font-semibold cursor-pointer text-2xl" key={item._id}>{item.name}</p>
+                                        <p onClick={() => setFood(item)} className="font-semibold cursor-pointer text-2xl" key={item._id}>{item.name}</p>
                                     )
                                 })
                             }
                         </div>
                         :
-                        <div className="w-full px-10 py-5 bg-gray-400 rounded-md hidden"></div>
+                        null
                 }
+            </div>
+            <div className="w-52 py-8 flex flex-wrap gap-3">
+                <div className="w-full h-52 bg-white"></div>
+                <h2 className="font-semibold text-xl">Food Name (100Cal)</h2>
+                <div>
+                    <p>Protine</p>
+                    <p>50</p>
+                </div>
+                <div>
+                    <p>Fat</p>
+                    <p>20</p>
+                </div>
+                <div>
+                    <p>Carp</p>
+                    <p>30</p>
+                </div>
+                <input type="number" placeholder="َQuantity in Grams" />
             </div>
         </section>
     )
