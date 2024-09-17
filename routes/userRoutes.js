@@ -76,7 +76,7 @@ router.get(
     userController.getFood
 )
 router.get(
-    "/foods/food/:foodId",
+    "/food/:foodId",
     bodyParser.json(),
     authenticateToken,
     userController.getFoodById
