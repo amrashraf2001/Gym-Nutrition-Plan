@@ -2,6 +2,7 @@ import { CiSearch } from "react-icons/ci";
 import { UserContext } from "../../contexts/User"
 import { useContext, useState } from "react";
 import axios from "../../api/axios";
+import Food from "../../components/Food";
 
 const Track = () => {
     const loggedData = useContext(UserContext);
@@ -58,24 +59,11 @@ const Track = () => {
                         null
                 }
             </div>
-            <div className="w-52 py-8 flex flex-wrap space-y-2">
-                <div className="w-full h-52 bg-white"></div>
-                <h2 className="font-semibold text-xl">Food Name (100Cal)</h2>
-                <div className="w-1/2 py-3">
-                    <p>Protine</p>
-                    <p>50</p>
-                </div>
-                <div className="w-1/2 py-3">
-                    <p>Fats</p>
-                    <p>20</p>
-                </div>
-                <div className="w-1/2 py-3">
-                    <p>Carbs</p>
-                    <p>30</p>
-                </div>
-                <input className="px-2 py-1 rounded-md" type="number" placeholder="َQuantity in Gms" />
-                <button className="px-2 py-1 bg-[#007654] text-xl font-bold text-white rounded-lg">Track This Food</button>
-            </div>
+            {
+                food !== null ? (
+                    <Food food={food} />
+                ) : null
+            }
         </section>
     )
 }
