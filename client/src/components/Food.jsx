@@ -12,10 +12,10 @@ const Food = (props) => {
     },[props.food])
 
     useEffect(() => {
-        setCalories((food.calories/100)*grams)
-        setProtein((food.protein/100)*grams)
-        setFats((food.fats/100)*grams)
-        setCarbs((food.carbs/100)*grams)
+        setCalories(((food.calories/100)*grams).toFixed(2));
+        setProtein(((food.protein/100)*grams).toFixed(2));
+        setFats(((food.fats/100)*grams).toFixed(2));
+        setCarbs(((food.carbs/100)*grams).toFixed(2));
     })
 
     const calculateMacros = (e) => {
