@@ -14,6 +14,16 @@ const UserDetails1 = ({ onNext, age, setAge }) => {
             <input
                 type="number"
                 onChange={(e) => {
+                    // console.log(e.target.value);
+                    // console.log(e.target.min);
+                    // console.log(e.target.max);  
+                    if(parseInt(e.target.value) > parseInt(e.target.max) || parseInt(e.target.value) < parseInt(e.target.min)){
+                        console.log("Please enter a valid age");
+                        e.target.value = e.target.min;
+                    }
+                    // if(!isNaN(parseInt(e.target.value))){
+                    //     setAge(parseInt(e.target.value));
+                    // }
                     setAge(e.target.value);
                 }}
                 value={age}
@@ -21,10 +31,19 @@ const UserDetails1 = ({ onNext, age, setAge }) => {
                 name="age"
                 className="placeholder:text-green-950 shadow-lg rounded-lg border-2 bg-green-400 p-2 border-black w-52 h-14"
                 placeholder="Enter your Age"
+                max={150}
+                min={5}
             />
             <button
                 className="absolute right-8 bottom-10 transition hover:translate-x-2 text-4xl text-[#007654]"
-                onClick={onNext}
+                onClick={()=>{
+                    if(isNaN(age)){
+                        // alert("Please enter a valid age");
+                    }else{
+                    onNext();
+                    }
+                }
+                }
             >
                 <FaArrowAltCircleRight />
             </button>
@@ -54,6 +73,13 @@ const UserDetails2 = ({ onNext, onPrev, height, setHeight, weight, setWeight }) 
                         id="Height"
                         name="Height"
                         onChange={(e) => {
+                            if(parseInt(e.target.value) > parseInt(e.target.max) || parseInt(e.target.value) < parseInt(e.target.min)){
+                                console.log("Please enter a valid height");
+                                e.target.value = e.target.min;
+                            }
+                                // if(!isNaN(parseInt(e.target.value))){
+                                //     setHeight(parseInt(e.target.value));
+                                // }
                             setHeight(e.target.value);
                             // e.target.focus();
                         }}
@@ -72,6 +98,13 @@ const UserDetails2 = ({ onNext, onPrev, height, setHeight, weight, setWeight }) 
                         id="Weight"
                         name="Weight"
                         onChange={(e) => {
+                            if(parseInt(e.target.value) > parseInt(e.target.max) || parseInt(e.target.value) < parseInt(e.target.min)){
+                                console.log("Please enter a valid weight");
+                                e.target.value = e.target.min;
+                            }
+                            // if(!isNaN(parseInt(e.target.value))){
+                            //     setWeight(parseInt(e.target.value));
+                            // }
                             setWeight(e.target.value);
                         }}
                         value={weight}
@@ -186,9 +219,11 @@ const Card = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(age, height, weight, disease);
+        console.log(loggedData.loggedUser)
         if(isNaN(parseInt(age)) || isNaN(parseInt(height)) || isNaN(parseInt(weight))){
             alert("Please enter valid values");
-        }
+        }else{
         try {
             await axios.patch(
                 updateProfileURL,
@@ -201,7 +236,7 @@ const Card = () => {
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${JSON.parse(loggedData.loggedUser)}`,
+                        Authorization: `Bearer ${loggedData.loggedUser}`,
                     },
                     withCredentials: false,
                 }
@@ -211,6 +246,7 @@ const Card = () => {
         } catch (err) {
             console.error(err);
         }
+    }
     };
 
     return (
