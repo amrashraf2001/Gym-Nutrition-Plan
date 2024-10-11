@@ -18,7 +18,7 @@ const Track = () => {
             } else {
                 const response = await axios.get(`/user/foods/${e.target.value}`, {
                     headers: {
-                        'Authorization': `Bearer ${JSON.parse(loggedData.loggedUser)}`
+                        'Authorization': `Bearer ${loggedData.loggedUser}`
                     },
                     params: {
                         page: page,
