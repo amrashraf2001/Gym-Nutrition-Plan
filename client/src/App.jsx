@@ -14,7 +14,9 @@ import UserDetails1 from "./pages/UserDetails/UserDetails";
 function App() {
   const userData = localStorage.getItem("token")
   const userData2 = sessionStorage.getItem("token")
-  const [loggedUser, setLoggedUser] = useState(userData ? userData : userData2);
+  const [loggedUser, setLoggedUser] = useState(userData ?userData : userData2);
+  // console.log(userData)
+  // console.log(userData2)
 
   return (
     <UserContext.Provider value={{ loggedUser, setLoggedUser }} >

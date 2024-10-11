@@ -81,11 +81,11 @@ const Login = () => {
       const data = response.data.token;
       if (data !== undefined) {
         if (stayLoggedIn) {
-          localStorage.setItem("token", JSON.stringify(data));
+          localStorage.setItem("token", data);
         } else {
-          sessionStorage.setItem("token", JSON.stringify(data));
+          sessionStorage.setItem("token", data);
         }
-        loggedInData.setLoggedUser(JSON.stringify(data));
+        loggedInData.setLoggedUser(data);
         navigate("/userPage");
       }
     } catch (err) {
