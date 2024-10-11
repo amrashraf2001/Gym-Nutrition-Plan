@@ -51,6 +51,7 @@ const updateProfile =handleServerError( async (req, res, next) => {
     user.bio = newProfile.bio || user.bio;
     user.profilePicture = newProfile.profilePicture || user.profilePicture;
     user.disease = newProfile.disease || user.disease;
+    user.phoneNum = newProfile.phoneNum || user.phoneNum;
     await user.save();
     res.json({
         message: "Profile updated successfully",

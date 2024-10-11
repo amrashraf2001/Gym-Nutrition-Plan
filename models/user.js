@@ -50,6 +50,10 @@ const userSchema = new Schema({
         type: String,
         default: "",
     },
+    phoneNum: {
+        type: String,
+        default: "",
+    },
 });
 
 module.exports = mongoose.model("user", userSchema);
