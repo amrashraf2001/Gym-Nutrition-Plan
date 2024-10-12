@@ -236,13 +236,13 @@ const Card = () => {
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${loggedData.loggedUser}`,
+                        "Authorization": `Bearer ${loggedData.loggedUser}`,
                     },
                     withCredentials: false,
                 }
             );
 
-            navigate("/userPage");
+            navigate("/HomePage");
         } catch (err) {
             console.error(err);
         }

@@ -9,7 +9,7 @@ import Track from "./pages/Track/Track";
 import Private from "./pages/Private/Private";
 import Demo from "./pages/Demo";
 import UserDetails1 from "./pages/UserDetails/UserDetails";
-
+import UserProfile from "./pages/UserProfile/UserProfile";
 
 function App() {
   const userData = localStorage.getItem("token")
@@ -26,8 +26,9 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/userPage" element={<Private Component={Track} />} />
+            <Route path="/HomePage" element={<Private Component={Track} />} />
             <Route path="/demo" element={<Private Component={Demo} />} />
+            <Route path="/Myprofile" element={<Private Component={UserProfile}/>}/>
           </Route>
           <Route path="/userDetails" element={<Private Component={UserDetails1} />} />
 
