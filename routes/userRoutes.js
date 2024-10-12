@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const authenticateToken = require("../middleware/authenticateToken");
 const { check } = require("express-validator");
 const { registerAuthentication } = require("../middleware/registerAuthentication");
+const { uploadImage } = require("../middleware/multerConfig");
 
 router.get(
     "/getUserId",
@@ -24,6 +25,7 @@ router.patch(
     "/updateProfile",
     bodyParser.json(),
     authenticateToken,
+    uploadImage.single("profilePicture"),
     userController.updateProfile
   );
 

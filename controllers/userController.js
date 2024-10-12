@@ -42,6 +42,9 @@ const updateProfile =handleServerError( async (req, res, next) => {
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
+    if(req.fileValidationError){
+        return res.status(400).json({ message: req.fileValidationError });
+    }
     user.userName = newProfile.userName || user.userName;
     user.email = newProfile.email || user.email;
     user.gender = newProfile.gender || user.gender;
@@ -49,7 +52,7 @@ const updateProfile =handleServerError( async (req, res, next) => {
     user.weight = newProfile.weight || user.weight;
     user.height = newProfile.height || user.height;
     user.bio = newProfile.bio || user.bio;
-    user.profilePicture = newProfile.profilePicture || user.profilePicture;
+    user.profilePicture = req.file?.filename || user.profilePicture;
     user.disease = newProfile.disease || user.disease;
     user.phoneNum = newProfile.phoneNum || user.phoneNum;
     await user.save();

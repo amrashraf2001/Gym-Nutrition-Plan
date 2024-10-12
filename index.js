@@ -1,6 +1,7 @@
 require("dotenv").config()
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 // const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const multerConfig = require("./middleware/multerConfig");
@@ -25,6 +26,7 @@ mongoose
 
       app.use("/user", userRoutes);
       app.use("/auth", authRoutes);
+      app.use("/uploads", express.static(path.join(__dirname,"uploads")));
 
       app.get("/", function (req, res) {
         res.send("Hello World!");
