@@ -34,12 +34,14 @@ const getProfile = handleServerError( async (req, res, next) => {
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
-
+    user.profilePicture = `http://localhost:5000/uploads/${user.profilePicture}`;
     res.json({
         message: "User profile Retrived successfully",
         user,
     });
 });
+
+
 
 const updateProfile =handleServerError( async (req, res, next) => {
     let userId = req.currentUser?.user?.id;

@@ -23,7 +23,7 @@ const Sidebar = ({ setShowHide, setData, data }) => {
             <div className="flex flex-col gap-6 items-center text-xl font-semibold">
                 <div className="avatar">
                     <div className="w-24 rounded-full">
-                        <img  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                    <img  src={data.profilePicture} alt={`${data.username} Profile Picture`} />
                     </div>
                     <input
                         type="file"

@@ -103,11 +103,15 @@ function UserProfile() {
 
   const sendData = async (updatedFields) => {
     // console.log(loggedData.loggedUser)
-
     try {
+      const updatedData = new FormData();
+      updatedFields.entries().forEach(([key, value]) => {
+        updatedData.append(key, value);
+      });
+
       await axios.patch(
         updateProfileURL,
-        JSON.stringify(updatedFields),
+        JSON.stringify(updatedData),
         {
           headers: {
             "Content-Type": "application/json",
