@@ -16,9 +16,19 @@ const getUserId = async (req, res, next) => {
     });
 
 }
+// function decodeToken(token){
+//     if(jwt.verify(token, process.env.JWT_SECRET)){
+//         let decoded = jwt.decode(token)
+//         return decoded._id
+//     }
+//     else{
+//         console.log("Token is invalid")
+//     }
+// }
 
 const getProfile = handleServerError( async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
+    // let userId = decodeToken(token);
     //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {

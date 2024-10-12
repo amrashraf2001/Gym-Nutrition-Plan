@@ -23,19 +23,19 @@ const NavLinks = () => {
 const NavLinks2 = () => {
     const navigate = useNavigate()
     const loggedData = useContext(UserContext)
-    const logout = () => {
-        localStorage.removeItem("token");
-        sessionStorage.removeItem("token")
-        loggedData.setLoggedUser(null);
-        navigate("/login")
-    }
+    // const logout = () => {
+    //     localStorage.removeItem("token");
+    //     sessionStorage.removeItem("token")
+    //     loggedData.setLoggedUser(null);
+    //     navigate("/login")
+    // }
     return (
         <>
-            <NavLink to={"/"} className="font-semibold linkStyle">MY PLAN</NavLink>
-            <NavLink className="font-semibold linkStyle">FOOD</NavLink>
-            <NavLink className="font-semibold linkStyle">PLANS</NavLink>
-            <NavLink className="font-semibold linkStyle">MY PROFILE</NavLink>
-            <button onClick={logout} className="font-semibold linkStyle">LOGOUT</button>
+            <NavLink to={"/HomePage"} className="font-semibold link">HOME</NavLink>
+            <NavLink className="font-semibold link">FOOD</NavLink>
+            <NavLink className="font-semibold link">PLANS</NavLink>
+            <NavLink to={"/Myprofile"} className="font-semibold link">MY PROFILE</NavLink>
+            {/* <button onClick={logout} className="font-semibold link">LOGOUT</button> */}
         </>
     );
 }
