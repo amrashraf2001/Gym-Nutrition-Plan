@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Food = require("../models/food");
 const Plan = require("../models/plan");
+const fs = require("fs");
 const {handleServerError} = require("../utils/errorHandler");
 
 const getUserId = async (req, res, next) => {
@@ -57,6 +58,13 @@ const updateProfile =handleServerError( async (req, res, next) => {
     if(req.fileValidationError){
         return res.status(400).json({ message: req.fileValidationError });
     }
+    if(req.file?.filename){
+        fs.unlink(`uploads/${user.profilePicture}`, (err) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+    })}
     user.userName = newProfile.userName || user.userName;
     user.email = newProfile.email || user.email;
     user.gender = newProfile.gender || user.gender;

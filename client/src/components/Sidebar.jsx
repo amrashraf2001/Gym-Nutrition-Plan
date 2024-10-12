@@ -25,9 +25,6 @@ const Sidebar = ({ setShowHide, setData, data }) => {
                     <div className="w-24 rounded-full">
                     <img  src={data.profilePicture} alt={`${data.username} Profile Picture`} />
                     </div>
-                    <input
-                        type="file"
-                        className="file-input file-input-bordered file-input-success w-full max-w-xs" />
                 </div>
                 <h2>{data.username}</h2>
                 <hr className="border-2 w-40 m-auto border-black my-2" />
