@@ -6,30 +6,10 @@ import { UserContext } from "../contexts/User"
 
 const getProfileUrl = "/user/profile"
 
-const Sidebar = () => {
+const Sidebar = ({ setShowHide, setData, data }) => {
     const loggedData = useContext(UserContext);
-    const [data, setData] = useState({})
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(getProfileUrl, {
-                    headers: {
-                        Authorization: `Bearer ${JSON.parse(loggedData.loggedUser)}`,
-                    },
-                });
 
-                setData(response.data.user);
-
-                // console.log(response.data);
-
-            } catch (err) {
-                console.log(err);
-            }
-        };
-
-        fetchData(); // Call the async function
-    }, [loggedData]);
 
     const logout = () => {
         localStorage.removeItem("token");
@@ -41,10 +21,15 @@ const Sidebar = () => {
     return (
         <aside className=" bg-[#9e9583] flex flex-col p-4 items-center">
             <div className="flex flex-col gap-6 items-center text-xl font-semibold">
-                <div className=" bg-white w-44 h-44 rounded-full border-black border-2 shadow-md relative">
-                    <p className="flex justify-center items-center h-full">lol bardo</p>
+                <div className="avatar">
+                    <div className="w-24 rounded-full">
+                        <img  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                    </div>
+                    <input
+                        type="file"
+                        className="file-input file-input-bordered file-input-success w-full max-w-xs" />
                 </div>
-                <h2>{data.userName}</h2>
+                <h2>{data.username}</h2>
                 <hr className="border-2 w-40 m-auto border-black my-2" />
             </div>
             <div className="flex flex-col h-full justify-between">
