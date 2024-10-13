@@ -18,7 +18,7 @@ const Track = () => {
             } else {
                 const response = await axios.get(`/user/foods/${e.target.value}`, {
                     headers: {
-                        'Authorization': `Bearer ${JSON.parse(loggedData.loggedUser)}`
+                        'Authorization': `Bearer ${loggedData.loggedUser}`
                     },
                     params: {
                         page: page,
@@ -38,15 +38,15 @@ const Track = () => {
     }
 
     return (
-        <section className="px-14 flex flex-col items-start justify-center py-4 ">
+        <section className="px-14 flex flex-col gap-3 items-start justify-center py-4 ">
             <div className="w-full relative">
                 <div className="relative w-full">
-                    <input type="search" onChange={searchFood} autoComplete="off" className=" p-1 rounded-lg w-full h-16 pl-8 outline-none" id="search" placeholder="Search" />
-                    <label htmlFor="search" className="absolute text-black text-2xl top-1/3 left-1 z-30"><CiSearch /></label>
+                    <input type="search" onChange={searchFood} autoComplete="off" className=" dark:text-[#070F2B] text-xl p-1 rounded-lg w-full h-16 pl-8 placeholder:dark:text-[#070F2B] outline-none dark:bg-[#535C91]" id="search" placeholder="Search" />
+                    <label htmlFor="search" className="absolute text-black dark:text-[#070F2B] text-2xl top-1/3 left-1 z-30"><CiSearch /></label>
                 </div>
                 {
                     foodItems.length !== 0 ?
-                        <div className="w-full px-10 py-5 bg-gray-400 rounded-md absolute">
+                        <div className="w-full px-10 py-5 dark:bg-[#9290C3] dark:text-[#070F2B] bg-gray-400 rounded-md absolute">
                             {
                                 foodItems.map((item) => {
                                     return (

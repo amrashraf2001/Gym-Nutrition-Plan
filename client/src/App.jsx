@@ -9,6 +9,7 @@ import Track from "./pages/Track/Track";
 import Private from "./pages/Private/Private";
 import Demo from "./pages/Demo";
 import UserDetails1 from "./pages/UserDetails/UserDetails";
+import Plan from "./pages/Plan/Plan";
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/userPage" element={<Private Component={Track} />} />
-            <Route path="/demo" element={<Private Component={Demo} />} />
+            <Route path="/plan" element={<Private Component={Plan} />} />
           </Route>
           <Route path="/userDetails" element={<Private Component={UserDetails1} />} />
 
