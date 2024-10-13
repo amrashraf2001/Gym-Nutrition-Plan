@@ -144,7 +144,7 @@ function UserProfile() {
         withCredentials: false,
       });
 
-      console.log(dd);
+      // console.log(dd);
 
       // Trigger a reset to re-fetch updated data, including the new profile picture
       setReset(true);
@@ -164,7 +164,7 @@ function UserProfile() {
     setUsernameDisplay(false)
   };
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <form onSubmit={handleFormSubmit}>

@@ -3,9 +3,9 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
+import axios from "../api/axios";
 
-
-
+const getProfileUrl = "/user/profile";
 
 const NavLinks = () => {
     return (
@@ -22,17 +22,17 @@ const NavLinks = () => {
 
 const NavLinks2 = () => {
     const navigate = useNavigate()
+
     const loggedData = useContext(UserContext)
 
-    
-  
+
+
+
     return (
         <>
             <NavLink to={"/HomePage"} className="font-semibold linkStyle">HOME</NavLink>
             <NavLink className="font-semibold linkStyle">FOOD</NavLink>
             <NavLink to={"/plan"} className="font-semibold linkStyle">PLANS</NavLink>
-            <NavLink to={"/Myprofile"} className="font-semibold linkStyle">My Profile</NavLink>
-          
         </>
     );
 }
@@ -45,6 +45,25 @@ const Header = () => {
         setIsOpen(!isOpen);
     }
     const loggedData = useContext(UserContext)
+
+    const [data, setData] = useState({});
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(getProfileUrl, {
+                    headers: {
+                        Authorization: `Bearer ${loggedData.loggedUser}`,
+                    },
+                });
+                setData(response.data.user);
+
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchData(); // Fetch the data when reset is true
+    }, []);
 
     useEffect(() => {
         document.documentElement.setAttribute("data-theme", theme);
@@ -69,10 +88,6 @@ const Header = () => {
                         :
                         <NavLinks />}
                 </div>
-                <div>
-                    <GiHamburgerMenu className="text-3xl cursor-pointer md:hidden" onClick={toggleNavbar}
-                    />
-                </div>
 
                 {isOpen && (
                     <div className="flex flex-col basis-full items-center p-1 gap-1 md:hidden">
@@ -82,6 +97,17 @@ const Header = () => {
                             <NavLinks />}
                     </div>
                 )}
+                <NavLink to={"/Myprofile"} className="font-semibold">
+                    <div className="avatar">
+                        <div className="w-12 rounded-full border-2 border-black">
+                            <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
+                        </div>
+                    </div>
+                </NavLink>
+                <div>
+                    <GiHamburgerMenu className="text-3xl cursor-pointer md:hidden" onClick={toggleNavbar}
+                    />
+                </div>
                 <label className="swap swap-rotate">
                     {/* this hidden checkbox controls the state */}
                     <input onChange={handleToggle} checked={theme === "dark" ? false : true} type="checkbox" className="theme-controller" value="synthwave" />
