@@ -7,7 +7,6 @@ import { UserContext } from "./contexts/User";
 import { useState } from "react";
 import Track from "./pages/Track/Track";
 import Private from "./pages/Private/Private";
-import Demo from "./pages/Demo";
 import UserDetails1 from "./pages/UserDetails/UserDetails";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Plan from "./pages/Plan/Plan";

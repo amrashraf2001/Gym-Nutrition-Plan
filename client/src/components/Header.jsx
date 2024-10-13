@@ -31,10 +31,10 @@ const NavLinks2 = () => {
     // }
     return (
         <>
-            <NavLink to={"/HomePage"} className="font-semibold link">HOME</NavLink>
-            <NavLink className="font-semibold link">FOOD</NavLink>
-            <NavLink to={"/plan"} className="font-semibold link">PLANS</NavLink>
-            <NavLink to={"/Myprofile"} className="font-semibold link">MY PROFILE</NavLink>
+            <NavLink to={"/HomePage"} className="font-semibold linkStyle">HOME</NavLink>
+            <NavLink className="font-semibold linkStyle">FOOD</NavLink>
+            <NavLink to={"/plan"} className="font-semibold linkStyle">PLANS</NavLink>
+            <NavLink to={"/Myprofile"} className="font-semibold linkStyle">MY PROFILE</NavLink>
             {/* <button onClick={logout} className="font-semibold link">LOGOUT</button> */}
         </>
     );
