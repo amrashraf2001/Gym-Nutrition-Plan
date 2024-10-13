@@ -9,6 +9,7 @@ import Track from "./pages/Track/Track";
 import Private from "./pages/Private/Private";
 import UserDetails1 from "./pages/UserDetails/UserDetails";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import HomePage from "./pages/HomePage/HomePage";
 import Plan from "./pages/Plan/Plan";
 import Plans from "./pages/Plans/Plans";
 
@@ -28,7 +29,8 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/HomePage" element={<Private Component={Track} />} />
+            <Route path="/Track" element={<Private Component={Track} />} />
+            <Route path="/HomePage" element={<Private Component={HomePage} />} />
             <Route path="/Myprofile" element={<Private Component={UserProfile} />} />
             <Route path="/plan" element={<Private Component={Plan} />} />
             <Route path="/plans" element={<Private Component={Plans} />} />

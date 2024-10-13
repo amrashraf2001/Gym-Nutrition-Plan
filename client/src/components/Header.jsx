@@ -31,7 +31,7 @@ const NavLinks2 = () => {
     return (
         <>
             <NavLink to={"/HomePage"} className="font-semibold linkStyle">HOME</NavLink>
-            <NavLink className="font-semibold linkStyle">FOOD</NavLink>
+            <NavLink to={"/Track"} className="font-semibold linkStyle">TRACK</NavLink>
             <NavLink to={"/plan"} className="font-semibold linkStyle">PLANS</NavLink>
         </>
     );
