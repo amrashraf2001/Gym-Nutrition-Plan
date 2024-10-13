@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { UserContext } from "../contexts/User"
 import { CiEdit } from "react-icons/ci";
 
+
 const getProfileUrl = "/user/profile"
 
 const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDisplay }) => {
@@ -36,7 +37,7 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
                 <div className="flex gap-3">
                     <h2 className={`${usernameDisplay ? "hidden" : "block"} font-bold`}>{data.username}</h2>
                     <input
-                        value={data.username}
+                        // value={data.username}
                         type="text"
                         onChange={(e) => {
                             setData((prev) => ({ ...prev, userName: e.target.value })); // Update the state with input value
@@ -57,7 +58,7 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
                     <Link className="text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2" to={"/Myprofile"}>Information</Link>
                     <Link className="text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2" to={"/Myprofile/MyPlans"}>My Plans</Link>
                 </div>
-                <button onClick={logout} className="font-semibold text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2">LOGOUT</button>
+                <button onClick={logout} className="font-semibold linkstyle text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2">LOGOUT</button>
             </div>
         </aside>
 
