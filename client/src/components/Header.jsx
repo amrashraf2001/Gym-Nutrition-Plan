@@ -33,7 +33,7 @@ const NavLinks2 = () => {
         <>
             <NavLink to={"/HomePage"} className="font-semibold link">HOME</NavLink>
             <NavLink className="font-semibold link">FOOD</NavLink>
-            <NavLink className="font-semibold link">PLANS</NavLink>
+            <NavLink to={"/plan"} className="font-semibold link">PLANS</NavLink>
             <NavLink to={"/Myprofile"} className="font-semibold link">MY PROFILE</NavLink>
             {/* <button onClick={logout} className="font-semibold link">LOGOUT</button> */}
         </>
@@ -56,17 +56,17 @@ const Header = () => {
 
     const handleToggle = (e) => {
         if (e.target.checked) {
-            setTheme("dark");
-        } else {
             setTheme("light");
+        } else {
+            setTheme("dark");
         }
     }
 
     return (
-        <header className="px-14 sticky top-0 z-[2000] mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-neutral-800  text-[#fefefe] bg-[#007654]">
+        <header className="px-8 sm:px10 md:px-12 lg:px-14 sticky top-0 z-[2000] mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
             <Link to={"/"} className="text-3xl font-bold">GYMNUT</Link>
-            <nav className="w-1/3 justify-end items-center gap-2 flex">
-                <div className="hidden md:flex justify-between w-full">
+            <nav className=" justify-end items-center gap-3 flex">
+                <div className="hidden md:gap-2 md:flex justify-between w-full">
                     {loggedData.loggedUser !== null ?
                         <NavLinks2 />
                         :
@@ -87,7 +87,7 @@ const Header = () => {
                 )}
                 <label className="swap swap-rotate">
                     {/* this hidden checkbox controls the state */}
-                    <input onChange={handleToggle} checked={theme === "light" ? false : true} type="checkbox" className="theme-controller" value="synthwave" />
+                    <input onChange={handleToggle} checked={theme === "dark" ? false : true} type="checkbox" className="theme-controller" value="synthwave" />
 
                     {/* sun icon */}
                     <svg

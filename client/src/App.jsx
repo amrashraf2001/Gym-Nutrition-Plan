@@ -10,11 +10,13 @@ import Private from "./pages/Private/Private";
 import Demo from "./pages/Demo";
 import UserDetails1 from "./pages/UserDetails/UserDetails";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import Plan from "./pages/Plan/Plan";
+
 
 function App() {
   const userData = localStorage.getItem("token")
   const userData2 = sessionStorage.getItem("token")
-  const [loggedUser, setLoggedUser] = useState(userData ?userData : userData2);
+  const [loggedUser, setLoggedUser] = useState(userData ? userData : userData2);
   // console.log(userData)
   // console.log(userData2)
 
@@ -27,8 +29,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/HomePage" element={<Private Component={Track} />} />
-            <Route path="/demo" element={<Private Component={Demo} />} />
-            <Route path="/Myprofile" element={<Private Component={UserProfile}/>}/>
+            <Route path="/Myprofile" element={<Private Component={UserProfile} />} />
+            <Route path="/plan" element={<Private Component={Plan} />} />
           </Route>
           <Route path="/userDetails" element={<Private Component={UserDetails1} />} />
 
