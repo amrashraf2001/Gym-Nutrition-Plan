@@ -58,11 +58,11 @@ function UserButtons({ reset, data, setData, setShowHide }) {
           ) : (
             ""
           )}
-          <div className="flex gap-10 items-center" >
+          <div className="flex justify-between w-full md:w-1/3 gap-10 items-center" >
             {/* Conditionally render the h3 or input based on whether editing is active for this key */}
             {!editingFields[key] ? (
               <h3
-                className="text-2xl w-96 cursor-pointer"
+                className="text-2xl  cursor-pointer"
                 onClick={() => toggleInput(key)} // Toggle input on click
               >
                 {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
@@ -93,7 +93,7 @@ function UserButtons({ reset, data, setData, setShowHide }) {
 
 function UserProfile() {
   const loggedData = useContext(UserContext);
-  
+
   const [reset, setReset] = useState(false);
   const [data, setData] = useState({});
   const [showHide, setShowHide] = useState(false);
@@ -168,7 +168,7 @@ function UserProfile() {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <div role="alert" className={`${error? "block": "hidden"} alert alert-error`}>
+      <div role="alert" className={`${error ? "block" : "hidden"} alert alert-error`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 shrink-0 stroke-current"
@@ -182,7 +182,7 @@ function UserProfile() {
         </svg>
         <span>Error! {error}</span>
       </div>
-      <section className="h-screen container grid grid-cols-6">
+      <section className="h-screen flex flex-col container md:grid md:grid-cols-6">
 
         <Sidebar
           setShowHide={setShowHide}
@@ -193,7 +193,7 @@ function UserProfile() {
           className="col-span-1"
         />
 
-        <div className="col-span-3 m-8  rounded-xl flex flex-col p-6 shadow-lg gap-10">
+        <div className="col-span-5 items-start rounded-xl flex flex-col p-6 shadow-lg gap-10">
           <UserButtons
             setShowHide={setShowHide}
             setData={setData}

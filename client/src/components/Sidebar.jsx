@@ -5,12 +5,12 @@ import { CiEdit } from "react-icons/ci";
 
 const getProfileUrl = "/user/profile"
 
-const Sidebar = ({ setShowHide, setData, data,setUsernameDisplay,usernameDisplay }) => {
+const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDisplay }) => {
 
     const loggedData = useContext(UserContext);
 
-    
-    
+
+
 
     const logout = () => {
         localStorage.removeItem("token");
@@ -19,14 +19,14 @@ const Sidebar = ({ setShowHide, setData, data,setUsernameDisplay,usernameDisplay
         navigate("/login")
     }
 
-    const toggleUser = ()=>{
+    const toggleUser = () => {
         setUsernameDisplay(prev => !prev)
         setShowHide(true)
     }
     console.log(usernameDisplay)
-    
+
     return (
-        <aside className=" bg-[#9e9583] flex flex-col p-4 items-center ">
+        <aside className=" bg-[#9e9583] bg-gradient-to-b dark:text-[#0d1906] dark:from-neutral-400 dark:to-neutral-700 flex flex-col p-4 items-center ">
             <div className="flex flex-col gap-6 items-center text-xl font-semibold">
                 <div className="avatar">
                     <div className="w-24 rounded-full border-2 border-black">
@@ -34,14 +34,14 @@ const Sidebar = ({ setShowHide, setData, data,setUsernameDisplay,usernameDisplay
                     </div>
                 </div>
                 <div className="flex gap-3">
-                    <h2 className={`${usernameDisplay? "hidden": "block"} font-bold`}>{data.username}</h2>
+                    <h2 className={`${usernameDisplay ? "hidden" : "block"} font-bold`}>{data.username}</h2>
                     <input
                         value={data.username}
                         type="text"
                         onChange={(e) => {
                             setData((prev) => ({ ...prev, userName: e.target.value })); // Update the state with input value
                         }}
-                        className={`${usernameDisplay? "block": "hidden"} rounded-lg w-48 p-2 hover:border-2 hover:border-black transition-all ease-in-out`}
+                        className={`${usernameDisplay ? "block" : "hidden"} rounded-lg w-48 p-2 hover:border-2 hover:border-black transition-all ease-in-out`}
                     />
                     <div
                         onClick={toggleUser} // Toggle input when button is clicked
@@ -57,7 +57,7 @@ const Sidebar = ({ setShowHide, setData, data,setUsernameDisplay,usernameDisplay
                     <Link className="text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2" to={"/Myprofile"}>Information</Link>
                     <Link className="text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2" to={"/Myprofile/MyPlans"}>My Plans</Link>
                 </div>
-                <button onClick={logout} className="font-semibold link text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2">LOGOUT</button>
+                <button onClick={logout} className="font-semibold text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2">LOGOUT</button>
             </div>
         </aside>
 
