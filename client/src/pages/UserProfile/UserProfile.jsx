@@ -104,42 +104,44 @@ function UserProfile() {
             Authorization: `Bearer ${loggedData.loggedUser}`,
           },
         });
-        // console.log()
         setData(response.data.user);
-        console.log(response.data);
+        setReset(false); // Reset the reset state after fetching the data
       } catch (err) {
         console.log(err);
       }
     };
-
-    fetchData(); // Call the async function
+  
+    if (reset || !data.userName) {
+      fetchData(); // Fetch the data when reset is true
+    }
   }, [reset]);
+  
 
   const sendData = async (updatedFields) => {
-    // console.log(updatedFields);
     try {
-      // creating form data to handle file upload
       const updatedData = new FormData();
-
-      // adding updated fields to the form data
+  
       Object.entries(updatedFields).forEach(([key, value]) => {
         updatedData.append(key, value);
       });
-
+  
       const dd = await axios.patch(updateProfileURL, updatedData, {
-        // removed json.stringify and added updatedData
         headers: {
-          // "Content-Type": "application/json",
-          "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data to send profile picture
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${loggedData.loggedUser}`,
         },
         withCredentials: false,
       });
+  
       console.log(dd);
+      
+      // Trigger a reset to re-fetch updated data, including the new profile picture
+      setReset(true);
     } catch (err) {
       console.error(err);
     }
   };
+  
 
   const handleFormSubmit = (e) => {
     e.preventDefault();

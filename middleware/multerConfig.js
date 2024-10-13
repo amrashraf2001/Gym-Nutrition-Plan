@@ -12,7 +12,6 @@ const storage = multer.diskStorage({
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       }
-
         cb(null, dir);
     },
     filename: function(req, file, cb) {
@@ -21,7 +20,6 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  console.log(file.mimetype);
     if (file.mimetype.split("/")[0] === "image") {
         cb(null, true);
     } else {

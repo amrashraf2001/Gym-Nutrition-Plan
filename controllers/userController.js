@@ -61,7 +61,7 @@ const updateProfile =handleServerError( async (req, res, next) => {
     if(req.file?.filename){
         fs.unlink(`uploads/${user.profilePicture}`, (err) => {
             if (err) {
-                console.error(err)
+                console.log(err)
                 return
             }
     })}
