@@ -75,6 +75,16 @@ const updateProfile =handleServerError( async (req, res, next) => {
     user.profilePicture = req.file?.filename || user.profilePicture;
     user.disease = newProfile.disease || user.disease;
     user.phoneNum = newProfile.phoneNum || user.phoneNum;
+    
+    if(newProfile.userName !== user.userName || newProfile.email !== user.email){
+    let uemail = await User.findOne({ email: newProfile.email});
+    let uname = await User.findOne({ userName: newProfile.userName});
+    if (uname) {
+        return res.status(400).json({ message: "userName already exists",code: 4002 });
+      }else if(uemail){
+        return res.status(400).json({ message: "Email already exists",code: 4003 });
+      }
+    }
     await user.save();
     res.json({
         message: "Profile updated successfully",

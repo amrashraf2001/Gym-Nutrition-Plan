@@ -10,6 +10,7 @@ import Private from "./pages/Private/Private";
 import UserDetails1 from "./pages/UserDetails/UserDetails";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Plan from "./pages/Plan/Plan";
+import Plans from "./pages/Plans/Plans";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="/HomePage" element={<Private Component={Track} />} />
             <Route path="/Myprofile" element={<Private Component={UserProfile} />} />
             <Route path="/plan" element={<Private Component={Plan} />} />
+            <Route path="/plans" element={<Private Component={Plans} />} />
           </Route>
           <Route path="/userDetails" element={<Private Component={UserDetails1} />} />
 

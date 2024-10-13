@@ -186,7 +186,7 @@ function UserProfile() {
             }}
             className="file-input file-input-bordered file-input-success w-full max-w-xs"
           />
-          <div div className="flex justify-center mt-10">
+          <div className="flex justify-center mt-10">
             <input
               type="submit"
               className={`${
