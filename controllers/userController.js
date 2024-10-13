@@ -2,7 +2,7 @@ const User = require("../models/user");
 const Food = require("../models/food");
 const Plan = require("../models/plan");
 const fs = require("fs");
-const {handleServerError} = require("../utils/errorHandler");
+const { handleServerError } = require("../utils/errorHandler");
 
 const getUserId = async (req, res, next) => {
     const userName = req.query.userName
@@ -27,7 +27,7 @@ const getUserId = async (req, res, next) => {
 //     }
 // }
 
-const getProfile = handleServerError( async (req, res, next) => {
+const getProfile = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     // let userId = decodeToken(token);
     //userId = userId.replace(/^"|"$/g, '');
@@ -44,7 +44,7 @@ const getProfile = handleServerError( async (req, res, next) => {
 
 
 
-const updateProfile =handleServerError( async (req, res, next) => {
+const updateProfile = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     if (!userId) {
         return res.status(403).json({ message: "Unauthorized user" });
@@ -55,16 +55,29 @@ const updateProfile =handleServerError( async (req, res, next) => {
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
-    if(req.fileValidationError){
+    if (req.fileValidationError) {
         return res.status(400).json({ message: req.fileValidationError });
     }
-    if(req.file?.filename){
+    if (req.file?.filename) {
         fs.unlink(`uploads/${user.profilePicture}`, (err) => {
             if (err) {
                 console.log(err)
                 return
             }
-    })}
+        })
+    }
+    if (newProfile.userName !== user.userName) {
+        let uname = await User.findOne({ userName: newProfile.userName });
+        if (uname) {
+            return res.status(400).json({ message: "userName already exists", code: 4002 });
+        }
+    }
+    else if (newProfile.email !== user.email) {
+        let uemail = await User.findOne({ email: newProfile.email });
+        if (uemail) {
+            return res.status(400).json({ message: "Email already exists", code: 4003 });
+        }
+    }
     user.userName = newProfile.userName || user.userName;
     user.email = newProfile.email || user.email;
     user.gender = newProfile.gender || user.gender;
@@ -75,16 +88,8 @@ const updateProfile =handleServerError( async (req, res, next) => {
     user.profilePicture = req.file?.filename || user.profilePicture;
     user.disease = newProfile.disease || user.disease;
     user.phoneNum = newProfile.phoneNum || user.phoneNum;
-    
-    if(newProfile.userName !== user.userName || newProfile.email !== user.email){
-    let uemail = await User.findOne({ email: newProfile.email});
-    let uname = await User.findOne({ userName: newProfile.userName});
-    if (uname) {
-        return res.status(400).json({ message: "userName already exists",code: 4002 });
-      }else if(uemail){
-        return res.status(400).json({ message: "Email already exists",code: 4003 });
-      }
-    }
+
+
     await user.save();
     res.json({
         message: "Profile updated successfully",
@@ -92,7 +97,7 @@ const updateProfile =handleServerError( async (req, res, next) => {
     });
 });
 
-const getPlans =handleServerError( async (req, res, next) => {
+const getPlans = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     //userId = userId.replace(/^"|"$/g, '');
     if (!userId) {
@@ -108,7 +113,7 @@ const getPlans =handleServerError( async (req, res, next) => {
     });
 });
 
-const getPlan = handleServerError( async (req, res, next) => {
+const getPlan = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     //userId = userId.replace(/^"|"$/g, '');
     if (!userId) {
@@ -130,7 +135,7 @@ const getPlan = handleServerError( async (req, res, next) => {
     });
 });
 
-const setPlan = handleServerError( async (req, res, next) => {
+const setPlan = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     //userId = userId.replace(/^"|"$/g, '');
     if (!userId) {
@@ -168,7 +173,7 @@ const getRandomPlans = handleServerError(async (req, res, next) => {
 
 });
 
-const deletePlan = handleServerError(async (req, res, next) => {    
+const deletePlan = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     if (!userId) {
         return res.status(403).json({ message: "Unauthorized user" });
