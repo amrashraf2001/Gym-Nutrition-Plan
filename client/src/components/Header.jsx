@@ -79,15 +79,6 @@ const Header = () => {
                         :
                         <NavLinks />}
                 </div>
-
-                {isOpen && (
-                    <div className="flex flex-col basis-full items-center p-1 gap-1 md:hidden">
-                        {loggedData.loggedUser !== null ?
-                            <NavLinks2 />
-                            :
-                            <NavLinks />}
-                    </div>
-                )}
                 <NavLink to={"/Myprofile"} className="font-semibold">
                     <div className="avatar">
                         <div className="w-12 rounded-full border-2 border-black">
