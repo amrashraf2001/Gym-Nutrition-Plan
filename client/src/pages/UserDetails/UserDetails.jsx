@@ -36,7 +36,7 @@ console.log()
                     value={phoneNumber}
                     type="text"
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className={`${validator.isMobilePhone(phoneNumber, "ar-EG") || phoneNumber.length === 0 ? "border-green-800" : "border-red-700"} shadow-lg rounded-lg border-2 bg-[#00a96e] placeholder:text-green-950 p-2 w-52 h-14 outline-none `}
+                    className={`${validator.isMobilePhone(phoneNumber, "ar-EG") || phoneNumber.length === 0 ? "border-green-800" : "border-red-700"} placeholder:text-black dark:bg-slate-400 dark:text-[#070F2B] placeholder:dark:text-[#070F2B] shadow-lg rounded-lg border-2 bg-green-400 p-2 border-black w-52 h-14`}
                     placeholder="phone number"
                 />
             </div>
@@ -264,7 +264,7 @@ const UserDetails4 = ({ onPrev, disease, setDisease, specifiedDisease, setSpecif
                 name="otherCondition"
                 placeholder="Specify if other"
                 style={specifiedDiseaseActive ? {} : { display: "none" }}
-                className="placeholder:text-green-950 dark:bg-slate-400 dark:text-[#070F2B] placeholder:dark:text-[#070F2B] shadow-md rounded-lg border-2 bg-green-400 p-2 hover:border-black w-24 h-10 transition-all ease-in-out duration-1000 hover:w-52"
+                className="placeholder:text-green-950 dark:bg-slate-400 dark:text-[#070F2B] placeholder:dark:text-[#070F2B] shadow-md rounded-lg border-2 bg-green-400 p-2 hover:border-black w-52 h-10 transition-all ease-in-out duration-1000"
             />
             <input
                 type="submit"
