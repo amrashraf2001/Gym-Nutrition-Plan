@@ -25,6 +25,7 @@ function App() {
     <UserContext.Provider value={{ loggedUser, setLoggedUser }} >
       <BrowserRouter>
         <Routes>
+
           <Route path="/" element={<Layout />} errorElement={<h1>Erorr.....</h1>}>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />

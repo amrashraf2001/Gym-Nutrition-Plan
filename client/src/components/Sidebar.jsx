@@ -70,13 +70,13 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
                         <CiEdit />
                     </div>
                 </div>
-                <hr className="border-2 w-40 m-auto border-black my-2" />
+                <hr className="border-2 w-48 m-auto border-black my-2" />
             </div>
-            <div className="flex flex-col h-full justify-between">
-                <div className="flex flex-col space-y-2">
+            <div className="flex flex-col h-full ">
+                {/* <div className="flex flex-col space-y-2">
                     <Link className="text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2" to={"/Myprofile"}>Information</Link>
                     <Link className="text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2" to={"/Myprofile/MyPlans"}>My Plans</Link>
-                </div>
+                </div> */}
                 <button onClick={logout} className="font-semibold linkstyle text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2">LOGOUT</button>
             </div>
         </aside>
