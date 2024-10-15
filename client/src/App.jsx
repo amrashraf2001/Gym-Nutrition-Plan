@@ -12,6 +12,7 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 import HomePage from "./pages/HomePage/HomePage";
 import Plan from "./pages/Plan/Plan";
 import Plans from "./pages/Plans/Plans";
+import Layout2 from "./pages/Layout/Layout2";
 
 
 function App() {
@@ -35,7 +36,9 @@ function App() {
             <Route path="/plan" element={<Private Component={Plan} />} />
             <Route path="/plans" element={<Private Component={Plans} />} />
           </Route>
-          <Route path="/userDetails" element={<Private Component={UserDetails1} />} />
+          <Route path="/userDetails" element={<Layout2 />} errorElement={<h1>Erorr.....</h1>}>
+            <Route path="/userDetails" element={<Private Component={UserDetails1} />} />
+          </Route>
 
         </Routes>
       </BrowserRouter>

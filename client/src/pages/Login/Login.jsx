@@ -113,8 +113,8 @@ const Login = () => {
 
   return (
     <section className="flex items-center justify-center h-full ">
-      <div className="bg-white rounded-lg shadow-lg shadow-[#007654] space-y-6 px-8 py-6 max-w-md w-3/4">
-        <h1 className="text-3xl font-bold text-center mb-4 text-[#95a926]">
+      <div className="bg-white rounded-lg dark:bg-[#1A1A1A] dark:shadow-[#1e1e2d] shadow-lg shadow-[#007654] space-y-6 px-8 py-6 max-w-md w-3/4">
+        <h1 className="text-3xl dark:text-current font-bold text-center mb-4 text-[#95a926]">
           Welcome Back!
         </h1>
         <div
@@ -140,7 +140,7 @@ const Login = () => {
               onChange={onUserChange}
               value={user}
               aria-invalid={validUser ? "false" : "true"}
-              className="relative shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#007654] focus:border-[#007654] focus:shadow-sm focus:shadow-[#52c0a7]"
+              className="relative shadow-sm dark:bg-slate-400 dark:text-[#070F2B] placeholder:dark:text-[#070F2B] rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#007654] focus:border-[#007654] focus:shadow-sm focus:shadow-[#52c0a7]"
               placeholder="username"
               required
             />
@@ -164,7 +164,7 @@ const Login = () => {
               onChange={onPwdChange}
               value={pwd}
               aria-invalid={validPwd ? "false" : "true"}
-              className="shadow-sm mb-2 rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#007654] focus:border-[#007654] focus:shadow-sm focus:shadow-[#52c0a7] "
+              className="shadow-sm mb-2 dark:bg-slate-400 dark:text-[#070F2B] placeholder:dark:text-[#070F2B] rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#007654] focus:border-[#007654] focus:shadow-sm focus:shadow-[#52c0a7] "
               placeholder="password"
               required
             />
