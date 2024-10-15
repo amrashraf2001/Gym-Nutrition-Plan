@@ -30,9 +30,11 @@ const NavLinks2 = () => {
 
     return (
         <>
+            {/* div with class (flex gap-8 mr-2) */}
             <NavLink to={"/HomePage"} className="font-semibold linkStyle">HOME</NavLink>
             <NavLink to={"/Track"} className="font-semibold linkStyle">TRACK</NavLink>
             <NavLink to={"/plan"} className="font-semibold linkStyle">PLANS</NavLink>
+
         </>
     );
 }
@@ -97,13 +99,17 @@ const Header = () => {
                             <NavLinks />}
                     </div>
                 )}
-                <NavLink to={"/Myprofile"} className="font-semibold">
-                    <div className="avatar">
-                        <div className="w-12 rounded-full border-2 border-black">
-                            <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
-                        </div>
-                    </div>
-                </NavLink>
+                {
+                    loggedData.loggedUser !== null && (
+
+                        <NavLink to={"/Myprofile"} className="font-semibold">
+                            <div className="avatar">
+                                <div className="w-12 rounded-full border-2 border-black hover:border-[#a6adbb]">
+                                    <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
+                                </div>
+                            </div>
+                        </NavLink>
+                    )}
                 <div>
                     <GiHamburgerMenu className="text-3xl cursor-pointer md:hidden" onClick={toggleNavbar}
                     />
