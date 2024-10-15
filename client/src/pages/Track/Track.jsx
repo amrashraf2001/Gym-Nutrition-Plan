@@ -27,22 +27,27 @@ const Track = () => {
                 })
                 let data = await response.data;
                 setFoodItems(data.food);
+                setFood(null);
             }
         } catch (err) {
             console.log(err);
         }
     }
 
+    const displayItem = (id) => {
+        console.log(id)
+    }
+
     return (
         <section className="px-14 flex flex-col gap-3 items-start justify-center py-4 ">
             <div className="w-full relative">
                 <div className="relative w-full">
-                    <input type="search" onChange={searchFood} autoComplete="off" className=" dark:text-[#070F2B] text-xl p-1 rounded-lg w-full h-16 pl-8 placeholder:dark:text-[#070F2B] outline-none dark:bg-slate-400" id="search" placeholder="Search" />
+                    <input type="search" onChange={searchFood} autoComplete="off" className=" dark:text-[#070F2B] text-xl p-1 rounded-lg w-full h-16 pl-8 placeholder:dark:text-[#070F2B] outline-none dark:bg-[#535C91]" id="search" placeholder="Search" />
                     <label htmlFor="search" className="absolute text-black dark:text-[#070F2B] text-2xl top-1/3 left-1 z-30"><CiSearch /></label>
                 </div>
                 {
                     foodItems.length !== 0 ?
-                        <div className="w-full px-10 py-5 dark:bg-slate-600 dark:text-current bg-gray-400 rounded-md absolute">
+                        <div className="w-full px-10 py-5 dark:bg-[#9290C3] dark:text-[#070F2B] bg-gray-400 rounded-md absolute">
                             {
                                 foodItems.map((item) => {
                                     return (
