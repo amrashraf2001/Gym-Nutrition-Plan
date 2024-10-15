@@ -129,7 +129,7 @@ function UserProfile() {
   }, [reset]);
 
 
-  console.log(data)
+  // console.log(data)
 
   const sendData = async (updatedFields) => {
     try {

@@ -4,43 +4,72 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import { UserContext } from "../../contexts/User";
 import PropTypes from "prop-types";
+import validator from "validator";
 
 const updateProfileURL = "/user/updateProfile";
 // const PhoneRegex = /^(01)[0-9]{9}$/
 const phoneNumberRegex = /^01\d{0,9}$/;
+
 const UserDetails = ({ onNext, phoneNumber, setPhoneNumber, profilePicture, setProfilePicture }) => {
+console.log()
+// console.log(phoneNumber, profilePicture === "")
+
     return (
         <div className="flex flex-col space-y-5 items-center pb-10">
             <div className="flex flex-col items-center gap-8">
-                <h2 className="text-3xl font-semibold dark:text-current text-green-700">Enter your phone number</h2>
+                <h2 className="text-3xl font-semibold text-green-700">Enter your phone number</h2>
+                <div role="alert" className={`${validator.isMobilePhone(phoneNumber, "ar-EG") || phoneNumber.length === 0 ? "hidden" : ""} alert alert-error w-80`}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 shrink-0 stroke-current"
+                        fill="none"
+                        viewBox="0 0 24 24">
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Error! Incorrect Phone Number</span>
+                </div>
                 <input
-                    // value={phoneNumber}
+                    value={phoneNumber}
                     type="text"
-                    onBlur={(e) => {
-                        if (!phoneNumberRegex.test(e.target.value)) {
-                            alert("Invalid phone number");
-                            setPhoneNumber("");
-                        }
-                    }}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="placeholder:text-black dark:bg-slate-400 dark:text-[#070F2B] placeholder:dark:text-[#070F2B] shadow-lg rounded-lg border-2 bg-green-400 p-2 border-black w-52 h-14"
+                    className={`${validator.isMobilePhone(phoneNumber, "ar-EG") || phoneNumber.length === 0 ? "border-green-800" : "border-red-700"} shadow-lg rounded-lg border-2 bg-[#00a96e] placeholder:text-green-950 p-2 w-52 h-14 outline-none `}
                     placeholder="phone number"
                 />
             </div>
             <div className="flex flex-col items-center gap-8">
                 <h2 className="text-3xl dark:text-current font-semibold text-green-700">Insert your Profile Picture</h2>
+                <div role="alert" className={`${ profilePicture? "hidden" : "" } alert alert-error w-80`}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 shrink-0 stroke-current"
+                        fill="none"
+                        viewBox="0 0 24 24">
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Insert Profile Picture</span>
+                </div>
                 <input
-                    value={profilePicture}
                     type="file"
                     onChange={(e) => {
-                        setProfilePicture(e.target.value)
+                        if (e.target.files.length > 0) {
+                            setProfilePicture(e.target.files[0]); // set the file object itself
+                        }
                     }}
                     className={` file-input file-input-bordered dark:bg-slate-400 dark:text-[#070F2B] placeholder:dark:text-[#070F2B] file-input-success w-full max-w-xs border-2 border-black`}
                 />
             </div>
             <button
-                className="absolute right-8 bottom-10 transition hover:translate-x-2 text-4xl text-[#007654]"
-                onClick={onNext}
+                className={`${validator.isMobilePhone(phoneNumber, "ar-EG") && profilePicture? "hover:translate-x-2" : ""} absolute right-8 bottom-10 transition text-4xl text-[#007654]`}
+                onClick={() => { onNext() }}
+                disabled={!validator.isMobilePhone(phoneNumber, "ar-EG") || profilePicture === ""}
             >
                 <FaArrowAltCircleRight />
             </button>
@@ -48,13 +77,13 @@ const UserDetails = ({ onNext, phoneNumber, setPhoneNumber, profilePicture, setP
     )
 }
 
-// UserDetails.propTypes = {
-//     onNext: PropTypes.func.isRequired,
-//     phoneNumber: PropTypes.string.isRequired,
-//     setPhoneNumber: PropTypes.func.isRequired,
-//     profilePicture: PropTypes.string.isRequired,
-//     setProfilePicture: PropTypes.func.isRequired,
-// }
+UserDetails.propTypes = {
+    onNext: PropTypes.func.isRequired,
+    phoneNumber: PropTypes.string.isRequired,
+    setPhoneNumber: PropTypes.func.isRequired,
+    profilePicture: PropTypes.string.isRequired,
+    setProfilePicture: PropTypes.func.isRequired,
+}
 
 const UserDetails2 = ({ onNext, onPrev, age, setAge }) => {
     return (
@@ -98,7 +127,7 @@ const UserDetails2 = ({ onNext, onPrev, age, setAge }) => {
             </button>
             <button
                 className="absolute left-8 bottom-10 transition hover:-translate-x-2 text-4xl text-[#007654]"
-                onClick={onPrev}
+                onClick={()=>{onPrev(1)}}
             >
                 <FaArrowAltCircleLeft />
             </button>
@@ -197,8 +226,9 @@ UserDetails3.propTypes = {
 const UserDetails4 = ({ onPrev, disease, setDisease, specifiedDisease, setSpecifiedDisease, specifiedDiseaseActive, setSpecifiedDiseaseActive }) => {
     const diseaseHandler = (e) => {
         if (e.target.value === "other") {
-            setDisease(specifiedDisease);
+            // setDisease(specifiedDisease);
             setSpecifiedDiseaseActive(true);
+            console.log(disease)
         } else {
             setDisease(e.target.value);
             setSpecifiedDiseaseActive(false);
@@ -284,19 +314,20 @@ const Card = () => {
             alert("Please enter valid values");
         } else {
             try {
+                const updatedData = new FormData();
+                updatedData.append('age', age);
+                updatedData.append('height', height);
+                updatedData.append('weight', weight);
+                updatedData.append('disease',specifiedDisease || disease);
+                updatedData.append('phoneNum', phoneNumber);
+                updatedData.append('profilePicture', profilePicture);
+
                 await axios.patch(
                     updateProfileURL,
-                    JSON.stringify({
-                        age,
-                        weight,
-                        height,
-                        disease,
-                        phoneNum: phoneNumber,
-                        profilePicture: profilePicture,
-                    }),
+                    updatedData,
                     {
                         headers: {
-                            "Content-Type": "application/json",
+                            "Content-Type": "multipart/form-data",
                             "Authorization": `Bearer ${loggedData.loggedUser}`,
                         },
                         withCredentials: false,
@@ -351,9 +382,14 @@ const Card = () => {
                 <form onSubmit={handleSubmit}>
 
                     {step === 1 ? (
-                        <UserDetails onNext={() => setStep(2)} />
+                        <UserDetails onNext={() => setStep(2)}
+                            phoneNumber={phoneNumber}
+                            setPhoneNumber={setPhoneNumber}
+                            profilePicture={profilePicture}
+                            setProfilePicture={setProfilePicture}
+                        />
                     ) : step === 2 ? (
-                        <UserDetails2 onNext={() => setStep(3)} age={age} setAge={setAge} />
+                        <UserDetails2 onNext={() => setStep(3)} age={age} setAge={setAge} onPrev={setStep} />
                     ) : step === 3 ? (
                         <UserDetails3
                             onNext={() => setStep(4)}
