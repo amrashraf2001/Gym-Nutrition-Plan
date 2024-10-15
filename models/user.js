@@ -54,22 +54,6 @@ const userSchema = new Schema({
         type: String,
         default: "",
     },
-    listOfTrackedFoods: [
-        [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "food",
-            },
-            {
-                type: Number,
-                default: 0,
-            },
-            {
-                type: Date,
-                default: Date.now,
-            }
-        ]
-    ],
 });
 
 module.exports = mongoose.model("user", userSchema);
