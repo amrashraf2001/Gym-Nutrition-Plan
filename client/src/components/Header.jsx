@@ -87,7 +87,7 @@ const Header = () => {
                     </div>
                 </NavLink>
                 <div>
-                    <GiHamburgerMenu className="text-3xl cursor-pointer md:hidden" onClick={toggleNavbar}
+                    <GiHamburgerMenu className="text-3xl cursor-pointer md:hidden"
                     />
                 </div>
                 <label className="swap swap-rotate">
