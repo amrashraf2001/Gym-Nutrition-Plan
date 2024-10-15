@@ -24,16 +24,13 @@ const Food = (props) => {
         } else {
             setGrams(100);
         }
-
-        if (e.target.value > e.target.max) {
-            e.target.value = e.target.max
-        } else if (e.target.value < e.target.min) {
-            e.target.value = e.target.min
-        }
     }
 
     return (
         <div className="w-full md:w-1/2 p-3 bg-orange-100 dark:bg-[#1A1A1A] rounded-lg shadow-md flex flex-col gap-1 ">
+            <div>
+                <img className="w-auto h-72 rounded-lg" src={food.img} alt={food.name} />
+            </div>
             <h2 className="font-semibold text-xl">{food.name} ({calories} Kcal for {grams}G)</h2>
             <div className="flex flex-wrap ">
                 <div className="w-1/2 py-3">
@@ -50,8 +47,8 @@ const Food = (props) => {
                 </div>
             </div>
             <div className="flex flex-col gap-2">
-                <input onChange={calculateMacros} max={1000} min={1} className="px-2 py-1 rounded-md" type="number" placeholder="Quantity in Gms" />
-                <button className="px-2 py-1 bg-[#007654] text-xl font-bold  rounded-lg dark:bg-[#070F2B]">Track This Food</button>
+                <input onChange={calculateMacros} max={1000} className="px-2 py-1 rounded-md" type="number" placeholder="Quantity in Gms" />
+                <button className="px-2 py-1 bg-[#007654] text-xl font-bold dark:text-slate-50  rounded-lg dark:btn-success">Track This Food</button>
             </div>
         </div>
     )

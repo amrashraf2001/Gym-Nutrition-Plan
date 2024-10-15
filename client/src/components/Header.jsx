@@ -21,13 +21,6 @@ const NavLinks = () => {
 }
 
 const NavLinks2 = () => {
-    const navigate = useNavigate()
-
-    const loggedData = useContext(UserContext)
-
-
-
-
     return (
         <>
             {/* div with class (flex gap-8 mr-2) */}
@@ -42,10 +35,6 @@ const NavLinks2 = () => {
 
 const Header = () => {
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
-    const [isOpen, setIsOpen] = useState(false);
-    const toggleNavbar = () => {
-        setIsOpen(!isOpen);
-    }
     const loggedData = useContext(UserContext)
 
     const [data, setData] = useState({});
@@ -81,9 +70,9 @@ const Header = () => {
     }
 
     return (
-        <header className="px-8 sm:px10 md:px-12 lg:px-14 sticky top-0 z-[2000] mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
+        <header className="px-2 sm:px-8 md:px-12 lg:px-14 top-0 z-[2000] sticky mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
             <Link to={"/"} className="text-3xl font-bold">GYMNUT</Link>
-            <nav className=" justify-end items-center gap-3 flex">
+            <nav className=" justify-end items-center gap-4 flex">
                 <div className="hidden md:gap-2 md:flex justify-between w-full">
                     {loggedData.loggedUser !== null ?
                         <NavLinks2 />
@@ -99,17 +88,13 @@ const Header = () => {
                             <NavLinks />}
                     </div>
                 )}
-                {
-                    loggedData.loggedUser !== null && (
-
-                        <NavLink to={"/Myprofile"} className="font-semibold">
-                            <div className="avatar">
-                                <div className="w-12 rounded-full border-2 border-black hover:border-[#a6adbb]">
-                                    <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
-                                </div>
-                            </div>
-                        </NavLink>
-                    )}
+                <NavLink to={"/Myprofile"} className="font-semibold">
+                    <div className="avatar">
+                        <div className="w-12 rounded-full border-2 border-black">
+                            <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
+                        </div>
+                    </div>
+                </NavLink>
                 <div>
                     <GiHamburgerMenu className="text-3xl cursor-pointer md:hidden" onClick={toggleNavbar}
                     />
