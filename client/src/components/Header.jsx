@@ -68,24 +68,26 @@ const Header = () => {
     }
 
     return (
-        <header className="px-2 sm:px-8 md:px-12 lg:px-14 top-0 z-[2000] sticky mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
+        <header className=" px-2 sm:px-8 md:px-12 lg:px-14 top-0 z-[2000] sticky mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
             <Link to={"/"} className="text-3xl font-bold">GYMNUT</Link>
             <nav className=" justify-end items-center gap-4 flex">
-                <div className="hidden md:gap-2 md:flex justify-between w-full">
+                <div className="hidden md:gap-6 md:flex justify-between w-full">
                     {loggedData.loggedUser !== null ?
                         <NavLinks2 />
                         :
                         <NavLinks />}
                 </div>
+                {
+                    loggedData.loggedUser !== null && (
 
-
-                <NavLink to={"/Myprofile"} className="font-semibold">
-                    <div className="avatar">
-                        <div className="w-12 rounded-full border-2 border-black">
-                            <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
-                        </div>
-                    </div>
-                </NavLink>
+                        <NavLink to={"/Myprofile"} className="font-semibold">
+                            <div className="avatar">
+                                <div className="w-12 rounded-full border-2 border-black">
+                                    <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
+                                </div>
+                            </div>
+                        </NavLink>
+                    )}
                 <div className="dropdown">
                     <GiHamburgerMenu tabIndex={0} role="button" className="text-3xl cursor-pointer md:hidden"
                     />

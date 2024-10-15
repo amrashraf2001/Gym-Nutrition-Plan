@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
     return (
-        <section className="h-full flex justify-center relative dark:bg-dark-hero-pattern  bg-hero-pattern bg-cover" id="Hero">
+        <section className=" flex justify-center dark:bg-dark-hero-pattern  bg-hero-pattern bg-cover h-screen" id="Hero">
 
             <div className=" flex flex-col text-center items-center justify-center pt-28 md:pt-0 gap-6 px-14">
                 <motion.div
