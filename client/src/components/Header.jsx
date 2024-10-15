@@ -23,11 +23,9 @@ const NavLinks = () => {
 const NavLinks2 = () => {
     return (
         <>
-            {/* div with class (flex gap-8 mr-2) */}
             <NavLink to={"/HomePage"} className="font-semibold linkStyle">HOME</NavLink>
             <NavLink to={"/Track"} className="font-semibold linkStyle">TRACK</NavLink>
             <NavLink to={"/plan"} className="font-semibold linkStyle">PLANS</NavLink>
-
         </>
     );
 }
@@ -88,9 +86,15 @@ const Header = () => {
                         </div>
                     </div>
                 </NavLink>
-                <div>
-                    <GiHamburgerMenu className="text-3xl cursor-pointer md:hidden"
+                <div className="dropdown">
+                    <GiHamburgerMenu tabIndex={0} role="button" className="text-3xl cursor-pointer md:hidden"
                     />
+                    <div tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                        {loggedData.loggedUser !== null ?
+                            <NavLinks2 />
+                            :
+                            <NavLinks />}
+                    </div>
                 </div>
                 <label className="swap swap-rotate">
                     {/* this hidden checkbox controls the state */}

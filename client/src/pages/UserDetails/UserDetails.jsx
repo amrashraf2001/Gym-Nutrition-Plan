@@ -6,57 +6,8 @@ import { UserContext } from "../../contexts/User";
 import PropTypes from "prop-types";
 
 const updateProfileURL = "/user/updateProfile";
-// const PhoneRegex = /^(01)[0-9]{9}$/
-const phoneNumberRegex = /^01\d{0,9}$/;
-const UserDetails = ({ onNext, phoneNumber, setPhoneNumber, profilePicture, setProfilePicture }) => {
-    return (
-        <div className="flex flex-col space-y-5 items-center pb-10">
-            <div className="flex flex-col items-center gap-8">
-                <h2 className="text-3xl font-semibold text-green-700">Enter your phone number</h2>
-                <input
-                    // value={phoneNumber}
-                    type="text"
-                    onBlur={(e) => {
-                        if (!phoneNumberRegex.test(e.target.value)) {
-                            alert("Invalid phone number");
-                            setPhoneNumber("");
-                        }
-                    }}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="placeholder:text-black  shadow-lg rounded-lg border-2 bg-green-400 p-2 border-black w-52 h-14"
-                    placeholder="phone number"
-                />
-            </div>
-            <div className="flex flex-col items-center gap-8">
-                <h2 className="text-3xl font-semibold text-green-700">Insert your Profile Picture</h2>
-                <input
-                    value={profilePicture}
-                    type="file"
-                    onChange={(e) => {
-                        setProfilePicture(e.target.value)
-                    }}
-                    className={` file-input file-input-bordered file-input-success w-full max-w-xs border-2 border-black`}
-                />
-            </div>
-            <button
-                className="absolute right-8 bottom-10 transition hover:translate-x-2 text-4xl text-[#007654]"
-                onClick={onNext}
-            >
-                <FaArrowAltCircleRight />
-            </button>
-        </div>
-    )
-}
 
-// UserDetails.propTypes = {
-//     onNext: PropTypes.func.isRequired,
-//     phoneNumber: PropTypes.string.isRequired,
-//     setPhoneNumber: PropTypes.func.isRequired,
-//     profilePicture: PropTypes.string.isRequired,
-//     setProfilePicture: PropTypes.func.isRequired,
-// }
-
-const UserDetails2 = ({ onNext, onPrev, age, setAge }) => {
+const UserDetails1 = ({ onNext, age, setAge }) => {
     return (
         <div className="flex flex-col space-y-5 items-center pb-10">
             <h2 className="text-3xl font-semibold text-green-700">What is your age?</h2>
@@ -66,7 +17,7 @@ const UserDetails2 = ({ onNext, onPrev, age, setAge }) => {
                     // console.log(e.target.value);
                     // console.log(e.target.min);
                     // console.log(e.target.max);  
-                    if (parseInt(e.target.value) > parseInt(e.target.max) || parseInt(e.target.value) < parseInt(e.target.min)) {
+                    if(parseInt(e.target.value) > parseInt(e.target.max) || parseInt(e.target.value) < parseInt(e.target.min)){
                         console.log("Please enter a valid age");
                         e.target.value = e.target.min;
                     }
@@ -85,35 +36,28 @@ const UserDetails2 = ({ onNext, onPrev, age, setAge }) => {
             />
             <button
                 className="absolute right-8 bottom-10 transition hover:translate-x-2 text-4xl text-[#007654]"
-                onClick={() => {
-                    if (isNaN(age)) {
+                onClick={()=>{
+                    if(isNaN(age)){
                         // alert("Please enter a valid age");
-                    } else {
-                        onNext();
+                    }else{
+                    onNext();
                     }
                 }
                 }
             >
                 <FaArrowAltCircleRight />
             </button>
-            <button
-                className="absolute left-8 bottom-10 transition hover:-translate-x-2 text-4xl text-[#007654]"
-                onClick={onPrev}
-            >
-                <FaArrowAltCircleLeft />
-            </button>
         </div>
     );
 };
 
-UserDetails2.propTypes = {
+UserDetails1.propTypes = {
     onNext: PropTypes.func.isRequired,
-    onPrev: PropTypes.func.isRequired,
     age: PropTypes.string.isRequired,
     setAge: PropTypes.func.isRequired,
 };
 
-const UserDetails3 = ({ onNext, onPrev, height, setHeight, weight, setWeight }) => {
+const UserDetails2 = ({ onNext, onPrev, height, setHeight, weight, setWeight }) => {
     return (
         <div className="flex flex-col space-y-8 justify-center items-center pb-10">
             <h2 className="text-2xl font-semibold text-green-900">What is your height and weight?</h2>
@@ -129,13 +73,13 @@ const UserDetails3 = ({ onNext, onPrev, height, setHeight, weight, setWeight }) 
                         id="Height"
                         name="Height"
                         onChange={(e) => {
-                            if (parseInt(e.target.value) > parseInt(e.target.max) || parseInt(e.target.value) < parseInt(e.target.min)) {
+                            if(parseInt(e.target.value) > parseInt(e.target.max) || parseInt(e.target.value) < parseInt(e.target.min)){
                                 console.log("Please enter a valid height");
                                 e.target.value = e.target.min;
                             }
-                            // if(!isNaN(parseInt(e.target.value))){
-                            //     setHeight(parseInt(e.target.value));
-                            // }
+                                // if(!isNaN(parseInt(e.target.value))){
+                                //     setHeight(parseInt(e.target.value));
+                                // }
                             setHeight(e.target.value);
                             // e.target.focus();
                         }}
@@ -154,7 +98,7 @@ const UserDetails3 = ({ onNext, onPrev, height, setHeight, weight, setWeight }) 
                         id="Weight"
                         name="Weight"
                         onChange={(e) => {
-                            if (parseInt(e.target.value) > parseInt(e.target.max) || parseInt(e.target.value) < parseInt(e.target.min)) {
+                            if(parseInt(e.target.value) > parseInt(e.target.max) || parseInt(e.target.value) < parseInt(e.target.min)){
                                 console.log("Please enter a valid weight");
                                 e.target.value = e.target.min;
                             }
@@ -184,7 +128,7 @@ const UserDetails3 = ({ onNext, onPrev, height, setHeight, weight, setWeight }) 
     );
 };
 
-UserDetails3.propTypes = {
+UserDetails2.propTypes = {
     onNext: PropTypes.func.isRequired,
     onPrev: PropTypes.func.isRequired,
     height: PropTypes.string.isRequired,
@@ -194,7 +138,7 @@ UserDetails3.propTypes = {
 };
 
 
-const UserDetails4 = ({ onPrev, disease, setDisease, specifiedDisease, setSpecifiedDisease, specifiedDiseaseActive, setSpecifiedDiseaseActive }) => {
+const UserDetails3 = ({ onPrev, disease, setDisease, specifiedDisease, setSpecifiedDisease, specifiedDiseaseActive, setSpecifiedDiseaseActive }) => {
     const diseaseHandler = (e) => {
         if (e.target.value === "other") {
             setDisease(specifiedDisease);
@@ -250,7 +194,7 @@ const UserDetails4 = ({ onPrev, disease, setDisease, specifiedDisease, setSpecif
     );
 };
 
-UserDetails4.propTypes = {
+UserDetails3.propTypes = {
     onPrev: PropTypes.func.isRequired,
     disease: PropTypes.string.isRequired,
     setDisease: PropTypes.func.isRequired,
@@ -268,8 +212,6 @@ const Card = () => {
     const [height, setHeight] = useState(""); // Declare height here
     const [weight, setWeight] = useState(""); // Declare weight here
     const [disease, setDisease] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("")
-    const [profilePicture, setProfilePicture] = useState("")
     const [specifiedDisease, setSpecifiedDisease] = useState("");
     const [specifiedDiseaseActive, setSpecifiedDiseaseActive] = useState(false);
 
@@ -279,57 +221,52 @@ const Card = () => {
         e.preventDefault();
         console.log(age, height, weight, disease);
         console.log(loggedData.loggedUser)
-        if (isNaN(parseInt(age)) || isNaN(parseInt(height)) || isNaN(parseInt(weight))) {
+        if(isNaN(parseInt(age)) || isNaN(parseInt(height)) || isNaN(parseInt(weight))){
             alert("Please enter valid values");
-        } else {
-            try {
-                await axios.patch(
-                    updateProfileURL,
-                    JSON.stringify({
-                        age,
-                        weight,
-                        height,
-                        disease,
-                        phoneNum: phoneNumber,
-                        profilePicture: profilePicture,
-                    }),
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${loggedData.loggedUser}`,
-                        },
-                        withCredentials: false,
-                    }
-                );
+        }else{
+        try {
+            await axios.patch(
+                updateProfileURL,
+                JSON.stringify({
+                    age,
+                    weight,
+                    height,
+                    disease,
+                }),
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${loggedData.loggedUser}`,
+                    },
+                    withCredentials: false,
+                }
+            );
 
-                navigate("/HomePage");
-            } catch (err) {
-                console.error(err);
-            }
+            navigate("/HomePage");
+        } catch (err) {
+            console.error(err);
         }
+    }
     };
 
     return (
         <section className="container h-screen px-14 bg-[#ebddc3] flex justify-center items-center">
             <div className="bg-white shadow-xl shadow-green-700 rounded-xl relative p-14 transition-all">
                 <form onSubmit={handleSubmit}>
-
                     {step === 1 ? (
-                        <UserDetails onNext={() => setStep(2)} />
+                        <UserDetails1 onNext={() => setStep(2)} age={age} setAge={setAge} />
                     ) : step === 2 ? (
-                        <UserDetails2 onNext={() => setStep(3)} age={age} setAge={setAge} />
-                    ) : step === 3 ? (
-                        <UserDetails3
-                            onNext={() => setStep(4)}
-                            onPrev={() => setStep(2)}
+                        <UserDetails2
+                            onNext={() => setStep(3)}
+                            onPrev={() => setStep(1)}
                             height={height}
                             setHeight={setHeight}
                             weight={weight}
                             setWeight={setWeight}
                         />
                     ) : (
-                        <UserDetails4
-                            onPrev={() => setStep(3)}
+                        <UserDetails3
+                            onPrev={() => setStep(2)}
                             disease={disease}
                             setDisease={setDisease}
                             specifiedDisease={specifiedDisease}

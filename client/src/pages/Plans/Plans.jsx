@@ -1,4 +1,4 @@
-import { AiOutlinePlus } from "react-icons/ai"; // Import the add icon
+import { AiOutlinePlus } from 'react-icons/ai'; // Import the add icon
 import React, { useState } from "react";
 
 const Plans = () => {
@@ -6,18 +6,10 @@ const Plans = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Form state
-  const [planData, setPlanData] = useState({
-    goal: "lose",
-    activity: "1.2",
-    targetWeight: "",
-    startDate: "",
-    endDate: "",
-  });
-  // const [goal, setGoal] = useState("lose"); // Default: Lose weight
-  // const [activity, setActivity] = useState(""); // Default: Lose weight
-  // const [weight, setWeight] = useState("");
-  // const [startDate, setStartDate] = useState("");
-  // const [endDate, setEndDate] = useState("");
+  const [goal, setGoal] = useState("lose"); // Default: Lose weight
+  const [weight, setWeight] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   // Toggle modal visibility
   const toggleModal = () => {
@@ -28,7 +20,12 @@ const Plans = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Do something with form data (e.g., send to server or display it)
-    console.log(planData);
+    console.log({
+      goal,
+      weight,
+      startDate,
+      endDate,
+    });
 
     // Close the modal after submission
     toggleModal();
@@ -72,50 +69,24 @@ const Plans = () => {
                 </label>
                 <select
                   className="w-full border p-2 rounded"
-                  value={planData.goal}
-                  onChange={(e) => setPlanData(prev => ({...prev , goal:e.target.value}))}
+                  value={goal}
+                  onChange={(e) => setGoal(e.target.value)}
                 >
                   <option value="lose">Lose Weight</option>
                   <option value="gain">Gain Weight</option>
-                  <option value="maintain">Maintain Weight</option>
-                </select>
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 font-semibold mb-2">
-                  Activity:
-                </label>
-                <select
-                  className="w-full border p-2 rounded"
-                  value={planData.activity}
-                  onChange={(e) => setPlanData(prev => ({...prev , activity:e.target.value}))}
-                >
-                  <option value="1.2">Sedentary: little or no exercise</option>
-                  <option value="1.375">Light: exercise 1-3 times/week</option>
-                  <option value="1.465" >
-                    Moderate: exercise 4-5 times/week
-                  </option>
-                  <option value="1.55">
-                    Active: daily exercise or intense exercise 3-4 times/week
-                  </option>
-                  <option value="1.725">
-                    Very Active: intense exercise 6-7 times/week
-                  </option>
-                  <option value="1.9">
-                    Extra Active: very intense exercise daily, or physical job
-                  </option>
                 </select>
               </div>
 
               {/* Weight input */}
               <div className="mb-4">
                 <label className="block text-gray-700 font-semibold mb-2">
-                  target weight (kg):
+                  Weight (kg):
                 </label>
                 <input
                   type="number"
                   className="w-full border p-2 rounded"
-                  value={planData.targetWeight}
-                  onChange={(e) => setPlanData(prev => ({...prev , targetWeight:e.target.value}))}
+                  value={weight}
+                  onChange={(e) => setWeight(e.target.value)}
                   required
                 />
               </div>
@@ -128,8 +99,8 @@ const Plans = () => {
                 <input
                   type="date"
                   className="w-full border p-2 rounded"
-                  value={planData.startDate}
-                  onChange={(e) => setPlanData(prev => ({...prev , startDate:e.target.value}))}
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
                   required
                 />
               </div>
@@ -142,8 +113,8 @@ const Plans = () => {
                 <input
                   type="date"
                   className="w-full border p-2 rounded"
-                  value={planData.endDate}
-                  onChange={(e) => setPlanData(prev => ({...prev , endDate:e.target.value}))}
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
                   required
                 />
               </div>

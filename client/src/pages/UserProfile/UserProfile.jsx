@@ -3,7 +3,6 @@ import { useEffect, useState, useContext, Fragment } from "react";
 import axios from "../../api/axios";
 import { UserContext } from "../../contexts/User";
 import { CiEdit } from "react-icons/ci";
-import { FaArrowCircleDown } from "react-icons/fa";
 
 
 const getProfileUrl = "/user/profile";
@@ -99,10 +98,8 @@ function UserProfile() {
   const [data, setData] = useState({});
   const [showHide, setShowHide] = useState(false);
 
-  //sidebar username
+  //sidebar
   const [usernameDisplay, setUsernameDisplay] = useState(false)
-  //sidebar profile picture
-  const [pictureDisplay, setPictureDisplay] = useState(false)
   //handle error
   const [error, setError] = useState("");
 
@@ -117,7 +114,7 @@ function UserProfile() {
         setData(response.data.user);
 
         setReset(false); // Reset the reset state after fetching the data
-        consol.log(data)
+
       } catch (err) {
         console.log(err);
       }
@@ -193,8 +190,6 @@ function UserProfile() {
           data={{ username: data.userName, profilePicture: data.profilePicture }}
           usernameDisplay={usernameDisplay}
           setUsernameDisplay={setUsernameDisplay}
-          pictureDisplay={pictureDisplay}
-          setPictureDisplay={setPictureDisplay}
           className="col-span-1"
         />
 
@@ -210,20 +205,29 @@ function UserProfile() {
               weight: data.weight,
               disease: data.disease,
               email: data.email,
-              phoneNum: data.phoneNum
+              phone_number: data.phoneNum
             }}
           />
           {/* Submit Button */}
-          <div className="flex justify-center mt-10 " id="submitbutton">
+          <input
+            type="file"
+            onChange={(e) => {
+              setData((prev) => ({
+                ...prev,
+                profilePicture: e.target.files[0],
+              }))
+              setShowHide(true)
+            }}
+            className="file-input file-input-bordered file-input-success w-full max-w-xs"
+          />
+          <div className="flex justify-center mt-10">
             <input
               type="submit"
               className={`${showHide ? "block" : "hidden"
-                } bg-[#007654] text-white rounded-lg p-4 shadow-lg hover:bg-[#105642] transition-all`}
+                } bg-blue-500 text-white rounded-lg p-4 shadow-lg hover:bg-blue-700 transition-all`}
               value={"Save Changes"}
             />
           </div>
-          <a href="#submitbutton" className={`${showHide ? "block" : "hidden"} absolute right-10  text-4xl z-50 transition text-[#346859] glass rounded-full mt-10 animate-bounce`}><FaArrowCircleDown /></a>
-
         </div>
       </section>
     </form>
