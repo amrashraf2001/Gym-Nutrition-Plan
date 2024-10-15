@@ -27,6 +27,7 @@ const Track = () => {
                 })
                 let data = await response.data;
                 setFoodItems(data.food);
+                setFood(null);
             }
         } catch (err) {
             console.log(err);

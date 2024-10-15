@@ -24,12 +24,6 @@ const Food = (props) => {
         } else {
             setGrams(100);
         }
-
-        if (e.target.value > e.target.max) {
-            e.target.value = e.target.max
-        } else if (e.target.value < e.target.min) {
-            e.target.value = e.target.min
-        }
     }
 
     return (
@@ -50,7 +44,7 @@ const Food = (props) => {
                 </div>
             </div>
             <div className="flex flex-col gap-2">
-                <input onChange={calculateMacros} max={1000} min={1} className="px-2 py-1 rounded-md" type="number" placeholder="Quantity in Gms" />
+                <input onChange={calculateMacros} max={1000} className="px-2 py-1 rounded-md" type="number" placeholder="Quantity in Gms" />
                 <button className="px-2 py-1 bg-[#007654] text-xl font-bold  rounded-lg dark:bg-[#070F2B]">Track This Food</button>
             </div>
         </div>
