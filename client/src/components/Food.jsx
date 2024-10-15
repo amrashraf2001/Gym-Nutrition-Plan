@@ -24,6 +24,12 @@ const Food = (props) => {
         } else {
             setGrams(100);
         }
+
+        if (e.target.value > e.target.max) {
+            e.target.value = e.target.max
+        } else if (e.target.value < e.target.min) {
+            e.target.value = e.target.min
+        }
     }
 
     return (

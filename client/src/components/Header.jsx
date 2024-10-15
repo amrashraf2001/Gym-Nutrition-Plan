@@ -21,6 +21,13 @@ const NavLinks = () => {
 }
 
 const NavLinks2 = () => {
+    const navigate = useNavigate()
+
+    const loggedData = useContext(UserContext)
+
+
+
+
     return (
         <>
             <NavLink to={"/HomePage"} className="font-semibold linkStyle">HOME</NavLink>
@@ -33,6 +40,10 @@ const NavLinks2 = () => {
 
 const Header = () => {
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleNavbar = () => {
+        setIsOpen(!isOpen);
+    }
     const loggedData = useContext(UserContext)
 
     const [data, setData] = useState({});
@@ -68,9 +79,9 @@ const Header = () => {
     }
 
     return (
-        <header className="px-2 sm:px-8 md:px-12 lg:px-14 top-0 z-[2000] sticky mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
+        <header className="px-8 sm:px10 md:px-12 lg:px-14 sticky top-0 z-[2000] mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
             <Link to={"/"} className="text-3xl font-bold">GYMNUT</Link>
-            <nav className=" justify-end items-center gap-4 flex">
+            <nav className=" justify-end items-center gap-3 flex">
                 <div className="hidden md:gap-2 md:flex justify-between w-full">
                     {loggedData.loggedUser !== null ?
                         <NavLinks2 />
@@ -84,15 +95,9 @@ const Header = () => {
                         </div>
                     </div>
                 </NavLink>
-                <div className="dropdown">
-                    <GiHamburgerMenu tabIndex={0} role="button" className="text-3xl cursor-pointer md:hidden"
+                <div>
+                    <GiHamburgerMenu className="text-3xl cursor-pointer md:hidden" onClick={toggleNavbar}
                     />
-                    <div tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                        {loggedData.loggedUser !== null ?
-                            <NavLinks2 />
-                            :
-                            <NavLinks />}
-                    </div>
                 </div>
                 <label className="swap swap-rotate">
                     {/* this hidden checkbox controls the state */}
