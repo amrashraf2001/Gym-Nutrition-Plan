@@ -79,6 +79,8 @@ const Header = () => {
                         :
                         <NavLinks />}
                 </div>
+
+
                 <NavLink to={"/Myprofile"} className="font-semibold">
                     <div className="avatar">
                         <div className="w-12 rounded-full border-2 border-black">
