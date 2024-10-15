@@ -313,7 +313,72 @@ const calculateCalories = handleServerError(async (req, res, next) => {
 });
 
 
+const getTrackedFoodById = handleServerError(async (req, res, next) => {
+    let userId = req.currentUser?.user?.id;
+    if (!userId) {
+        return res.status(403).json({ message: "Unauthorized user" });
+    }
+    const user = await User.findById(userId);
+    let foodId = req.query.foodId;
+    //foodId = foodId.replace(/^"|"$/g, '');
+    const food = await Food.findById(foodId);
+    if (!food) {
+        return res.status(404).json({ message: "Food not found" });
+    }
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    ListOfTrackedFoods = user.listOfTrackedFoods;
+    let foodIndex = -1;
+    for (let i = 0; i < ListOfTrackedFoods.length; i++) {
+        if (ListOfTrackedFoods[i][0] == foodId) {
+            foodIndex = i;
+            break;
+        }
+    }
+    if (foodIndex == -1) {
+        return res.status(404).json({ message: "Food not found" });
+    }
+    res.json({
+        message: "Food Retrieved successfully",
+        food: ListOfTrackedFoods[foodIndex],
+    });
+});
 
+
+const setTrackedFood = handleServerError(async (req, res, next) => {
+    let userId = req.currentUser?.user?.id;
+    if (!userId) {
+        return res.status(403).json({ message: "Unauthorized user" });
+    }
+    let foodId = req.body.foodId;
+    //foodId = foodId.replace(/^"|"$/g, '');
+    const user = await User.findById(userId);
+    const food = await Food.findById(foodId);
+    if (!food) {
+        return res.status(404).json({ message: "Food not found" });
+    }
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    let foodIndex = -1;
+    for (let i = 0; i < user.listOfTrackedFoods.length; i++) {
+        if (user.listOfTrackedFoods[i][0] == foodId) {
+            foodIndex = i;
+            break;
+        }
+    }
+    if (foodIndex == -1) {
+        user.listOfTrackedFoods.push([foodId, 1, new Date()]);
+    }
+    else {
+        user.listOfTrackedFoods[foodIndex][1]+=req.body.quantity;
+    }
+    await user.save();
+    res.json({
+        message: "Food added to tracked list successfully",
+    });
+});
 
 module.exports = {
     getUserId,
@@ -328,5 +393,7 @@ module.exports = {
     getFood,
     calculateBMI,
     calculateCalories,
-    getFoodById
+    getFoodById,
+    getTrackedFoodById,
+    setTrackedFood,
 };

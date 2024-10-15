@@ -98,5 +98,19 @@ router.get(
     userController.calculateCalories
 )
 
+router.get(
+    "/getTrackedFoodById",
+    bodyParser.json(),
+    authenticateToken,
+    userController.getTrackedFoodById
+)
+
+router.post(
+    "/setTrackedFood",
+    bodyParser.json(),
+    authenticateToken,
+    userController.setTrackedFood
+)
+
 
 module.exports = router;
