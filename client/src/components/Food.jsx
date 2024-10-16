@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { userContext } from "../contexts/User"
+import { UserContext } from "../contexts/User"
 import { useContext } from "react"
 import axios from "../api/axios"
 
@@ -11,7 +11,7 @@ const Food = (props) => {
     const [fats, setFats] = useState(0)
     const [carbs, setCarbs] = useState(0)
 
-    let loggedData = useContext(userContext);
+    let loggedData = useContext(UserContext);
 
 
     useEffect(() => {
