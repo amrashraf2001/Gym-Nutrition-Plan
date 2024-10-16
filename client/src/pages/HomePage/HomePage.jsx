@@ -69,7 +69,32 @@ const HomePage = () => {
                     {
                         foods.map((food) => {
                             return (
-                                <SwiperSlide className='p-5  object-fit h-full flex justify-center'><img className='min-h-96 h-96' width={400} height={400} src={food.img} alt={food.name}></img></SwiperSlide>
+                                <SwiperSlide className='p-10 object-fit h-full flex justify-center'>
+                                    <div className='card flex max-w-[300px] h-[530px] flex-col shadow-lg bg-orange-100 dark:bg-[#1A1A1A]'>
+                                        <img className='h-[300px] rounded-t-2xl bg-white' width={300} height={300} src={food.img} alt={food.name} />
+                                        <div className='flex flex-col gap-4 items-start p-5'>
+                                            <h2 className='card-title'>{food.name} for 100G</h2>
+                                            <div className="grid grid-cols-2 gap-4 w-full pr-4">
+                                                <div className="col-span-1 flex flex-col items-start">
+                                                    <p>Protein</p>
+                                                    <p>{food.protein}g</p>
+                                                </div>
+                                                <div className="col-span-1 flex flex-col items-end">
+                                                    <p>calories</p>
+                                                    <p>{food.calories}Kcal</p>
+                                                </div>
+                                                <div className="col-span-1 flex flex-col items-start">
+                                                    <p>Fats</p>
+                                                    <p>{food.fats}g</p>
+                                                </div>
+                                                <div className="col-span-1 flex flex-col items-end">
+                                                    <p>Carbs</p>
+                                                    <p>{food.carbs}g</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
                             )
                         })
                     }

@@ -2,7 +2,7 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaSquareGithub } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 import gomaaAvatar from "../../assets/Gomaa.jpg"
-import amrAvatar from "../../assets/Amr.png"
+import amrAvatar from "../../assets/Amr.jpg"
 import AhmedGamalAvatar from "../../assets/Gamal.jpeg"
 import ZakiAvatar from "../../assets/zaki.jpg"
 import { motion } from "framer-motion";
@@ -37,17 +37,17 @@ const Team = () => {
                                     variants={iconVariants(3)}
                                     initial="initial"
                                     animate="animate"
-                                    target="_blank" href="" className="text-2xl"><FaLinkedin /></motion.a>
+                                    target="_blank" href="https://www.linkedin.com/in/amr-ashraf-261752231/" className="text-2xl"><FaLinkedin /></motion.a>
                                 <motion.a
                                     variants={iconVariants(3.5)}
                                     initial="initial"
                                     animate="animate"
-                                    target="_blank" href="" className="text-2xl"><FaSquareGithub /></motion.a>
+                                    target="_blank" href="https://github.com/amrashraf2001" className="text-2xl"><FaSquareGithub /></motion.a>
                                 <motion.a
                                     variants={iconVariants(4)}
                                     initial="initial"
                                     animate="animate"
-                                    target="_blank" href="" className="text-2xl"><FaFacebookSquare /></motion.a>
+                                    target="_blank" href="https://www.facebook.com/share/RjhqJdNP8cejY9Uj/" className="text-2xl"><FaFacebookSquare /></motion.a>
                             </div>
                         </div>
                         <div className="flex flex-col justify-between text-lime-100 dark:text-current">
