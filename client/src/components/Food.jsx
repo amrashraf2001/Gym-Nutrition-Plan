@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { UserContext } from "../contexts/User"
 import { useContext } from "react"
 import axios from "../api/axios"
+import { object } from "prop-types";
 const trackFoodURL = "/user/setTrackedFood";
 const Food = (props) => {
     const [grams, setGrams] = useState(100)
@@ -19,7 +20,13 @@ const Food = (props) => {
         try {
             const response = await axios.post(trackFoodURL, JSON.stringify({
                 foodId: food._id,
-                quantity: grams
+                quantity: grams,
+                details: {
+                    calories: calories,
+                    protein: protein,
+                    fats: fats,
+                    carbs: carbs
+                }
             }),
                 {
                     headers: {
@@ -37,6 +44,7 @@ const Food = (props) => {
 
     const handleTrack = () => {
         tarckFood()
+        setFood({})
     }
 
     useEffect(() => {
@@ -58,8 +66,8 @@ const Food = (props) => {
         }
     }
 
-    return (
-        <div className="w-full md:w-1/2 p-3 bg-orange-100 dark:bg-[#1A1A1A] rounded-lg shadow-md flex flex-col gap-1 ">
+    return (<>
+        {Object.keys(food).length !== 0 && (<div className="w-full md:w-1/2 p-3 bg-orange-100 dark:bg-[#1A1A1A] rounded-lg shadow-md flex flex-col gap-1 ">
             <div>
                 <img className="w-auto h-72 rounded-lg" src={food.img} alt={food.name} />
             </div>
@@ -82,7 +90,9 @@ const Food = (props) => {
                 <input onChange={calculateMacros} max={1000} className="px-2 py-1 rounded-md" type="number" placeholder="Quantity in Gms" />
                 <button onClick={handleTrack} className="px-2 py-1 bg-[#007654] text-xl font-bold dark:text-slate-50  rounded-lg dark:btn-success">Track This Food</button>
             </div>
-        </div>
+        </div>)
+        }
+    </>
     )
 }
 
