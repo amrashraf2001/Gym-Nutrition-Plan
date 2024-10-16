@@ -60,12 +60,16 @@ const updateProfile = handleServerError(async (req, res, next) => {
         return res.status(400).json({ message: req.fileValidationError });
     }
     if (req.file?.filename) {
+        try {
         fs.unlink(`uploads/${user.profilePicture}`, (err) => {
             if (err) {
                 console.log(err)
                 return
             }
         })
+    } catch (error) {
+        // console.log(error)
+    }
     }
     if (newProfile.userName !== user.userName) {
         let uname = await User.findOne({ userName: newProfile.userName });
@@ -202,7 +206,7 @@ const getAllFoods = handleServerError(async (req, res) => {
     let pageNum = parseInt(req.params.pageNum);
     let limit = req.query.limit && !isNaN(parseInt(req.query.limit)) ? parseInt(req.query.limit) : 10;
     let skip = (pageNum * limit) - limit;
-    
+
     if (!req.currentUser) {
         return res.status(403).json({ message: "Unauthorized user" });
     }

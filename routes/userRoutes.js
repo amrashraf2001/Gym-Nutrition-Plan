@@ -6,6 +6,7 @@ const authenticateToken = require("../middleware/authenticateToken");
 const { check } = require("express-validator");
 const { registerAuthentication } = require("../middleware/registerAuthentication");
 const { uploadImage } = require("../middleware/multerConfig");
+const imageToAVIF = require("../middleware/imageToAVIF");
 
 router.get(
     "/getUserId",
@@ -26,6 +27,7 @@ router.patch(
     bodyParser.json(),
     authenticateToken,
     uploadImage.single("profilePicture"),
+    imageToAVIF,
     userController.updateProfile
   );
 
