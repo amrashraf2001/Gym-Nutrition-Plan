@@ -26,8 +26,8 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
         setShowHide(true)
     }
     // console.log(usernameDisplay)
-    console.log(typeof data.profilePicture)
-    console.log(typeof data.profilePicture !== "object")
+    // console.log(typeof data.profilePicture)
+    // console.log(typeof data.profilePicture !== "object")
 
     return (
         <>
