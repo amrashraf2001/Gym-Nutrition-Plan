@@ -82,7 +82,7 @@ const Header = () => {
 
                         <NavLink to={"/Myprofile"} className="font-semibold">
                             <div className="avatar">
-                                <div className="w-12 rounded-full border-2 border-black">
+                                <div className="w-12 rounded-full border-2 border-white">
                                     <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
                                 </div>
                             </div>

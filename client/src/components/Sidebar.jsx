@@ -31,7 +31,7 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
         <aside className=" bg-[#9e9583] bg-gradient-to-b dark:text-[#0d1906] dark:from-neutral-400 dark:to-neutral-700 flex flex-col p-4 items-center ">
             <div className="flex flex-col gap-6 items-center text-xl font-semibold">
                 <div className="avatar flex flex-col items-center gap-4">
-                    <div className="w-24 rounded-full border-2 border-black">
+                    <div className="w-24 rounded-full border-2 border-white">
                         <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
                     </div>
                     <input
