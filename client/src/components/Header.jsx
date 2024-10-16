@@ -68,7 +68,8 @@ const Header = () => {
     }
     // console.log(data.age)
     // console.log(typeof data.age)
-    // console.log(data?.age !== 0 && data?.height !== 0 && data?.weight !== 0 && data?.disease && data?.phoneNum && data?.profilePicture)
+    console.log(data?.age !== 0 , data?.height !== 0 , data?.weight !== 0 , data?.disease , data?.phoneNum , data?.profilePicture) 
+    console.log(data?.age !== 0 && data?.height !== 0 && data?.weight !== 0 && data?.disease && data?.phoneNum && data?.profilePicture)
     return (
         <header className=" px-2 sm:px-8 md:px-12 lg:px-14 top-0 z-[2000] sticky mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
             <Link to={loggedData.loggedUser !== null ? "/homePage" : "/"} className="text-3xl font-bold">GYMNUT</Link>

@@ -11,8 +11,8 @@ const updateProfileURL = "/user/updateProfile";
 const phoneNumberRegex = /^01\d{0,9}$/;
 
 const UserDetails = ({ onNext, phoneNumber, setPhoneNumber, profilePicture, setProfilePicture }) => {
-console.log()
-// console.log(phoneNumber, profilePicture === "")
+    console.log()
+    // console.log(phoneNumber, profilePicture === "")
 
     return (
         <div className="flex flex-col space-y-5 items-center pb-10">
@@ -42,7 +42,7 @@ console.log()
             </div>
             <div className="flex flex-col items-center gap-8">
                 <h2 className="text-3xl dark:text-current font-semibold text-green-700">Insert your Profile Picture</h2>
-                <div role="alert" className={`${ profilePicture? "hidden" : "" } alert alert-error w-80`}>
+                <div role="alert" className={`${profilePicture ? "hidden" : ""} alert alert-error w-80`}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6 shrink-0 stroke-current"
@@ -67,7 +67,7 @@ console.log()
                 />
             </div>
             <button
-                className={`${validator.isMobilePhone(phoneNumber, "ar-EG") && profilePicture? "hover:translate-x-2" : ""} absolute right-8 bottom-10 transition text-4xl text-[#007654]`}
+                className={`${validator.isMobilePhone(phoneNumber, "ar-EG") && profilePicture ? "hover:translate-x-2" : ""} absolute right-8 bottom-10 transition text-4xl text-[#007654]`}
                 onClick={() => { onNext() }}
                 disabled={!validator.isMobilePhone(phoneNumber, "ar-EG") || profilePicture === ""}
             >
@@ -110,7 +110,7 @@ const UserDetails2 = ({ onNext, onPrev, age, setAge }) => {
                 className="placeholder:text-green-950 dark:bg-slate-400 dark:text-[#070F2B] placeholder:dark:text-[#070F2B] shadow-lg rounded-lg border-2 bg-green-400 p-2 border-black w-52 h-14"
                 placeholder="Enter your Age"
                 max={150}
-                min={5}
+
             />
             <button
                 className="absolute right-8 bottom-10 transition hover:translate-x-2 text-4xl text-[#007654]"
@@ -127,7 +127,7 @@ const UserDetails2 = ({ onNext, onPrev, age, setAge }) => {
             </button>
             <button
                 className="absolute left-8 bottom-10 transition hover:-translate-x-2 text-4xl text-[#007654]"
-                onClick={()=>{onPrev(1)}}
+                onClick={() => { onPrev(1) }}
             >
                 <FaArrowAltCircleLeft />
             </button>
@@ -318,7 +318,7 @@ const Card = () => {
                 updatedData.append('age', age);
                 updatedData.append('height', height);
                 updatedData.append('weight', weight);
-                updatedData.append('disease',specifiedDisease || disease);
+                updatedData.append('disease', specifiedDisease || disease);
                 updatedData.append('phoneNum', phoneNumber);
                 updatedData.append('profilePicture', profilePicture);
 
