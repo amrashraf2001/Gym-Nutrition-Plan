@@ -68,7 +68,7 @@ const Header = () => {
     }
     return (
         <header className=" px-2 sm:px-8 md:px-12 lg:px-14 top-0 z-[2000] sticky mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
-            <Link to={"/"} className="text-3xl font-bold">GYMNUT</Link>
+            <Link to={loggedData.loggedUser !== null ? "/homePage" : "/"} className="text-3xl font-bold">GYMNUT</Link>
             <nav className=" justify-end items-center gap-4 flex">
                 <div className="hidden md:gap-6 md:flex justify-between w-full">
                     {loggedData.loggedUser !== null ?
