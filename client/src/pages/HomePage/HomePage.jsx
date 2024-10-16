@@ -35,7 +35,7 @@ const HomePage = () => {
                         Authorization: `Bearer ${loggedData.loggedUser}`,
                     },
                 });
-                console.log(response.data.foods);
+                // console.log(response.data.foods);
                 setFoods(response.data.foods);
             } catch (err) {
                 console.log(err);
@@ -57,8 +57,8 @@ const HomePage = () => {
                 <Swiper
                     spaceBetween={10}
                     slidesPerView={3}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
+                    // onSlideChange={() => console.log('slide change')}
+                    // onSwiper={(swiper) => console.log(swiper)}
                     className="w-full"
                     modules={[Autoplay]}
                     autoplay={{
@@ -69,7 +69,7 @@ const HomePage = () => {
                     {
                         foods.map((food) => {
                             return (
-                                <SwiperSlide className='p-10 object-fit h-full flex justify-center'>
+                                <SwiperSlide className='p-10 object-fit h-full flex justify-center' key={food._id}>
                                     <div className='card flex max-w-[300px] h-[530px] flex-col shadow-lg bg-orange-100 dark:bg-[#1A1A1A]'>
                                         <img className='h-[300px] rounded-t-2xl bg-white' width={300} height={300} src={food.img} alt={food.name} />
                                         <div className='flex flex-col gap-4 items-start p-5'>
