@@ -73,7 +73,7 @@ const HomePage = () => {
                 }
             </Swiper>
             </div>
-        </div>
+        </section>
     );
 };
 
