@@ -28,7 +28,7 @@ const Contact = () => {
           </div>
           <button type="submit" className="block dark:bg-[#0a3126] w-full rounded-md bg-[#80AF81] transition hover:bg-[#105642]  px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm  ">Let's talk</button>
         </div>
-
+        <p className="text-lg text-gray-400 hover:text-white transition-all font-semibold">Email: <a href="mailto:r75118106@gmail.com">gymnut@gmail.com</a></p>
       </motion.form>
     </section>
   )
