@@ -2,7 +2,9 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaSquareGithub } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 import gomaaAvatar from "../../assets/Gomaa.jpg"
+import amrAvatar from "../../assets/Amr.png"
 import AhmedGamalAvatar from "../../assets/Gamal.jpeg"
+import ZakiAvatar from "../../assets/zaki.jpg"
 import { motion } from "framer-motion";
 
 const iconVariants = (duration) => ({
@@ -28,7 +30,7 @@ const Team = () => {
                     <div className="card bg-green-900 md:col-span-1 dark:bg-neutral p-4 flex gap-2 felx-col justify-around shadow-md">
                         <div className="flex justify-between">
                             <div className="dark:ring-green-600 ring-green-950 ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
-                                <img className="rounded-full" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                <img className="rounded-full" src={amrAvatar} />
                             </div>
                             <div className="flex flex-col gap-2 h-full justify-center text-lime-100 dark:text-current">
                                 <motion.a
@@ -55,8 +57,8 @@ const Team = () => {
                         <div className="flex flex-col justify-between gap-2 text-lime-100 dark:text-current">
                             <h4 className="font-semibold text-lg">Contact information</h4>
                             <div className="flex flex-col justify-between gap-1">
-                                <p>Email: <a href="mailto:ag849600@gmail.com">ag849600@gmail.com</a></p>
-                                <p>Phone: +201117590628</p>
+                                <p>Email: <a href="mailto:Amrateia46@gmail.com">Amrateia46@gmail.com</a></p>
+                                <p>Phone: +201067254077</p>
                             </div>
                         </div>
                     </div>
@@ -127,21 +129,21 @@ const Team = () => {
                     <div className="card bg-green-900 md:col-span-1 dark:bg-neutral p-4 flex felx-col justify-around gap-2 shadow-md">
                         <div className="flex justify-between">
                             <div className="dark:ring-green-600 ring-green-950 ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
-                                <img className="rounded-full" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                <img className="rounded-full w-full h-full object-cover" src={ZakiAvatar} alt="avatar" />
                             </div>
                             <div className="flex flex-col gap-2 h-full justify-center text-lime-100 dark:text-current">
                                 <motion.a
                                     variants={iconVariants(3)}
                                     initial="initial"
-                                    animate="animate" target="_blank" href="" className="text-2xl"><FaLinkedin /></motion.a>
+                                    animate="animate" target="_blank" href="https://www.linkedin.com/in/ahmed-zaki-8995152b6/" className="text-2xl"><FaLinkedin /></motion.a>
                                 <motion.a
                                     variants={iconVariants(3.5)}
                                     initial="initial"
-                                    animate="animate" target="_blank" href="" className="text-2xl"><FaSquareGithub /></motion.a>
+                                    animate="animate" target="_blank" href="https://github.com/ahmed-zaki12" className="text-2xl"><FaSquareGithub /></motion.a>
                                 <motion.a
                                     variants={iconVariants(4)}
                                     initial="initial"
-                                    animate="animate" target="_blank" href="" className="text-2xl"><FaFacebookSquare /></motion.a>
+                                    animate="animate" target="_blank" href="https://www.facebook.com/ahmed.zakimohamed.3/" className="text-2xl"><FaFacebookSquare /></motion.a>
                             </div>
                         </div>
                         <div className="flex flex-col justify-between text-lime-100 dark:text-current">
@@ -151,16 +153,16 @@ const Team = () => {
                         <div className="flex flex-col justify-between gap-2 text-lime-100 dark:text-current">
                             <h4 className="font-semibold text-lg">Contact information</h4>
                             <div className="flex flex-col justify-between gap-1">
-                                <p>Email: <a href="mailto:ag849600@gmail.com">ag849600@gmail.com</a></p>
-                                <p>Phone: +201117590628</p>
+                                <p>Email: <a href="mailto:ahmed.zaki98763@gmail.com">ahmed.zaki98763@gmail.com</a></p>
+                                <p>Phone: +201117734399</p>
                             </div>
                         </div>
                     </div>
                     <div className="card bg-green-900 md:col-span-1 dark:bg-neutral p-4 gap-2 flex felx-col justify-around shadow-md">
                         <div className="flex justify-between">
-                        <div className="dark:ring-green-600 ring-green-950 ring-offset-base-100 w-24 h-24 rounded-full ring ring-offset-2">
-                             <img className="w-full h-full object-cover rounded-full" src={AhmedGamalAvatar} alt="Avatar" />
-                        </div>
+                            <div className="dark:ring-green-600 ring-green-950 ring-offset-base-100 w-24 h-24 rounded-full ring ring-offset-2">
+                                <img className="w-full h-full object-cover rounded-full" src={AhmedGamalAvatar} alt="Avatar" />
+                            </div>
                             <div className="flex flex-col gap-2 h-full justify-center text-lime-100 dark:text-current">
                                 <motion.a
                                     variants={iconVariants(3)}

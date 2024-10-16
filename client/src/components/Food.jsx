@@ -67,9 +67,9 @@ const Food = (props) => {
     }
 
     return (<>
-        {Object.keys(food).length !== 0 && (<div className="w-full md:w-1/2 p-3 bg-orange-100 dark:bg-[#1A1A1A] rounded-lg shadow-md flex flex-col gap-1 ">
+        {Object.keys(food).length !== 0 && (<div className="w-full md:max-w-[400px] p-3 bg-orange-100 dark:bg-[#1A1A1A] rounded-lg shadow-md flex flex-col gap-1 ">
             <div>
-                <img className="w-auto h-72 rounded-lg" src={food.img} alt={food.name} />
+                <img className="min-h-96 h-96 rounded-lg" width={400} height={400} src={food.img} alt={food.name} />
             </div>
             <h2 className="font-semibold text-xl">{food.name} ({calories} Kcal for {grams}G)</h2>
             <div className="flex flex-wrap ">

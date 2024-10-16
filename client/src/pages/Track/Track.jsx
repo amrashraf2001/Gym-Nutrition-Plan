@@ -34,7 +34,7 @@ const Track = () => {
     }
 
     return (
-        <section className="px-14 flex flex-col gap-3 items-start justify-center py-4 ">
+        <section className="px-14 flex flex-col gap-3 items-center py-4 ">
             <div className="w-full relative">
                 <div className="relative w-full">
                     <input type="search" onChange={searchFood} autoComplete="off" className=" dark:text-[#070F2B] text-xl p-1 rounded-lg w-full h-16 pl-8 placeholder:dark:text-[#070F2B] outline-none dark:bg-slate-400" id="search" placeholder="Search" />

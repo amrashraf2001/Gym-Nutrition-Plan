@@ -30,8 +30,8 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
     return (
         <>
             <div className="flex flex-col gap-6 items-center text-xl font-semibold">
-                <div className="avatar flex flex-col items-center gap-4">
-                    <div className="w-24 relative rounded-full border-2 border-white ">
+                <div className="avatar placeholder flex flex-col items-center gap-4">
+                    {data.profilePicture?.split("/").at(-1) ? (<div className="w-24 relative rounded-full border-2 border-white ">
                             <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
                         <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer bg-gray-500 opacity-0 duration-300 transition-opacity hover:opacity-75 w-full h-full ">
                             <CiEdit className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl" />
@@ -47,7 +47,12 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
                                 className={` absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 file-input file-input-bordered file-input-success w-full max-w-xs`}
                             />
                         </div>
-                    </div>
+                    </div>)
+                        :
+                        (<div className="bg-neutral text-neutral-content w-24 border-2 border-white rounded-full">
+                            <span className="text-3xl">{data.username?.at(0).toUpperCase()}</span>
+                        </div>)
+                    }
                     {/* <input
                         type="file"
                         onChange={(e) => {
