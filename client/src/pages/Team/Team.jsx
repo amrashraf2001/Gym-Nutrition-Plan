@@ -1,7 +1,7 @@
 import { FaLinkedin } from "react-icons/fa";
 import { FaSquareGithub } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
-import gomaaAvatar from "../../assets/gomaa.jpg"
+import gomaaAvatar from "../../assets/Gomaa.jpg"
 import { motion } from "framer-motion";
 
 const iconVariants = (duration) => ({
