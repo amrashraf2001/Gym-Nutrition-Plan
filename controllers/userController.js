@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Food = require("../models/food");
 const Plan = require("../models/plan");
+const Tips = require("../models/tips");
 const fs = require("fs");
 const { handleServerError } = require("../utils/errorHandler");
 
@@ -380,6 +381,21 @@ const setTrackedFood = handleServerError(async (req, res, next) => {
     });
 });
 
+const randomTip = handleServerError(async (req, res, next) => {
+    let userId = req.currentUser?.user?.id;
+    if (!userId) {
+        return res.status(403).json({ message: "Unauthorized user" });
+    }
+    const tips = await Tips.find();
+    // console.log(tips.length);
+    const randomTip = tips[Math.floor(Math.random() * tips.length)];
+    res.json({
+        message: "Random tip generated successfully",
+        randomTip,
+    });
+});
+
+
 module.exports = {
     getUserId,
     getProfile,
@@ -396,4 +412,5 @@ module.exports = {
     getFoodById,
     getTrackedFoodById,
     setTrackedFood,
+    randomTip,
 };
