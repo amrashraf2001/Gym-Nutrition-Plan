@@ -46,12 +46,12 @@ const Header = () => {
                     },
                 });
                 setData(response.data.user);
-
             } catch (err) {
                 console.log(err);
             }
         };
         fetchData(); // Fetch the data when reset is true
+
     }, []);
 
     useEffect(() => {
@@ -66,7 +66,6 @@ const Header = () => {
             setTheme("dark");
         }
     }
-
     return (
         <header className=" px-2 sm:px-8 md:px-12 lg:px-14 top-0 z-[2000] sticky mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
             <Link to={"/"} className="text-3xl font-bold">GYMNUT</Link>
@@ -81,10 +80,15 @@ const Header = () => {
                     loggedData.loggedUser !== null && (
 
                         <NavLink to={"/Myprofile"} className="font-semibold">
-                            <div className="avatar">
-                                <div className="w-12 rounded-full border-2 border-white">
-                                    <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
-                                </div>
+                            <div className="avatar placeholder">
+                                {data.profilePicture?.split("/").at(-1) ? (<div className="w-12 rounded-full border-2 border-white">
+                                    <img className=" rounded-full" src={data.profilePicture} alt={`${data.userName} Profile Picture`} />
+                                </div>)
+                                    :
+                                    (<div className="bg-neutral text-neutral-content w-12 border-2 border-white rounded-full">
+                                        <span className="text-3xl">{data.userName?.at(0).toUpperCase()}</span>
+                                    </div>)
+                                }
                             </div>
                         </NavLink>
                     )}

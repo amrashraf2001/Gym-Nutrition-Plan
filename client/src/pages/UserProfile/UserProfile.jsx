@@ -117,7 +117,7 @@ function UserProfile() {
         setData(response.data.user);
 
         setReset(false); // Reset the reset state after fetching the data
-        consol.log(data)
+        console.log(data)
       } catch (err) {
         console.log(err);
       }
