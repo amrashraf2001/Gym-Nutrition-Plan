@@ -112,5 +112,11 @@ router.post(
     userController.setTrackedFood
 )
 
+router.get(
+    "/randomTip",
+    bodyParser.json(),
+    authenticateToken,
+    userController.randomTip
+)
 
 module.exports = router;
