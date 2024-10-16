@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Food = require("../models/food");
 const Plan = require("../models/plan");
+const Tips = require("../models/tips");
 const fs = require("fs");
 const { handleServerError } = require("../utils/errorHandler");
 
@@ -360,26 +361,41 @@ const setTrackedFood = handleServerError(async (req, res, next) => {
     }
     if (!user) {
         return res.status(404).json({ message: "User not found" });
-    }
-    let foodIndex = -1;
-    console.log(user.listOfTrackedFoods);
-    for (let i = 0; i < user.listOfTrackedFoods.length; i++) {
-        if (user.listOfTrackedFoods[i][0] == foodId) {
-            foodIndex = i;
-            break;
-        }
-    }
-    if (foodIndex == -1) {
-        user.listOfTrackedFoods.push([foodId, 1, new Date()]);
-    }
-    else {
-        user.listOfTrackedFoods[foodIndex][1]+=req.body.quantity;
-    }
+    }   
+    user.listOfTrackedFoods.push([foodId, req.body.quantity, new Date()]);
+    // let foodIndex = -1;
+    // for (let i = 0; i < user.listOfTrackedFoods.length; i++) {
+    //     if (user.listOfTrackedFoods[i][0] == foodId) {
+    //         foodIndex = i;
+    //         break;
+    //     }
+    // }
+    // if (foodIndex == -1) {
+    //     user.listOfTrackedFoods.push([foodId, 1, new Date()]);
+    // }
+    // else {
+    //     user.listOfTrackedFoods[foodIndex][1]+=req.body.quantity;
+    // }
     await user.save();
     res.json({
         message: "Food added to tracked list successfully",
     });
 });
+
+const randomTip = handleServerError(async (req, res, next) => {
+    let userId = req.currentUser?.user?.id;
+    if (!userId) {
+        return res.status(403).json({ message: "Unauthorized user" });
+    }
+    const tips = await Tips.find();
+    // console.log(tips.length);
+    const randomTip = tips[Math.floor(Math.random() * tips.length)];
+    res.json({
+        message: "Random tip generated successfully",
+        randomTip,
+    });
+});
+
 
 module.exports = {
     getUserId,
@@ -397,4 +413,5 @@ module.exports = {
     getFoodById,
     getTrackedFoodById,
     setTrackedFood,
+    randomTip,
 };
