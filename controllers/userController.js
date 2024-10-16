@@ -199,15 +199,16 @@ const deletePlan = handleServerError(async (req, res, next) => {
 });
 
 const getAllFoods = handleServerError(async (req, res) => {
+    let pageNum = parseInt(req.params.pageNum);
+    let limit = req.query.limit && !isNaN(parseInt(req.query.limit)) ? parseInt(req.query.limit) : 10;
+    let skip = (pageNum * limit) - limit;
+    
     if (!req.currentUser) {
         return res.status(403).json({ message: "Unauthorized user" });
     }
-    let pageNum = parseInt(req.params.pageNum);
     if (isNaN(pageNum)) {
         return res.status(400).json({ message: "Invalid page number" });
     }
-    let limit = req.query.limit && !isNaN(parseInt(req.query.limit)) ? parseInt(req.query.limit) : 10;
-    let skip = (pageNum * limit) - limit;
     // console.log(parseInt(req.params.pageNum));
     const foods = await Food.find().skip(skip).limit(limit);
     // console.log(req.currentUser)
