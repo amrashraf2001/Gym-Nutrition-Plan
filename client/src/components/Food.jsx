@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react"
+import { userContext } from "../contexts/User"
+import { useContext } from "react"
+import axios from "../api/axios"
 
 const Food = (props) => {
     const [grams, setGrams] = useState(100)
@@ -7,6 +10,10 @@ const Food = (props) => {
     const [protein, setProtein] = useState(0)
     const [fats, setFats] = useState(0)
     const [carbs, setCarbs] = useState(0)
+
+    let loggedData = useContext(userContext);
+
+
     useEffect(() => {
         setFood(props.food)
     }, [props.food])
