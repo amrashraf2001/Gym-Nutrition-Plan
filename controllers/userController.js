@@ -362,6 +362,7 @@ const setTrackedFood = handleServerError(async (req, res, next) => {
         return res.status(404).json({ message: "User not found" });
     }
     let foodIndex = -1;
+    console.log(user.listOfTrackedFoods);
     for (let i = 0; i < user.listOfTrackedFoods.length; i++) {
         if (user.listOfTrackedFoods[i][0] == foodId) {
             foodIndex = i;

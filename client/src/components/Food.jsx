@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { UserContext } from "../contexts/User"
 import { useContext } from "react"
 import axios from "../api/axios"
-
+const trackFoodURL = "/user/setTrackedFood";
 const Food = (props) => {
     const [grams, setGrams] = useState(100)
     const [food, setFood] = useState({})
@@ -13,6 +13,31 @@ const Food = (props) => {
 
     let loggedData = useContext(UserContext);
 
+    const tarckFood = async () => {
+        console.log(food._id)
+        console.log(grams)
+        try {
+            const response = await axios.post(trackFoodURL, JSON.stringify({
+                foodId: food._id,
+                quantity: grams
+            }),
+                {
+                    headers: {
+                        'Authorization': `Bearer ${loggedData.loggedUser}`,
+                        'Content-Type': 'application/json'
+                    },
+                }
+            )
+        } catch (error) {
+            console.log("Can't track this food", error)
+        }
+
+    }
+
+
+    const handleTrack = () => {
+        tarckFood()
+    }
 
     useEffect(() => {
         setFood(props.food)
@@ -55,7 +80,7 @@ const Food = (props) => {
             </div>
             <div className="flex flex-col gap-2">
                 <input onChange={calculateMacros} max={1000} className="px-2 py-1 rounded-md" type="number" placeholder="Quantity in Gms" />
-                <button className="px-2 py-1 bg-[#007654] text-xl font-bold dark:text-slate-50  rounded-lg dark:btn-success">Track This Food</button>
+                <button onClick={handleTrack} className="px-2 py-1 bg-[#007654] text-xl font-bold dark:text-slate-50  rounded-lg dark:btn-success">Track This Food</button>
             </div>
         </div>
     )
