@@ -11,7 +11,7 @@ const NavLinks = () => {
     return (
         <>
             {/* <NavLink to={"/"} className="font-semibold link">HOME</NavLink> */}
-            <a className="font-semibold linkStyle" href="#Hero">HOME</a>
+            <NavLink to={"/"} className="font-semibold linkStyle">HOME</NavLink>
             <a className="font-semibold linkStyle" href="#About">ABOUT</a>
             <a className="font-semibold linkStyle" href="#Services">SERVICES</a>
             <a className="font-semibold linkStyle" href="#Contact">CONTACT</a>
