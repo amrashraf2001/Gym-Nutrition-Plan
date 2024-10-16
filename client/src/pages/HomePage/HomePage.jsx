@@ -1,12 +1,12 @@
 import React from 'react';
 import axios from '../../api/axios';
-import { useEffect, useState,useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { UserContext } from "../../contexts/User";
 
 const HomePage = () => {
-    const loggedData = useContext(UserContext)
+    const loggedData = useContext(UserContext);
     const [tip, setTip] = useState("");
-    // console.log((Math.random()*100).toFixed())
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -16,24 +16,21 @@ const HomePage = () => {
                     },
                 });
                 setTip(response.data.randomTip.tip);
-                // setData(response.data.user);
-
             } catch (err) {
                 console.log(err);
             }
         };
-        fetchData(); // Fetch the data when reset is true
+        fetchData();
     }, []);
 
     return (
-        <div className=" h-full flex flex-col items-center p-4">
-            <div className="randomTip p-10">
-                {/* <h1 className="text-3xl font-bold">Random Tip</h1> */}
-                <p className="text-lg p-5">{tip}</p>
+        <section className='container mx-auto px-8 sm:px10 md:px-12 lg:px-14 py-3 flex flex-col gap-4 items-center'>
+            <div className='randomTip p-10 rounded-md shadow-md bg-gradient-to-b from-[#398650] to-green-900'>
+                <h1 className='text-3xl font-bold text-white'>Tip of the day</h1>
+                <p className='text-lg p-5 text-neutral-100'>{tip}</p>
             </div>
-            <div className="swiper"></div>
-        </div>
+        </section>
     );
-}
+};
 
 export default HomePage;
