@@ -2,35 +2,36 @@ const sharp = require('sharp');
 const fs = require('fs');
 
 const imageToAVIF = async (req, res, next) => {
-  // Check if file exists in the request
   if (req.file && req.file.path) {
-    const { path } = req.file; // Path of the uploaded file
+    const { path } = req.file;
 
     try {
-      // Initialize sharp with the file path directly
+      // Convert image to AVIF
       await sharp(path)
-        .avif({ quality: 50 }) // Convert to AVIF with quality 50
-        .toFile(path.replace(/\.\w+$/, '.avif')); // Replace the file extension with .avif
+        .avif({ quality: 50 })
+        .toFile(path.replace(/\.\w+$/, '.avif'));
 
-      // Asynchronously delete the original file
-      fs.unlink(path, (err) => {
-        if (err) {
-          console.error('Error deleting the original file:', err);
-        }
-      });
+      // Add a slight delay before deleting the original file
+      setTimeout(() => {
+        fs.unlink(path, (err) => {
+          if (err) {
+            console.error('Error deleting the original file:', err);
+          } else {
+            console.log('Original file deleted successfully.');
+          }
+        });
+      }, 1000); // 1-second delay
 
       // Update the filename to the new AVIF file
       req.file.filename = req.file.filename.replace(/\.\w+$/, '.avif');
-
-      next(); // Move to the next middleware
+      next();
     } catch (error) {
       console.error('Error processing image:', error);
-      next(error); // Pass the error to the next middleware
+      next(error);
     }
   } else {
-    next(); // If no file is present, move to the next middleware
+    next();
   }
 };
 
 module.exports = imageToAVIF;
-
