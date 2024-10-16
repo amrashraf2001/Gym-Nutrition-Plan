@@ -349,10 +349,12 @@ const getTrackedFoodById = handleServerError(async (req, res, next) => {
 
 const setTrackedFood = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
+    let foodId = req.body.foodId;
+    let quantity = req.body.quantity;
+    let datails = req.body.details;
     if (!userId) {
         return res.status(403).json({ message: "Unauthorized user" });
     }
-    let foodId = req.body.foodId;
     //foodId = foodId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     const food = await Food.findById(foodId);
@@ -362,7 +364,17 @@ const setTrackedFood = handleServerError(async (req, res, next) => {
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }   
-    user.listOfTrackedFoods.push([foodId, parseInt(req.body.quantity), new Date()]);
+    user.listOfTrackedFoods.push({
+        foodId: foodId, // Ensure foodId is an ObjectId
+        quantity: parseInt(quantity), // Parsed as an integer
+        details: {
+            calories: parseFloat(datails.calories),
+            protein: parseFloat(datails.protein),
+            fats: parseFloat(datails.fats),
+            carbs: parseFloat(datails.carbs)
+        },
+        dateTracked: new Date() // Current date
+      });      
     // let foodIndex = -1;
     // for (let i = 0; i < user.listOfTrackedFoods.length; i++) {
     //     if (user.listOfTrackedFoods[i][0] == foodId) {

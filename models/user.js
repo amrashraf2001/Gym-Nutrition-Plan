@@ -54,22 +54,35 @@ const userSchema = new Schema({
         type: String,
         default: "",
     },
-    listOfTrackedFoods: [
-        [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "food",
+    listOfTrackedFoods: [{
+        foodId: {
+            type: Schema.Types.ObjectId,
+            ref: 'food', // Assuming 'food' is your reference model
+        },
+        quantity: {
+            type: Number,
+            default: 0,
+        },
+        details: {
+            calories: {
+                type: Number, // Use Number instead of float
             },
-            {
-                type: Number,
-                default: 0,
+            protein: {
+                type: Number, // Use Number instead of float
             },
-            {
-                type: Date,
-                default: Date.now,
+            fats: {
+                type: Number, // Use Number instead of float
+            },
+            carbs: {
+                type: Number, // Use Number instead of float
             }
-        ]
-    ],
+        },
+        dateTracked: {
+            type: Date,
+            default: Date.now,
+        }
+    }]
+    
 });
 
 module.exports = mongoose.model("user", userSchema);
