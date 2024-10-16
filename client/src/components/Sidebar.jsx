@@ -26,12 +26,14 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
         setShowHide(true)
     }
     // console.log(usernameDisplay)
+    console.log(typeof data.profilePicture)
+    console.log(typeof data.profilePicture !== "object")
 
     return (
         <>
             <div className="flex flex-col gap-6 items-center text-xl font-semibold">
                 <div className="avatar placeholder flex flex-col items-center gap-4">
-                    {data.profilePicture?.split("/").at(-1) ? (<div className="w-24 relative rounded-full border-2 border-white ">
+                    {typeof data.profilePicture !== "object" && data.profilePicture?.split("/").at(-1)  ? (<div className="w-24 relative rounded-full border-2 border-white ">
                             <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
                         <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer bg-gray-500 opacity-0 duration-300 transition-opacity hover:opacity-75 w-full h-full ">
                             <CiEdit className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl" />
