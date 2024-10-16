@@ -66,6 +66,9 @@ const Header = () => {
             setTheme("dark");
         }
     }
+    // console.log(data.age)
+    // console.log(typeof data.age)
+    // console.log(data?.age !== 0 && data?.height !== 0 && data?.weight !== 0 && data?.disease && data?.phoneNum && data?.profilePicture)
     return (
         <header className=" px-2 sm:px-8 md:px-12 lg:px-14 top-0 z-[2000] sticky mx-auto flex-wrap w-full flex py-4 items-center justify-between dark:bg-[#0a3126] text-[#fefefe] bg-[#007654]">
             <Link to={loggedData.loggedUser !== null ? "/homePage" : "/"} className="text-3xl font-bold">GYMNUT</Link>
@@ -80,8 +83,9 @@ const Header = () => {
                     loggedData.loggedUser !== null && (
 
                         <NavLink to={"/Myprofile"} className="font-semibold">
-                            <div className="avatar placeholder">
-                                {data.profilePicture?.split("/").at(-1) ? (<div className="w-12 rounded-full border-2 border-white">
+                            <div className="avatar placeholder indicator">
+                                {data.profilePicture?.split("/").at(-1) ? (<div className=" w-12 rounded-full border-2 border-white">
+                                    <span className={`${data?.age !== 0 && data?.height !== 0 && data?.weight !== 0 && data?.disease && data?.phoneNum && data?.profilePicture? "hidden": ""} indicator-item badge badge-error top-1 right-1`}></span>
                                     <img className=" rounded-full" src={data.profilePicture} alt={`${data.userName} Profile Picture`} />
                                 </div>)
                                     :
