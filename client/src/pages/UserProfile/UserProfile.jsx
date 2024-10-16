@@ -59,7 +59,7 @@ function UserButtons({ reset, data, setData, setShowHide }) {
           ) : (
             ""
           )}
-          <div className="flex justify-between w-full md:w-1/3 gap-10 items-center" >
+          <div className="flex justify-between w-full gap-10 items-center" >
             {/* Conditionally render the h3 or input based on whether editing is active for this key */}
             {!editingFields[key] ? (
               <h3
@@ -117,7 +117,7 @@ function UserProfile() {
         setData(response.data.user);
 
         setReset(false); // Reset the reset state after fetching the data
-        consol.log(data)
+        // console.log(data)
       } catch (err) {
         console.log(err);
       }
@@ -185,8 +185,8 @@ function UserProfile() {
         </svg>
         <span>Error! {error}</span>
       </div>
-      <section className="h-screen flex flex-col container md:grid md:grid-cols-6">
-
+      <section className="h-screen flex flex-col md:grid md:grid-cols-12">
+      <aside className=" col-span-3 bg-[#9e9583] bg-gradient-to-b dark:text-[#0d1906] dark:from-neutral-400 dark:to-neutral-700 flex flex-col p-4 items-center ">
         <Sidebar
           setShowHide={setShowHide}
           setData={setData}
@@ -197,8 +197,8 @@ function UserProfile() {
           setPictureDisplay={setPictureDisplay}
           className="col-span-1"
         />
-
-        <div className="col-span-5 items-start rounded-xl flex flex-col p-6 shadow-lg gap-10">
+        </aside>
+        <div className="col-span-9 items-start rounded-xl flex flex-col p-6 shadow-lg gap-10">
           <UserButtons
             setShowHide={setShowHide}
             setData={setData}

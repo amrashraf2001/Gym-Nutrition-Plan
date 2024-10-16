@@ -28,13 +28,27 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
     // console.log(usernameDisplay)
 
     return (
-        <aside className=" bg-[#9e9583] bg-gradient-to-b dark:text-[#0d1906] dark:from-neutral-400 dark:to-neutral-700 flex flex-col p-4 items-center ">
+        <>
             <div className="flex flex-col gap-6 items-center text-xl font-semibold">
                 <div className="avatar flex flex-col items-center gap-4">
-                    <div className="w-24 rounded-full border-2 border-white">
-                        <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
+                    <div className="w-24 relative rounded-full border-2 border-white ">
+                            <img className=" rounded-full" src={data.profilePicture} alt={`${data.username} Profile Picture`} />
+                        <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer bg-gray-500 opacity-0 duration-300 transition-opacity hover:opacity-75 w-full h-full ">
+                            <CiEdit className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl" />
+                            <input
+                                type="file"
+                                onChange={(e) => {
+                                    setData((prev) => ({
+                                        ...prev,
+                                        profilePicture: e.target.files[0],
+                                    }))
+                                    setShowHide(true)
+                                }}
+                                className={` absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 file-input file-input-bordered file-input-success w-full max-w-xs`}
+                            />
+                        </div>
                     </div>
-                    <input
+                    {/* <input
                         type="file"
                         onChange={(e) => {
                             setData((prev) => ({
@@ -51,7 +65,7 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
                         className="p-1 hover:text-white shadow-md rounded-lg transition-all cursor-pointer"
                     >
                         <CiEdit />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="flex gap-3">
                     <h2 className={`${usernameDisplay ? "hidden" : "block"} font-bold`}>{data.username}</h2>
@@ -70,7 +84,7 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
                         <CiEdit />
                     </div>
                 </div>
-                <hr className="border-2 w-48 m-auto border-black my-2" />
+                <hr className="border-2 min-w-32 max-w-full mx-9 border-black my-2" />
             </div>
             <div className="flex flex-col h-full justify-end">
                 {/* <div className="flex flex-col space-y-2">
@@ -79,7 +93,7 @@ const Sidebar = ({ setShowHide, setData, data, setUsernameDisplay, usernameDispl
                 </div> */}
                 <button onClick={logout} className="font-semibold linkstyle text-xl hover:text-white transition-all duration-200 ease-in-out hover:shadow-md rounded-lg self-center p-2">LOGOUT</button>
             </div>
-        </aside>
+        </>
 
 
     )
