@@ -361,20 +361,21 @@ const setTrackedFood = handleServerError(async (req, res, next) => {
     }
     if (!user) {
         return res.status(404).json({ message: "User not found" });
-    }
-    let foodIndex = -1;
-    for (let i = 0; i < user.listOfTrackedFoods.length; i++) {
-        if (user.listOfTrackedFoods[i][0] == foodId) {
-            foodIndex = i;
-            break;
-        }
-    }
-    if (foodIndex == -1) {
-        user.listOfTrackedFoods.push([foodId, 1, new Date()]);
-    }
-    else {
-        user.listOfTrackedFoods[foodIndex][1]+=req.body.quantity;
-    }
+    }   
+    user.listOfTrackedFoods.push([foodId, req.body.quantity, new Date()]);
+    // let foodIndex = -1;
+    // for (let i = 0; i < user.listOfTrackedFoods.length; i++) {
+    //     if (user.listOfTrackedFoods[i][0] == foodId) {
+    //         foodIndex = i;
+    //         break;
+    //     }
+    // }
+    // if (foodIndex == -1) {
+    //     user.listOfTrackedFoods.push([foodId, 1, new Date()]);
+    // }
+    // else {
+    //     user.listOfTrackedFoods[foodIndex][1]+=req.body.quantity;
+    // }
     await user.save();
     res.json({
         message: "Food added to tracked list successfully",
