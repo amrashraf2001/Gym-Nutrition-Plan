@@ -40,9 +40,9 @@ const Plan = () => {
                         "Authorization": `Bearer ${loggedData.loggedUser}`,
                     },
                 });
-                const userBMI = response.data;
-                setBmi(userBMI);
-                console.log(userBMI);
+                const userBMI = await response.data;
+                setBmi(userBMI.BMI);
+                console.log(userBMI.BMI);
             } catch (error) {
                 console.error("Error fetching user BMI:", error);
             }
@@ -58,7 +58,7 @@ const Plan = () => {
                         "Authorization": `Bearer ${loggedData.loggedUser}`,
                     },
                 });
-                const userData = response.data;
+                const userData = await response.data;
                 setProfile(userData);
                 console.log(userData);
             } catch (error) {
@@ -139,7 +139,7 @@ const Plan = () => {
         if (planData) {
             generatePlan();
         }
-    }, [planData])
+    }, [planData, profile, bmi]);
 
     const exponentialBackoff = async (fn, retries = 5, delay = 1000) => {
         try {
