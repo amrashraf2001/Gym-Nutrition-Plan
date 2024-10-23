@@ -10,8 +10,7 @@ const Plans = () => {
     goal: "lose",
     activity: "1.2",
     targetWeight: "",
-    startDate: "",
-    endDate: "",
+    duration: "",
   });
   // const [goal, setGoal] = useState("lose"); // Default: Lose weight
   // const [activity, setActivity] = useState(""); // Default: Lose weight
@@ -120,8 +119,62 @@ const Plans = () => {
                 />
               </div>
 
-              {/* Start date input */}
+              {/* Duration selection */}
               <div className="mb-4">
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Duration:
+                </label>
+                <select
+                  className="w-full border p-2 rounded"
+                  value={planData.duration}
+                  onChange={(e) => setPlanData(prev => ({...prev , duration:e.target.value}))}
+                >
+                  <option value="1">1 week</option>
+                  <option value="2">2 weeks</option>
+                  <option value="3" >
+                    3 weeks
+                  </option>
+                  <option value="4">
+                    1 month
+                  </option>
+                  <option value="8">
+                    2 months
+                  </option>
+                  <option value="12">
+                    3 months
+                  </option>
+                  <option value="16">
+                    4 months
+                  </option>
+                  <option value="20">
+                    5 months
+                  </option>
+                  <option value="24">
+                    6 months
+                  </option>
+                  <option value="28">
+                    7 months
+                  </option>
+                  <option value="32">
+                    8 months
+                  </option>
+                  <option value="36">
+                    9 months
+                  </option>
+                  <option value="40">
+                    10 months
+                  </option>
+                  <option value="44">
+                    11 months
+                  </option>
+                  <option value="48">
+                    1 year
+                  </option>
+                </select>
+              </div>
+
+              {/* Start date input */}
+              {/* <div className="mb-4">
                 <label className="block text-gray-700 font-semibold mb-2">
                   Start Date:
                 </label>
@@ -132,10 +185,10 @@ const Plans = () => {
                   onChange={(e) => setPlanData(prev => ({...prev , startDate:e.target.value}))}
                   required
                 />
-              </div>
+              </div> */}
 
               {/* End date input */}
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <label className="block text-gray-700 font-semibold mb-2">
                   End Date:
                 </label>
@@ -146,7 +199,7 @@ const Plans = () => {
                   onChange={(e) => setPlanData(prev => ({...prev , endDate:e.target.value}))}
                   required
                 />
-              </div>
+              </div> */}
 
               {/* Submit button */}
               <button
