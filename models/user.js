@@ -42,9 +42,15 @@ const userSchema = new Schema({
     },
     listOfPlans: [
         {
-            type: Schema.Types.ObjectId,
-            ref: "plan",
-        },
+            goals: {
+                type: Object,  // You can define the structure of goals here instead of 'Object'
+                required: true
+            },
+            details: {
+                type: Object,  // Same as goals, define the structure if needed
+                required: true
+            }
+        }
     ],
     disease: {
         type: String,

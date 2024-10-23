@@ -121,4 +121,10 @@ router.get(
     userController.randomTip
 )
 
+router.post(
+    "/pans/addAIplan",
+    bodyParser.json(),
+    authenticateToken,
+    userController.addAIGeneratedPlan
+)
 module.exports = router;
