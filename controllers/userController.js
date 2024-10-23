@@ -302,22 +302,26 @@ const calculateBMI = handleServerError(async (req, res, next) => {
     });
 });
 
-const calculateCalories = handleServerError(async (req, res, next) => {
+const createPlan = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
-    //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
+
     const weight = user.weight;
     const height = user.height;
     const age = user.age;
     const gender = user.gender;
 
-    const { activity , goal , targetWeight , startDate, endDate } = req.body;
+    const { activity, goal, targetWeight, duration, dietType } = req.body;
 
-    // const BMR = 10 * weight + 6.25 * height - 5 * age;
-    // const calories = BMR * 1.2;
+    // Error handling for missing fields
+    if (!activity || !goal || !targetWeight || !duration || !dietType) {
+        return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    // Calculate Basal Metabolic Rate (BMR)
     let BMR;
     if (gender === 'male') {
         BMR = 10 * weight + 6.25 * height - 5 * age + 5;
@@ -325,27 +329,92 @@ const calculateCalories = handleServerError(async (req, res, next) => {
         BMR = 10 * weight + 6.25 * height - 5 * age - 161;
     }
 
-    const calories = BMR * activity;
-    const targetKgPerWeek = (targetWeight - weight) / ((new Date(endDate) - new Date(startDate)) / 1000 / 60 / 60 / 24 / 7);
+    // // Handle activity factor
+    // const activityFactors = {
+    //     sedentary: 1.2,
+    //     light: 1.375,
+    //     moderate: 1.55,
+    //     active: 1.725,
+    //     veryActive: 1.9
+    // };
 
-    const caloriesPerKg = 7700;  // 1 kg of body weight = 7700 calories
+    // if (!activityFactors[activity]) {
+    //     return res.status(400).json({ message: "Invalid activity level" });
+    // }
+
+    const maintenanceCalories = BMR * Number(activity);
+
+    // Calculate target kg per week based on the goal
+    let targetKgPerWeek;
+    if (goal === 'maintain') {
+        targetKgPerWeek = 0;
+    } else {
+        targetKgPerWeek = (Number(targetWeight) - weight) / Number(duration);
+    }
+
+    const caloriesPerKg = 7700;  // 1 kg = 7700 calories
     const dailyCalorieChange = (targetKgPerWeek * caloriesPerKg) / 7;
 
-    // Adjust the maintenance calories by the daily calorie change
+    // Adjust the maintenance calories by the daily calorie change for the goal
     const targetCalories = maintenanceCalories + dailyCalorieChange;
 
-    // Calculate for weight loss and zigzag diet
-    // const mildWeightLoss = calories * 0.9;
-    // const weightLoss = calories * 0.79;
-    // const extremeWeightLoss = calories * 0.59;
+    // Define diet options and their weekly calorie distributions or macros
+    const diets = {
+        zigzag: {
+            sunday: Math.round(targetCalories),
+            monday: Math.round(targetCalories * 0.95),
+            tuesday: Math.round(targetCalories * 0.95),
+            wednesday: Math.round(targetCalories * 0.95),
+            thursday: Math.round(targetCalories * 0.95),
+            friday: Math.round(targetCalories * 0.95),
+            saturday: Math.round(targetCalories)
+        },
+        intermittentFasting: {
+            fastingDays: Math.round(targetCalories * 0.8),
+            nonFastingDays: Math.round(targetCalories)
+        },
+        ketogenic: {
+            carbs: Math.round(targetCalories * 0.05),  // 5% carbs
+            protein: Math.round(targetCalories * 0.2),  // 20% protein
+            fat: Math.round(targetCalories * 0.75)      // 75% fats
+        },
+        highProtein: {
+            protein: Math.round(targetCalories * 0.35),  // 35% protein
+            carbs: Math.round(targetCalories * 0.4),     // 40% carbs
+            fats: Math.round(targetCalories * 0.25)      // 25% fats
+        },
+        mediterranean: {
+            carbs: Math.round(targetCalories * 0.5),     // 50% carbs
+            protein: Math.round(targetCalories * 0.2),   // 20% protein
+            fats: Math.round(targetCalories * 0.3)       // 30% fats
+        },
+        paleo: {
+            protein: Math.round(targetCalories * 0.4),   // 40% protein
+            fats: Math.round(targetCalories * 0.3),      // 30% fats
+            carbs: Math.round(targetCalories * 0.3)      // 30% carbs (from fruits/vegetables)
+        },
+        caloricCycling: {
+            highCalorieDays: Math.round(targetCalories * 1.1),  // 10% above maintenance
+            lowCalorieDays: Math.round(targetCalories * 0.9)    // 10% below maintenance
+        }
+    };
+
+    // Check if the provided dietType is valid
+    const selectedDiet = diets[dietType];
+    if (!selectedDiet) {
+        return res.status(400).json({ message: "Invalid diet type" });
+    }
 
     res.json({
         message: "Calories calculated successfully",
-        calories,
+        data: {
+            maintainWeight: Math.round(maintenanceCalories),
+            targetCalories: Math.round(targetCalories),  // For the specified weight change
+            dailyCalorieChange: Math.round(dailyCalorieChange),
+            diet: selectedDiet
+        }
     });
-
 });
-
 
 const getTrackedFoodById = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
@@ -441,6 +510,32 @@ const randomTip = handleServerError(async (req, res, next) => {
     });
 });
 
+const addAIGenratedPlan = handleServerError(async (req, res, next) => {
+    let userId = req.currentUser?.user?.id;
+    if (!userId) {
+        return res.status(403).json({ message: "Unauthorized user" });
+    }
+
+    const details = req.body.details;
+    
+    const targetWeight = req.body.targetWeight;
+    const duration = req.body.duration;
+    const activityLevel = req.body.activityLevel;
+    const goal = req.body.goal;
+    const dailyCalory = req.body.dailyCalory;
+    const dailyProtean = req.body.dailyProtean;
+    const dailyCarbohydrates = req.body.dailyCarbohydrates;
+    const dailyFats = req.body.dailyFats;
+    const weeklyCalory = dailyCalory *7;
+    const weeklyProtean = dailyProtean *7;
+    const weeklyCarbohydrates = dailyCarbohydrates * 7;
+    const weeklyFats = dailyFats * 7;
+
+
+    res.json({
+        message: "added to database successfully",
+    });
+});
 
 module.exports = {
     getUserId,
@@ -454,7 +549,7 @@ module.exports = {
     getAllFoods,
     getFood,
     calculateBMI,
-    calculateCalories,
+    createPlan,
     getFoodById,
     getTrackedFoodById,
     setTrackedFood,

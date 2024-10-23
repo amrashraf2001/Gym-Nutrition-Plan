@@ -93,11 +93,11 @@ router.get(
     userController.calculateBMI
 )       
 
-router.get(
-    "/calculateCalories",
+router.post(
+    "/plans/createplan",
     bodyParser.json(),
     authenticateToken,
-    userController.calculateCalories
+    userController.createPlan
 )
 
 router.get(
