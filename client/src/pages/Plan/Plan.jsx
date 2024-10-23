@@ -6,6 +6,23 @@ const apiKey = 'AIzaSyCIC9WTKyp1qLm6gd4P2uIsBLuf-yym9OI';
 const profileDataURL = "/user/profile";
 const userBMIURL = "/user/calculateBMI";
 
+const extractMacronutrients = (planText) => {
+    const macroData = {};
+    let inMacroSection = false;
+
+    planText.split('\n').forEach((line) => {
+        if (line.startsWith('Macronutrients:')) {
+            inMacroSection = true;
+        } else if (inMacroSection) {
+            const parts = line.split(':');
+            if (parts.length === 2) {
+                macroData[parts[0].trim()] = parseFloat(parts[1].trim());
+            }
+        }
+    });
+
+    return macroData;
+};
 const Plan = () => {
     const loggedData = useContext(UserContext);
     const [plan, setPlan] = useState(null);
@@ -13,6 +30,7 @@ const Plan = () => {
     const [planData, setPlanData] = useState(null)
     const [bmi, setBmi] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
+    const [macroData, setMacroData] = useState(null);
 
     useEffect(() => {
         const fetchBMI = async () => {
@@ -90,6 +108,13 @@ const Plan = () => {
                                         Supplements:
                                         Consistency is Key:
                                         Disclaimer:
+
+                                        and at the end of the plan i want the macronutrients in a structured format, using clear labels and units for macronutrients. Here's an example:
+                                        Macronutrients:
+                                        - Calories: 2000 kcal
+                                        - Protein: 150 g
+                                        - Carbohydrates: 250 g
+                                        - Fats: 50 g
                                         `
                                     }]
                                 }]
@@ -102,6 +127,7 @@ const Plan = () => {
                         );
                     };
                     const response = await exponentialBackoff(fetchPlan);
+                    setMacroData(extractMacronutrients(response.data.candidates[0].content.parts[0].text));
                     const parsedPlan = parsePlanToJSON(response.data.candidates[0].content.parts[0].text);
                     setPlan(parsedPlan);
                     console.log(response);
@@ -144,9 +170,9 @@ const Plan = () => {
         setIsLoading(true)
     }
 
-
-
-
+    useEffect(() => {
+        console.log(macroData);
+    }, [macroData])
 
     const parsePlanToJSON = (planText) => {
         // Convert the planText into JSON-like structure
@@ -180,10 +206,8 @@ const Plan = () => {
                 currentPhase.content.push(line);
             }
         });
-
         return planObject;
     };
-
 
     return (
         <section className='container mx-auto px-8 sm:px10 md:px-12 lg:px-14 py-3 flex flex-col gap-4'>
@@ -260,6 +284,17 @@ const Plan = () => {
                             </ul>
                         </div>
                     </div>
+                    {plan && macroData && (
+                        <div className="dark:bg-slate-400 bg-green-50 p-2 rounded-md flex flex-col gap-1 text-neutral-700">
+                            <h2 className="text-neutral-700 text-xl md:text-2xl font-semibold dark:text-grey-200">Macronutrients</h2>
+                            <ul>
+                                <li>Calories: {macroData['- Calories']}</li>
+                                <li>Protein: {macroData['- Protein']}g</li>
+                                <li>Carbs: {macroData['- Carbohydrates']}g</li>
+                                <li>Fats: {macroData['- Fats']}g</li>
+                            </ul>
+                        </div>
+                    )}
                 </div>)
                 : isLoading ?
                     (<div className="flex w-52 flex-col gap-4">
