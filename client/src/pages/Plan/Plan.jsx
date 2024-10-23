@@ -108,7 +108,6 @@ const Plan = () => {
                                         Supplements:
                                         Consistency is Key:
                                         Disclaimer:
-
                                         and at the end of the plan i want the macronutrients in a structured format, using clear labels and units for macronutrients. Here's an example:
                                         Macronutrients:
                                         - Calories: 2000 kcal
@@ -171,8 +170,8 @@ const Plan = () => {
     }
 
     useEffect(() => {
-        console.log(macroData);
-    }, [macroData])
+        console.log(plan);
+    }, [plan])
 
     const parsePlanToJSON = (planText) => {
         // Convert the planText into JSON-like structure
