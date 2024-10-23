@@ -14,6 +14,7 @@ const HomePage = () => {
     const loggedData = useContext(UserContext);
     const [tip, setTip] = useState("");
     const [foods, setFoods] = useState([]);
+    const [data, setData] = useState({});
     // console.log((Math.random()*100).toFixed())
     useEffect(() => {
         const fetchTip = async () => {
@@ -41,6 +42,23 @@ const HomePage = () => {
                 console.log(err);
             }
         }
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get("/user/profile", {
+                headers: {
+                Authorization: `Bearer ${loggedData.loggedUser}`,
+                },
+            });
+            // console.log(response);
+            setData(response.data.user);
+            console.log(response.data.user);
+            // setReset(false); // Reset the reset state after fetching the data
+            // console.log(data)
+            } catch (err) {
+            console.log(err);
+            }
+        };
+        fetchUserData();
         feachFood();
         fetchTip(); // Fetch the data when reset is true
         const intervalId = setInterval(fetchTip, 10000);
@@ -49,6 +67,87 @@ const HomePage = () => {
 
     return (
         <section className='container mx-auto px-8 sm:px10 md:px-12 lg:px-14 py-3 flex flex-col gap-4 items-center'>
+            <div>
+                <h1>target weight progress</h1>
+                <div>
+                    {data.weight} kg
+                    {"   "}
+                    <progress className="progress w-56" value={10} max="100"></progress>
+                    {"   "}
+                </div>
+            </div>
+            <div>
+                <h1>daily calory progress</h1>
+                <div>
+                    {data.weight} kg
+                    {"   "}
+                    <progress className="progress w-56" value={10} max="100"></progress>
+                    {"   "}
+                </div>
+            </div>
+            <div>
+                <h1>daily protean progress</h1>
+                <div>
+                    {data.weight} kg
+                    {"   "}
+                    <progress className="progress w-56" value={10} max="100"></progress>
+                    {"   "}
+                </div>
+            </div>
+            <div>
+                <h1>daily Carbohydrates progress</h1>
+                <div>
+                    {data.weight} kg
+                    {"   "}
+                    <progress className="progress w-56" value={10} max="100"></progress>
+                    {"   "}
+                </div>
+            </div>
+            <div>
+                <h1>daily fats progress</h1>
+                <div>
+                    {data.weight} kg
+                    {"   "}
+                    <progress className="progress w-56" value={10} max="100"></progress>
+                    {"   "}
+                </div>
+            </div>
+            <div>
+                <h1>weekly calory progress</h1>
+                <div>
+                    {data.weight} kg
+                    {"   "}
+                    <progress className="progress w-56" value={10} max="100"></progress>
+                    {"   "}
+                </div>
+            </div>
+            <div>
+                <h1>weekly protean progress</h1>
+                <div>
+                    {data.weight} kg
+                    {"   "}
+                    <progress className="progress w-56" value={10} max="100"></progress>
+                    {"   "}
+                </div>
+            </div>
+            <div>
+                <h1>weekly Carbohydrates progress</h1>
+                <div>
+                    {data.weight} kg
+                    {"   "}
+                    <progress className="progress w-56" value={10} max="100"></progress>
+                    {"   "}
+                </div>
+            </div>
+            <div>
+                <h1>weekly fats progress</h1>
+                <div>
+                    {data.weight} kg
+                    {"   "}
+                    <progress className="progress w-56" value={10} max="100"></progress>
+                    {"   "}
+                </div>
+            </div>
             <div className='randomTip w-1/2 px-10 py-5 rounded-md shadow-md bg-gradient-to-b from-[#398650] to-green-900'>
                 <h1 className='text-3xl font-bold text-white'>Tip of the day</h1>
                 <p className='text-xl p-5 text-neutral-100'>"{tip}"</p>

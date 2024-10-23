@@ -416,8 +416,6 @@ const createPlan = handleServerError(async (req, res, next) => {
     });
 });
 
-
-
 const getTrackedFoodById = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
     if (!userId) {
@@ -512,6 +510,32 @@ const randomTip = handleServerError(async (req, res, next) => {
     });
 });
 
+const addAIGenratedPlan = handleServerError(async (req, res, next) => {
+    let userId = req.currentUser?.user?.id;
+    if (!userId) {
+        return res.status(403).json({ message: "Unauthorized user" });
+    }
+
+    const details = req.body.details;
+    
+    const targetWeight = req.body.targetWeight;
+    const duration = req.body.duration;
+    const activityLevel = req.body.activityLevel;
+    const goal = req.body.goal;
+    const dailyCalory = req.body.dailyCalory;
+    const dailyProtean = req.body.dailyProtean;
+    const dailyCarbohydrates = req.body.dailyCarbohydrates;
+    const dailyFats = req.body.dailyFats;
+    const weeklyCalory = dailyCalory *7;
+    const weeklyProtean = dailyProtean *7;
+    const weeklyCarbohydrates = dailyCarbohydrates * 7;
+    const weeklyFats = dailyFats * 7;
+
+
+    res.json({
+        message: "added to database successfully",
+    });
+});
 
 module.exports = {
     getUserId,
