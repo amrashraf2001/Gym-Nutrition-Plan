@@ -49,7 +49,7 @@ const HomePage = () => {
 
     return (
         <section className='container mx-auto px-8 sm:px10 md:px-12 lg:px-14 py-3 flex flex-col gap-4 items-center'>
-            <div className='randomTip w-1/2 px-10 py-5 rounded-md shadow-md bg-gradient-to-b from-[#398650] to-green-900'>
+            <div className='randomTip w-[60%] px-10 py-5 rounded-md shadow-md bg-gradient-to-b from-[#398650] to-green-900'>
                 <h1 className='text-3xl font-bold text-white'>Tip of the day</h1>
                 <p className='text-xl p-5 text-neutral-100'>"{tip}"</p>
             </div>
