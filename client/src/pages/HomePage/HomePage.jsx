@@ -45,17 +45,17 @@ const HomePage = () => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get("/user/profile", {
-                headers: {
-                Authorization: `Bearer ${loggedData.loggedUser}`,
-                },
-            });
-            // console.log(response);
-            setData(response.data.user);
-            console.log(response.data.user);
-            // setReset(false); // Reset the reset state after fetching the data
-            // console.log(data)
+                    headers: {
+                        Authorization: `Bearer ${loggedData.loggedUser}`,
+                    },
+                });
+                // console.log(response);
+                setData(response.data.user);
+                console.log(response.data.user);
+                // setReset(false); // Reset the reset state after fetching the data
+                // console.log(data)
             } catch (err) {
-            console.log(err);
+                console.log(err);
             }
         };
         fetchUserData();
