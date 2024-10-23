@@ -282,14 +282,19 @@ const getFoodById = handleServerError(async (req, res, next) => {
 
 const calculateBMI = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
-    //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
-    const weight = user.weight;
-    const height = user.height;
-    const BMI = weight / (height * height);
+
+    const weight = user.weight; // Weight should be in kilograms (kg)
+    const height = user.height; // Height should be in centimeters (cm)
+
+    // Convert height from centimeters to meters for BMI calculation
+    const heightInMeters = height / 100;
+
+    // Calculate BMI
+    const BMI = weight / (heightInMeters * heightInMeters);
 
     res.json({
         message: "BMI calculated successfully",
