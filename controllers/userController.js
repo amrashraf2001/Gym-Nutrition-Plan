@@ -223,7 +223,7 @@ const getAllFoods = handleServerError(async (req, res) => {
 });
 
 const getFood = handleServerError(async (req, res, next) => {
-    // Check if the current user is authorized
+    //   Check if the current user is authorized
     if (!req.currentUser) {
         return res.status(403).json({ message: "Unauthorized user" });
     }
@@ -282,14 +282,19 @@ const getFoodById = handleServerError(async (req, res, next) => {
 
 const calculateBMI = handleServerError(async (req, res, next) => {
     let userId = req.currentUser?.user?.id;
-    //userId = userId.replace(/^"|"$/g, '');
     const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
-    const weight = user.weight;
-    const height = user.height;
-    const BMI = weight / (height * height);
+
+    const weight = user.weight; // Weight should be in kilograms (kg)
+    const height = user.height; // Height should be in centimeters (cm)
+
+    // Convert height from centimeters to meters for BMI calculation
+    const heightInMeters = height / 100;
+
+    // Calculate BMI
+    const BMI = weight / (heightInMeters * heightInMeters);
 
     res.json({
         message: "BMI calculated successfully",
@@ -307,9 +312,32 @@ const calculateCalories = handleServerError(async (req, res, next) => {
     const weight = user.weight;
     const height = user.height;
     const age = user.age;
+    const gender = user.gender;
 
-    const BMR = 10 * weight + 6.25 * height - 5 * age;
-    const calories = BMR * 1.2;
+    const { activity , goal , targetWeight , startDate, endDate } = req.body;
+
+    // const BMR = 10 * weight + 6.25 * height - 5 * age;
+    // const calories = BMR * 1.2;
+    let BMR;
+    if (gender === 'male') {
+        BMR = 10 * weight + 6.25 * height - 5 * age + 5;
+    } else {
+        BMR = 10 * weight + 6.25 * height - 5 * age - 161;
+    }
+
+    const calories = BMR * activity;
+    const targetKgPerWeek = (targetWeight - weight) / ((new Date(endDate) - new Date(startDate)) / 1000 / 60 / 60 / 24 / 7);
+
+    const caloriesPerKg = 7700;  // 1 kg of body weight = 7700 calories
+    const dailyCalorieChange = (targetKgPerWeek * caloriesPerKg) / 7;
+
+    // Adjust the maintenance calories by the daily calorie change
+    const targetCalories = maintenanceCalories + dailyCalorieChange;
+
+    // Calculate for weight loss and zigzag diet
+    // const mildWeightLoss = calories * 0.9;
+    // const weightLoss = calories * 0.79;
+    // const extremeWeightLoss = calories * 0.59;
 
     res.json({
         message: "Calories calculated successfully",
