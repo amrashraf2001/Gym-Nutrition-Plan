@@ -236,10 +236,10 @@ const Plan = () => {
         const Macronutrient = () => {
             const parseValue = (value) => parseFloat(value.replace(/[^\d.]/g, ''));
             if (plan?.nutritionSetup) {
-                setProtein(parseValue(plan.macronutrientBreakdown.protein))
-                setCalories(parseValue(plan.macronutrientBreakdown.calories))
-                setCarb(parseValue(plan.macronutrientBreakdown.carbohydrates))
-                setFats(parseValue(plan.macronutrientBreakdown.fats))
+                setProtein(parseValue(plan.nutritionSetup.macronutrientBreakdown.protein))
+                setCalories(parseValue(plan.nutritionSetup.calorieIntake))
+                setCarb(parseValue(plan.nutritionSetup.macronutrientBreakdown.carbohydrates))
+                setFats(parseValue(plan.nutritionSetup.macronutrientBreakdown.fats))
             }
         }
         if (plan) {
