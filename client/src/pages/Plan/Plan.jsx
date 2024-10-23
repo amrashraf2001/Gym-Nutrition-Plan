@@ -186,6 +186,37 @@ const Plan = () => {
         }
     }, [planData, profile, bmi]);
 
+
+    useEffect(() => {
+        const sendData = async () => {
+            try {
+                const response = await axios.post(
+                    "/user/pans/addAIplan",
+                    {
+                        targetWeight: planData.targetWeight,
+                        duration: planData.duration,
+                        activityLevel: planData.activityLevel,
+                        goal: planData.goal,
+                        dailyCalory: calories,
+                        dailyProtean: protein,
+                        dailyCarbohydrates: carb,
+                        dailyFats: fats,
+                        details: plan,
+                    },
+                    {
+                        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${loggedData.loggedUser}` },
+                        withCredentials: false,
+                    }
+                );
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        if (plan && planData && calories && protein && carb && fats && loggedData.loggedUser) {
+            sendData();
+        }
+    }, [plan, planData, calories, protein, carb, fats, loggedData.loggedUser]);
     useEffect(() => {
         const extractJSONFromResponse = (textPlan) => {
             const splicePlans = (textPlan.split('\n'))
